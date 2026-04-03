@@ -1,0 +1,5 @@
+# Cursor IDE context
+cursor-context/
+
+# Shopify live store settings (store-specific, should not be version controlled)
+config/settings_data.json

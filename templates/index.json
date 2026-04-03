@@ -1,0 +1,256 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "slideshow": {
+      "type": "slideshow",
+      "blocks": {
+        "slide-1": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Untitled_design_4.png",
+            "mobile_image": "shopify://shop_images/janvi_website_launch_ad.png",
+            "text_position": "middle_left",
+            "subheading": "",
+            "title": "Your Style, Your Celebration",
+            "button_1_text": "Shop Now",
+            "button_1_link": "shopify://collections",
+            "button_2_text": "",
+            "button_2_link": "",
+            "text_color": "#ffffff",
+            "button_background": "#7b1e2b",
+            "button_text_color": "#f5f5f5",
+            "overlay_color": "#000000",
+            "overlay_opacity": 30
+          }
+        }
+      },
+      "block_order": [
+        "slide-1"
+      ],
+      "settings": {
+        "section_height": "medium",
+        "transition_type": "sweep",
+        "show_initial_transition": false,
+        "autoplay": true,
+        "cycle_speed": 5,
+        "background": "#282828"
+      }
+    },
+    "featured_collections_JJrDrG": {
+      "type": "featured-collections",
+      "blocks": {
+        "collection_XKyczd": {
+          "type": "collection",
+          "settings": {
+            "collection": "lehenga-set",
+            "label": "",
+            "button_text": "",
+            "button_url": ""
+          }
+        }
+      },
+      "block_order": [
+        "collection_XKyczd"
+      ],
+      "name": "Featured collections",
+      "settings": {
+        "subheading": "",
+        "title": "Lehengas",
+        "content": "",
+        "products_count": 50,
+        "mobile_products_per_row": "1",
+        "products_per_row": 4,
+        "stack_products": false,
+        "show_cta": false,
+        "background": "#f7f1e5",
+        "text_color": "#282828",
+        "button_background": "rgba(0,0,0,0)",
+        "button_text_color": "rgba(0,0,0,0)",
+        "overwrite_price_color": false,
+        "price_color": "#ffffff"
+      }
+    },
+    "featured_collections_7a6CUY": {
+      "type": "featured-collections",
+      "blocks": {
+        "collection_X9aaUx": {
+          "type": "collection",
+          "settings": {
+            "collection": "half-saree-lehenga",
+            "label": "",
+            "button_text": "",
+            "button_url": ""
+          }
+        }
+      },
+      "block_order": [
+        "collection_X9aaUx"
+      ],
+      "name": "Featured collections",
+      "settings": {
+        "subheading": "",
+        "title": "Half Saree Lehengas",
+        "content": "",
+        "products_count": 50,
+        "mobile_products_per_row": "1",
+        "products_per_row": 4,
+        "stack_products": false,
+        "show_cta": false,
+        "background": "#7b1e2b",
+        "text_color": "#ffffff",
+        "button_background": "rgba(0,0,0,0)",
+        "button_text_color": "rgba(0,0,0,0)",
+        "overwrite_price_color": true,
+        "price_color": "#f7f1e5"
+      }
+    },
+    "featured_collections_dCEeJU": {
+      "type": "featured-collections",
+      "blocks": {
+        "collection_tXemmR": {
+          "type": "collection",
+          "settings": {
+            "collection": "long-gown",
+            "label": "",
+            "button_text": "",
+            "button_url": ""
+          }
+        }
+      },
+      "block_order": [
+        "collection_tXemmR"
+      ],
+      "name": "Featured collections",
+      "settings": {
+        "subheading": "",
+        "title": "Long Gowns",
+        "content": "",
+        "products_count": 50,
+        "mobile_products_per_row": "2",
+        "products_per_row": 4,
+        "stack_products": false,
+        "show_cta": false,
+        "background": "rgba(0,0,0,0)",
+        "text_color": "rgba(0,0,0,0)",
+        "button_background": "rgba(0,0,0,0)",
+        "button_text_color": "rgba(0,0,0,0)",
+        "overwrite_price_color": false,
+        "price_color": "rgba(0,0,0,0)"
+      }
+    },
+    "video_7BeHJy": {
+      "type": "video",
+      "name": "Video",
+      "settings": {
+        "subheading": "",
+        "title": "",
+        "video_url": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+        "background_type": "full_width",
+        "video_size": "auto",
+        "autoplay": true,
+        "show_video_controls": true,
+        "background": "rgba(0,0,0,0)",
+        "text_color": "rgba(0,0,0,0)"
+      }
+    },
+    "featured_collections_CcKgFg": {
+      "type": "featured-collections",
+      "blocks": {
+        "collection_3HjK3B": {
+          "type": "collection",
+          "settings": {
+            "collection": "anarkali",
+            "label": "",
+            "button_text": "",
+            "button_url": ""
+          }
+        }
+      },
+      "block_order": [
+        "collection_3HjK3B"
+      ],
+      "name": "Featured collections",
+      "settings": {
+        "subheading": "",
+        "title": "Anarkalis",
+        "content": "",
+        "products_count": 50,
+        "mobile_products_per_row": "2",
+        "products_per_row": 4,
+        "stack_products": false,
+        "show_cta": false,
+        "background": "rgba(0,0,0,0)",
+        "text_color": "rgba(0,0,0,0)",
+        "button_background": "rgba(0,0,0,0)",
+        "button_text_color": "rgba(0,0,0,0)",
+        "overwrite_price_color": false,
+        "price_color": "rgba(0,0,0,0)"
+      }
+    },
+    "featured_collections_4rTww8": {
+      "type": "featured-collections",
+      "blocks": {
+        "collection_eXx4kz": {
+          "type": "collection",
+          "settings": {
+            "collection": "chudidhar-set",
+            "label": "",
+            "button_text": "",
+            "button_url": ""
+          }
+        }
+      },
+      "block_order": [
+        "collection_eXx4kz"
+      ],
+      "name": "Featured collections",
+      "settings": {
+        "subheading": "",
+        "title": "Chudidhars",
+        "content": "",
+        "products_count": 50,
+        "mobile_products_per_row": "2",
+        "products_per_row": 4,
+        "stack_products": false,
+        "show_cta": false,
+        "background": "#7b1e2b",
+        "text_color": "#ffffff",
+        "button_background": "rgba(0,0,0,0)",
+        "button_text_color": "rgba(0,0,0,0)",
+        "overwrite_price_color": true,
+        "price_color": "#ffffff"
+      }
+    },
+    "custom_liquid_Acxewa": {
+      "type": "custom-liquid",
+      "name": "Custom Liquid",
+      "settings": {
+        "subheading": "",
+        "title": "",
+        "liquid": "<style>\n.whatsapp-cta-section {\n  position: relative;\n  width: 100%;\n  min-height: 420px;\n  background-image: url(\"https://cdn.shopify.com/s/files/1/0971/9241/1507/files/janvi_bg2.png?v=1769590060\");\n  background-size: cover;\n  background-position: center;\n  display: flex;\n  justify-content: flex-end;\n  align-items: center;\n  padding: 30px;\n  box-sizing: border-box;\n  overflow: hidden;\n}\n\n/* 🔥 Dark overlay */\n.whatsapp-cta-section::before {\n  content: \"\";\n  position: absolute;\n  inset: 0;\n  background: rgba(0, 0, 0, 0.35); /* adjust opacity here */\n  z-index: 1;\n}\n\n/* Modal */\n.whatsapp-cta-modal {\n  position: relative;\n  z-index: 2; /* stays above overlay */\n  background: #F7F1E5;\n  max-width: 350px;\n  width: 100%;\n  padding: 22px;\n  border-radius: 14px;\n  box-shadow: 0 10px 40px rgba(0,0,0,0.18);\n\n  display: flex;\n  flex-direction: column;\n  justify-content: center;\n  align-items: flex-start;\n}\n\n/* Heading */\n.whatsapp-cta-modal h5 {\n  margin: 0 0 8px 0;\n  font-weight: 600;\n}\n\n/* Paragraph */\n.whatsapp-cta-modal p {\n  margin: 0 0 20px 0;\n  color: #333;\n}\n\n/* WhatsApp Button */\n.whatsapp-btn {\n  display: inline-flex;\n  align-items: center;\n  gap: 10px;\n  background: #25D366;\n  color: #ffffff;\n  text-decoration: none;\n  padding: 14px 22px;\n  border-radius: 8px;\n  font-weight: 600;\n}\n\n.whatsapp-btn img {\n  width: 24px;\n}\n\n/* Responsive */\n@media (max-width: 768px) {\n  .whatsapp-cta-section {\n    justify-content: center;\n    padding: 20px;\n  }\n\n  .whatsapp-cta-modal {\n    max-width: 100%;\n  }\n}\n</style>\n\n<div class=\"whatsapp-cta-section\">\n  <div class=\"whatsapp-cta-modal\">\n    <h5>WANT TO SEE THE PRODUCT IN DETAILS?</h5>\n    <p>Request a Video Call with us on WhatsApp</p>\n\n    <a\n      class=\"whatsapp-btn\"\n      href=\"https://wa.me/910000000000?text=I%20would%20like%20to%20check%20products%20over%20video%20call\"\n      target=\"_blank\"\n    >\n      <img\n        src=\"https://cdn.shopify.com/s/files/1/0971/9241/1507/files/whatsapp-svgrepo-com.svg?v=1769601132\"\n        alt=\"WhatsApp\"\n      >\n      WhatsApp\n    </a>\n  </div>\n</div>",
+        "background_type": "full_width",
+        "add_vertical_spacing": true,
+        "background": "rgba(0,0,0,0)",
+        "text_color": "rgba(0,0,0,0)"
+      }
+    }
+  },
+  "order": [
+    "slideshow",
+    "featured_collections_JJrDrG",
+    "featured_collections_7a6CUY",
+    "featured_collections_dCEeJU",
+    "video_7BeHJy",
+    "featured_collections_CcKgFg",
+    "featured_collections_4rTww8",
+    "custom_liquid_Acxewa"
+  ]
+}

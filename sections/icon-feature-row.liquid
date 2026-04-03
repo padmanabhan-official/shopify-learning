@@ -1,0 +1,277 @@
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding: {{ section.settings.padding_mobile }};
+    margin: {{ section.settings.margin_mobile }};
+    background-color: {{ section.settings.bg_color }};
+  }
+
+  .contact-header-{{ section.id }} {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+  .contact-title-{{ section.id }} {
+    color: {{ section.settings.title_color }};
+    font-size: {{ section.settings.title_size }}px;
+    font-weight: {{ section.settings.title_weight }};
+    margin-bottom: 10px;
+  }
+
+  .contact-info-{{ section.id }} {
+    color: {{ section.settings.text_color }};
+    font-size: {{ section.settings.info_size }}px;
+    line-height: 1.6;
+  }
+
+  .contact-info-{{ section.id }} a {
+    color: inherit;
+    text-decoration: underline;
+  }
+
+  .contact-address-{{ section.id }} {
+    color: {{ section.settings.text_color }};
+    font-size: {{ section.settings.info_size }}px;
+    line-height: 1.6;
+    margin-top: 20px;
+  }
+
+  .divider-{{ section.id }} {
+    border: none;
+    border-top: 1px solid #ccc;
+    width: 90%;
+    margin: 40px auto;
+  }
+
+  .icon-row-{{ section.id }} {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    margin: 0 auto;
+  }
+
+  .icon-block-{{ section.id }} {
+    text-align: center;
+    flex: 1 1 200px;
+    padding: 10px;
+  }
+
+  .icon-svg-wrapper-{{ section.id }} svg {
+    width: {{ section.settings.svg_size }}px;
+    height: auto;
+  }
+
+  /* Dynamically color all parts of the SVG */
+  .icon-svg-wrapper-{{ section.id }} svg path,
+  .icon-svg-wrapper-{{ section.id }} svg circle,
+  .icon-svg-wrapper-{{ section.id }} svg rect {
+    fill: {{ section.settings.svg_color }} !important;
+  }
+
+  .icon-feature-title-{{ section.id }} {
+    color: {{ section.settings.text_color }};
+    font-size: {{ section.settings.feature_title_size }}px;
+    font-weight: 700;
+    margin-bottom: 5px;
+    display: block;
+  }
+
+  .icon-feature-text-{{ section.id }} {
+    color: {{ section.settings.text_color }};
+    font-size: {{ section.settings.feature_text_size }}px;
+    line-height: 1.4;
+  }
+
+  @media screen and (min-width: 741px) {
+    .section-{{ section.id }}-padding {
+      padding: {{ section.settings.padding_desktop }};
+      margin: {{ section.settings.margin_desktop }};
+    }
+  }
+{%- endstyle -%}
+
+<div class="section-{{ section.id }}-padding">
+  <div class="contact-header-{{ section.id }}">
+    {%- if section.settings.main_title != blank -%}
+      <h2 class="contact-title-{{ section.id }}">{{ section.settings.main_title }}</h2>
+    {%- endif -%}
+
+    <div class="contact-info-{{ section.id }}">
+      {%- if section.settings.email != blank -%}
+        <p>
+          <strong>Email us:</strong> <a href="mailto:{{ section.settings.email }}">{{ section.settings.email }}</a>
+        </p>
+      {%- endif -%}
+      {%- if section.settings.phone != blank -%}
+        <p>
+          <strong>Whatsapp us:</strong>
+          <a href="https://wa.me/91{{ section.settings.phone }}">{{ section.settings.phone }}</a>
+        </p>
+      {%- endif -%}
+    </div>
+    {%- if section.settings.address != blank -%}
+      <div class="contact-address-{{ section.id }}">
+        {{ section.settings.address }}
+      </div>
+    {%- endif -%}
+  </div>
+
+  <hr class="divider-{{ section.id }}">
+
+  <div class="icon-row-{{ section.id }}">
+    {%- for block in section.blocks -%}
+      <div class="icon-block-{{ section.id }}" {{ block.shopify_attributes }}>
+        <div class="icon-svg-wrapper-{{ section.id }}">
+          {{ block.settings.svg_code }}
+        </div>
+        <div class="icon-feature-title-{{ section.id }}">
+          {{ block.settings.title }}
+        </div>
+        <div class="icon-feature-text-{{ section.id }}">
+          {{ block.settings.text }}
+        </div>
+      </div>
+    {%- endfor -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Contact & Features Grid",
+  "settings": [
+    { "type": "header", "content": "Header Settings" },
+    { "type": "text", "id": "main_title", "label": "Main Title", "default": "Contact Us" },
+    { "type": "text", "id": "email", "label": "Email Address", "default": "yourcompany@example.com" },
+    { "type": "text", "id": "phone", "label": "Phone Number", "default": "9876543210" },
+    {
+      "type": "richtext",
+      "id": "address",
+      "label": "Address",
+      "default": "<p>123 Main St, Anytown, USA</p>"
+    },
+    { "type": "color", "id": "title_color", "label": "Title Color", "default": "#5D2E1F" },
+    {
+      "type": "range",
+      "id": "title_size",
+      "label": "Title Font Size",
+      "min": 20,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "select",
+      "id": "title_weight",
+      "label": "Title Weight",
+      "options": [
+        { "value": "400", "label": "Normal" },
+        { "value": "700", "label": "Bold" }
+      ],
+      "default": "400"
+    },
+    { "type": "header", "content": "Global Styles" },
+    { "type": "color", "id": "bg_color", "label": "Background Color", "default": "#FAF6F0" },
+    { "type": "color", "id": "text_color", "label": "Text Color", "default": "#000000" },
+    { "type": "color", "id": "svg_color", "label": "Icon Color", "default": "#000000" },
+    {
+      "type": "range",
+      "id": "svg_size",
+      "label": "Icon Size",
+      "min": 20,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "info_size",
+      "label": "Header Info Size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "feature_title_size",
+      "label": "Grid Title Size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "feature_text_size",
+      "label": "Grid Text Size",
+      "min": 10,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    { "type": "header", "content": "Desktop Spacing" },
+    {
+      "type": "range",
+      "id": "padding_top_desktop",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 40
+    },
+    {
+      "type": "text",
+      "id": "padding_desktop",
+      "label": "Padding",
+      "default": "40px"
+    },
+    {
+      "type": "text",
+      "id": "margin_desktop",
+      "label": "Margin",
+      "default": "0px 0px 0px 0px"
+    },
+    { "type": "header", "content": "Mobile Spacing" },
+    {
+      "type": "text",
+      "id": "padding_mobile",
+      "label": "Padding",
+      "default": "0px 0px 0px 0px"
+    },
+    {
+      "type": "text",
+      "id": "margin_mobile",
+      "label": "Margin",
+      "default": "0px 0px 0px 0px"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Grid Item",
+      "settings": [
+        { "type": "html", "id": "svg_code", "label": "SVG Code" },
+        { "type": "text", "id": "title", "label": "Feature Title", "default": "Uniquely Curated" },
+        {
+          "type": "textarea",
+          "id": "text",
+          "label": "Feature Text",
+          "default": "Discover rare and remarkable designs."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Contact & Features Grid",
+      "blocks": [{ "type": "feature" }, { "type": "feature" }, { "type": "feature" }, { "type": "feature" }]
+    }
+  ]
+}
+{% endschema %}

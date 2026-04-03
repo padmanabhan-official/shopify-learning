@@ -1,0 +1,62 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "show_title": true,
+        "page_width": "medium"
+      }
+    },
+    "image_with_text_overlay_A9EWet": {
+      "type": "image-with-text-overlay",
+      "name": "Image with text overlay",
+      "settings": {
+        "reveal_on_scroll": true,
+        "section_height": "large",
+        "image": "shopify://shop_images/about_us.png",
+        "subheading": "",
+        "title": "",
+        "content": "",
+        "button_text": "",
+        "button_link": "",
+        "link_style": "link",
+        "background_type": "full_width",
+        "text_width": "fill",
+        "text_position": "middle_center",
+        "text_color": "#ffffff",
+        "button_background": "#ffffff",
+        "button_text_color": "#000000",
+        "overlay_color": "#000000",
+        "overlay_opacity": 10
+      }
+    },
+    "about_us_AHqtAy": {
+      "type": "about-us",
+      "name": "About Us Story",
+      "settings": {
+        "image_1": "shopify://shop_images/new_dress_janvi.png",
+        "image_2": "shopify://shop_images/Gemini_Generated_Image_6dug146dug146dug.png",
+        "image_3": "shopify://shop_images/janvi_model_1.png",
+        "image_4": "shopify://shop_images/janvi_model_image_2.png",
+        "bg_color": "#faf6f0",
+        "text_color": "#2c2c2c",
+        "accent_color": "#7b1e2b"
+      }
+    }
+  },
+  "order": [
+    "main",
+    "image_with_text_overlay_A9EWet",
+    "about_us_AHqtAy"
+  ]
+}

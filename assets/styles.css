@@ -1,0 +1,25 @@
+.cart .gst-invoice__cart {
+  margin-top: 30px;
+}
+.cart .gst-invoice__cart p.gst-invoice__field--gst {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.cart .gst-invoice__cart p.gst-invoice__field--gst label {
+  width: 160px;
+}
+.cart .gst-invoice__cart p.gst-invoice__field--gst input {
+  width: 100%;
+}
+.cart .gst-invoice__cart p.gst-invoice__field--gst span.gst-invoice__error {
+  width: 100%;
+  margin-top: 15px;
+}
+.cart .cart__tax-note {
+  display: none;
+}
+
+.shopify-section--mini-cart .mini-cart__actions span {
+  display: none;
+}

@@ -1,0 +1,1780 @@
+{%- style -%}
+  /* ==========================================================
+     CUSTOM LANDING PAGE — all styles scoped to section ID
+     ========================================================== */
+
+  .clp-{{ section.id }} {
+    --clp-gap:        1.5rem;
+    --clp-max:        1200px;
+    --clp-radius:     var(--block-border-radius, 8px);
+    --clp-transition: 0.35s ease;
+    --clp-dark:       rgba(0,0,0,0.45);
+    --clp-mid:        rgba(0,0,0,0.28);
+    overflow-x: hidden;
+  }
+
+  /* ── Scroll-in animation ── */
+  @keyframes clp-rise-{{ section.id }} {
+    from { opacity: 0; transform: translateY(26px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .clp-{{ section.id }} .clp-a { opacity: 0; }
+  .clp-{{ section.id }} .clp-a.on {
+    animation: clp-rise-{{ section.id }} 0.6s ease forwards;
+  }
+  .clp-{{ section.id }} .clp-a:nth-child(2) { animation-delay: 0.10s; }
+  .clp-{{ section.id }} .clp-a:nth-child(3) { animation-delay: 0.20s; }
+  .clp-{{ section.id }} .clp-a:nth-child(4) { animation-delay: 0.30s; }
+
+  /* ── Shared helpers ── */
+  .clp-{{ section.id }} .clp-section-title {
+    text-align: center;
+    font-size: clamp(1.5rem, 3vw, 2.2rem);
+    font-weight: 700;
+    margin: 0 0 2.5rem;
+  }
+
+  /* ==========================================================
+     1. HERO — full-bleed background image, text on right
+     ========================================================== */
+  .clp-{{ section.id }} .clp-hero {
+    position: relative;
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    overflow: hidden;
+  }
+  .clp-{{ section.id }} .clp-hero__bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: left 70%;
+    transform: scale(1.0);
+    transition: transform 7s ease;
+  }
+  .clp-{{ section.id }} .clp-hero:hover .clp-hero__bg { transform: scale(1.02); }
+  /* Gradient on right side so product stays visible on the left */
+  .clp-{{ section.id }} .clp-hero__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right, rgba(0,0,0,0.72) 38%, rgba(0,0,0,0.18) 65%, transparent 100%);
+    z-index: 1;
+  }
+  .clp-{{ section.id }} .clp-hero__content {
+    position: relative;
+    z-index: 2;
+    text-align: left;
+    color: #fff;
+    padding: 3rem 2rem 3rem 4rem;
+    max-width: 560px;
+    margin-left: 2vw;
+  }
+  /* "Who is it for" badge */
+  .clp-{{ section.id }} .clp-hero__eyebrow {
+    display: inline-block;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    background: rgba(255,255,255,0.18);
+    border: 1px solid rgba(255,255,255,0.4);
+    border-radius: 50px;
+    padding: 0.35rem 1rem;
+    margin-bottom: 1.25rem;
+    animation: clp-rise-{{ section.id }} 0.9s ease both;
+  }
+  .clp-{{ section.id }} .clp-hero__heading {
+    font-size: clamp(2rem, 5vw, 3.4rem);
+    font-weight: 800;
+    line-height: 1.15;
+    margin: 0 0 1rem;
+    text-shadow: 0 2px 12px rgba(0,0,0,0.35);
+    color: #fff;
+    animation: clp-rise-{{ section.id }} 0.9s 0.1s ease both;
+  }
+  .clp-{{ section.id }} .clp-hero__sub {
+    font-size: clamp(0.95rem, 2vw, 1.15rem);
+    margin: 0 0 0.75rem;
+    opacity: 0.9;
+    line-height: 1.6;
+    animation: clp-rise-{{ section.id }} 0.9s 0.2s ease both;
+  }
+  /* "Why should I care" proof line */
+  .clp-{{ section.id }} .clp-hero__proof {
+    font-size: 0.85rem;
+    opacity: 0.75;
+    margin: 0 0 2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    animation: clp-rise-{{ section.id }} 0.9s 0.28s ease both;
+  }
+  .clp-{{ section.id }} .clp-hero__cta {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    animation: clp-rise-{{ section.id }} 0.9s 0.36s ease both;
+  }
+  /* Primary CTA — bigger and unmissable */
+  .clp-{{ section.id }} .clp-cta-primary {
+    display: inline-block;
+    padding: 1rem 2.2rem;
+    font-size: 1.05rem;
+    font-weight: 700;
+    border-radius: var(--clp-radius);
+    background: #fff;
+    color: #1a1a1a;
+    text-decoration: none;
+    letter-spacing: 0.02em;
+    transition: background var(--clp-transition), transform var(--clp-transition);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+  }
+  .clp-{{ section.id }} .clp-cta-primary:hover {
+    background: #f0f0f0;
+    transform: translateY(-2px);
+  }
+  /* Secondary CTA — ghost style */
+  .clp-{{ section.id }} .clp-cta-secondary {
+    display: inline-block;
+    padding: 0.95rem 1.75rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: var(--clp-radius);
+    border: 2px solid rgba(255,255,255,0.75);
+    color: #fff;
+    text-decoration: none;
+    transition: border-color var(--clp-transition), background var(--clp-transition);
+  }
+  .clp-{{ section.id }} .clp-cta-secondary:hover {
+    background: rgba(255,255,255,0.12);
+    border-color: #fff;
+  }
+  @media (max-width: 768px) {
+    /* Stronger full-bleed overlay so text reads cleanly over image */
+    .clp-{{ section.id }} .clp-hero__overlay {
+      background: linear-gradient(
+        to top,
+        rgba(0,0,0,0.88) 0%,
+        rgba(0,0,0,0.55) 45%,
+        rgba(0,0,0,0.18) 75%,
+        transparent 100%
+      );
+    }
+    /* Push content to bottom third — where gradient is darkest */
+    .clp-{{ section.id }} .clp-hero__content {
+      text-align: center;
+      padding: 2rem 1.5rem 3rem;
+      margin-left: 0;
+      align-self: flex-end;
+      margin-bottom: 0;
+      max-width: 100%;
+    }
+    /* Tighten heading size so it never wraps awkwardly */
+    .clp-{{ section.id }} .clp-hero__heading {
+      font-size: clamp(1.6rem, 6.5vw, 2.2rem);
+    }
+    /* Eyebrow badge — hidden on mobile, saves space and reduces clutter */
+    .clp-{{ section.id }} .clp-hero__eyebrow { display: none; }
+    /* Subheading — hide on very small screens to reduce clutter */
+    .clp-{{ section.id }} .clp-hero__sub {
+      font-size: 0.88rem;
+      opacity: 0.85;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    /* Proof line — compact */
+    .clp-{{ section.id }} .clp-hero__proof {
+      font-size: 0.78rem;
+      justify-content: center;
+      margin-bottom: 1.5rem;
+    }
+    /* CTA — side by side, centered as a pair */
+    .clp-{{ section.id }} .clp-hero__cta {
+      justify-content: center;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      gap: 0.5rem;
+    }
+    .clp-{{ section.id }} .clp-hero .clp-cta-primary,
+    .clp-{{ section.id }} .clp-hero .clp-cta-secondary {
+      flex: 0 0 auto;
+      width: auto;
+      text-align: center;
+      padding: 0.7rem 1.25rem;
+      font-size: 0.88rem;
+      white-space: nowrap;
+    }
+  }
+
+  /* ==========================================================
+     2. VALUE PROPOSITIONS
+     ========================================================== */
+  .clp-{{ section.id }} .clp-values { padding: 4.5rem 1.25rem; }
+  .clp-{{ section.id }} .clp-values__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--clp-gap);
+    max-width: var(--clp-max);
+    margin: 0 auto;
+  }
+  .clp-{{ section.id }} .clp-val {
+    padding: 2rem 1.5rem;
+    border-radius: var(--clp-radius);
+    text-align: center;
+    border: 1px solid rgba(0,0,0,0.08);
+    transition: transform var(--clp-transition), box-shadow var(--clp-transition);
+  }
+  .clp-{{ section.id }} .clp-val:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.09);
+  }
+  .clp-{{ section.id }} .clp-val__icon  { font-size: 2rem; margin-bottom: 0.75rem; }
+  .clp-{{ section.id }} .clp-val__title { font-weight: 700; font-size: 1.05rem; margin: 0 0 0.4rem; }
+  .clp-{{ section.id }} .clp-val__desc  { font-size: 0.88rem; opacity: 0.72; margin: 0; }
+
+  /* ==========================================================
+     3. PRODUCT GRID — real products, CSS filter variations
+     ========================================================== */
+  .clp-{{ section.id }} .clp-products { padding: 4.5rem 1.25rem; }
+  .clp-{{ section.id }} .clp-prod-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: var(--clp-gap);
+    max-width: var(--clp-max);
+    margin: 0 auto;
+  }
+  .clp-{{ section.id }} .clp-prod-card {
+    border-radius: var(--clp-radius);
+    overflow: hidden;
+    border: 1px solid rgba(0,0,0,0.08);
+    transition: transform var(--clp-transition), box-shadow var(--clp-transition);
+    display: flex;
+    flex-direction: column;
+  }
+  .clp-{{ section.id }} .clp-prod-card:hover {
+    transform: translateY(-6px) scale(1.01);
+    box-shadow: 0 22px 48px rgba(0,0,0,0.13);
+  }
+  .clp-{{ section.id }} .clp-prod-card__thumb {
+    aspect-ratio: 3 / 4;
+    overflow: hidden;
+    position: relative;
+  }
+  .clp-{{ section.id }} .clp-prod-card__thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+  }
+  .clp-{{ section.id }} .clp-prod-card:hover .clp-prod-card__thumb img { transform: scale(1.07); }
+  .clp-{{ section.id }} .clp-prod-card__body {
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    flex: 1;
+  }
+  .clp-{{ section.id }} .clp-prod-card__name  { font-weight: 600; font-size: 1rem; margin: 0; }
+  .clp-{{ section.id }} .clp-prod-card__price { font-size: 0.92rem; opacity: 0.75; margin: 0; }
+  .clp-{{ section.id }} .clp-prod-card__btn   { margin-top: auto; }
+
+  /* Product image — no filters, clean and accurate */
+  .clp-{{ section.id }} .vi-0,
+  .clp-{{ section.id }} .vi-2 { filter: none; }
+  .clp-{{ section.id }} .vw-1 img,
+  .clp-{{ section.id }} .vw-3 img { filter: none; transform: none; }
+  .clp-{{ section.id }} .vw-3 { transform: none; }
+
+  /* Badge on product card */
+  .clp-{{ section.id }} .clp-prod-card__badge {
+    position: absolute;
+    top: 0.75rem;
+    left: 0.75rem;
+    background: rgba(0,0,0,0.65);
+    color: #fff;
+    font-size: 0.7rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 0.25rem 0.6rem;
+    border-radius: 4px;
+    z-index: 2;
+  }
+  .clp-{{ section.id }} .clp-prod-card__sold-out {
+    position: absolute;
+    inset: 0;
+    background: rgba(255,255,255,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  /* ==========================================================
+     4. CATEGORY SECTION — real collection images
+     ========================================================== */
+  .clp-{{ section.id }} .clp-cats { padding: 4.5rem 1.25rem; }
+  .clp-{{ section.id }} .clp-cats__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: var(--clp-gap);
+    max-width: var(--clp-max);
+    margin: 0 auto;
+  }
+  .clp-{{ section.id }} .clp-cat {
+    position: relative;
+    aspect-ratio: 4 / 5;
+    border-radius: var(--clp-radius);
+    overflow: hidden;
+    cursor: pointer;
+    text-decoration: none;
+    display: block;
+  }
+  .clp-{{ section.id }} .clp-cat__bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.55s ease;
+  }
+  .clp-{{ section.id }} .clp-cat:hover .clp-cat__bg { transform: scale(1.07); }
+  .clp-{{ section.id }} .clp-cat__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.62) 0%, transparent 55%);
+    z-index: 1;
+  }
+  .clp-{{ section.id }} .clp-cat__label {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    z-index: 2;
+    padding: 1.5rem;
+    color: #fff;
+  }
+  .clp-{{ section.id }} .clp-cat__label h3 { margin: 0 0 0.35rem; font-weight: 700; font-size: 1.25rem; color: #fff; }
+  .clp-{{ section.id }} .clp-cat__label span { font-size: 0.85rem; color: rgba(255,255,255,0.82); text-decoration: underline; }
+
+  /* Category bg visual treatments (applied to .clp-cat__bg only) */
+  .clp-{{ section.id }} .cb-zoom { background-size: 150%; background-position: top center; }
+  .clp-{{ section.id }} .cb-flip { transform: scaleX(-1); }
+  .clp-{{ section.id }} .clp-cat:hover .clp-cat__bg.cb-flip { transform: scaleX(-1) scale(1.07); }
+  .clp-{{ section.id }} .cb-warm { filter: brightness(1.18) saturate(1.45); background-position: center 35%; }
+
+  /* ==========================================================
+     5. TESTIMONIALS
+     ========================================================== */
+  .clp-{{ section.id }} .clp-testis { padding: 4.5rem 1.25rem; }
+  .clp-{{ section.id }} .clp-testis__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: var(--clp-gap);
+    max-width: var(--clp-max);
+    margin: 0 auto;
+  }
+  .clp-{{ section.id }} .clp-testi {
+    padding: 2rem;
+    border-radius: var(--clp-radius);
+    border: 1px solid rgba(0,0,0,0.08);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .clp-{{ section.id }} .clp-testi__stars  { color: gold; font-size: 1.05rem; letter-spacing: 2px; }
+  .clp-{{ section.id }} .clp-testi__review { font-style: italic; opacity: 0.82; margin: 0; line-height: 1.7; }
+  .clp-{{ section.id }} .clp-testi__author { display: flex; align-items: center; gap: 0.75rem; margin-top: auto; }
+  .clp-{{ section.id }} .clp-testi__avatar {
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    background: rgba(0,0,0,0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    flex-shrink: 0;
+    color: inherit;
+  }
+  .clp-{{ section.id }} .clp-testi__name { font-weight: 600; font-size: 0.9rem; margin: 0; }
+
+  /* ==========================================================
+     6. BRAND STORY
+     ========================================================== */
+  .clp-{{ section.id }} .clp-story { padding: 5rem 1.25rem; }
+  .clp-{{ section.id }} .clp-story__inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .clp-{{ section.id }} .clp-story__img-col {
+    position: relative;
+    aspect-ratio: 3 / 4;
+    border-radius: var(--clp-radius);
+    overflow: hidden;
+  }
+  .clp-{{ section.id }} .clp-story__img-bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    transform: scale(1.0);
+  }
+  .clp-{{ section.id }} .clp-story__heading { font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 700; margin: 0 0 1.25rem; }
+  .clp-{{ section.id }} .clp-story__body    { opacity: 0.82; line-height: 1.78; margin: 0 0 1.75rem; }
+  .clp-{{ section.id }} .clp-story__body p  { margin: 0 0 0.9rem; }
+  @media (max-width: 768px) {
+    .clp-{{ section.id }} .clp-story__inner   { grid-template-columns: 1fr; }
+    .clp-{{ section.id }} .clp-story__img-col { aspect-ratio: 16 / 9; }
+  }
+
+  /* ==========================================================
+     7. OFFER / URGENCY
+     ========================================================== */
+  .clp-{{ section.id }} .clp-offer {
+    position: relative;
+    padding: 5.5rem 1.25rem;
+    overflow: hidden;
+    text-align: center;
+  }
+  .clp-{{ section.id }} .clp-offer__bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center 40%;
+    filter: brightness(0.28) saturate(0.5);
+    transform: scale(1.04);
+  }
+  .clp-{{ section.id }} .clp-offer__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(0,0,0,0.55) 0%, transparent 100%);
+    z-index: 1;
+  }
+  .clp-{{ section.id }} .clp-offer__content { position: relative; z-index: 2; color: #fff; max-width: 640px; margin: 0 auto; }
+  .clp-{{ section.id }} .clp-offer__heading {
+    font-size: clamp(1.6rem, 4vw, 2.8rem);
+    font-weight: 800;
+    margin: 0 0 0.75rem;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+    color: #fff;
+  }
+  .clp-{{ section.id }} .clp-offer__sub { font-size: 1.05rem; opacity: 0.88; margin: 0 0 2.5rem; }
+  .clp-{{ section.id }} .clp-countdown  { display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; }
+  .clp-{{ section.id }} .clp-cd-block   { display: flex; flex-direction: column; align-items: center; min-width: 72px; }
+  .clp-{{ section.id }} .clp-cd-num {
+    font-size: 2.5rem; font-weight: 800; line-height: 1;
+    padding: 0.5rem 0.75rem;
+    border-radius: calc(var(--clp-radius) * 0.75);
+    background: rgba(255,255,255,0.14);
+    backdrop-filter: blur(4px);
+    min-width: 64px; text-align: center;
+  }
+  .clp-{{ section.id }} .clp-cd-label {
+    font-size: 0.68rem; letter-spacing: 1.5px;
+    text-transform: uppercase; margin-top: 0.4rem; opacity: 0.72;
+  }
+
+  /* ==========================================================
+     8. FOOTER LINKS
+     ========================================================== */
+  .clp-{{ section.id }} .clp-foot {
+    padding: 2rem 1.25rem;
+    border-top: 1px solid rgba(0,0,0,0.1);
+    text-align: center;
+  }
+  .clp-{{ section.id }} .clp-foot__links {
+    display: flex; gap: 1.5rem; justify-content: center;
+    flex-wrap: wrap; list-style: none; margin: 0; padding: 0;
+  }
+  .clp-{{ section.id }} .clp-foot__links a {
+    font-size: 0.88rem; opacity: 0.68; text-decoration: none;
+    transition: opacity var(--clp-transition);
+  }
+  .clp-{{ section.id }} .clp-foot__links a:hover { opacity: 1; text-decoration: underline; }
+
+  /* ==========================================================
+     RESPONSIVE
+     ========================================================== */
+  @media (max-width: 600px) {
+    .clp-{{ section.id }} .clp-hero { min-height: 75vh; }
+    .clp-{{ section.id }} .clp-prod-grid,
+    .clp-{{ section.id }} .clp-cats__grid { grid-template-columns: 1fr 1fr; }
+    .clp-{{ section.id }} .clp-testis__grid { grid-template-columns: 1fr; }
+    .clp-{{ section.id }} .clp-countdown { gap: 0.75rem; }
+    .clp-{{ section.id }} .clp-cd-num { font-size: 1.8rem; min-width: 48px; }
+  }
+
+  /* ==========================================================
+     0. ANARKALI TITLE BANNER
+     ========================================================== */
+  .clp-{{ section.id }} .clp-brand-banner {
+    padding: 0.25rem 1.25rem 1.5rem;
+    text-align: center;
+  }
+  .clp-{{ section.id }} .clp-brand-banner__eyebrow {
+    display: block;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    opacity: 0.45;
+    margin-bottom: 0.75rem;
+  }
+  .clp-{{ section.id }} .clp-brand-banner__title {
+    display: block;
+    font-family: var(--font-heading-family, inherit);
+    font-size: clamp(2.4rem, 7vw, 5rem);
+    font-weight: var(--font-heading-weight, 700);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    line-height: 1.05;
+    margin: 0 auto 1rem;
+    background: linear-gradient(135deg, {{ section.settings.banner_color_start | default: '#8b4513' }} 0%, {{ section.settings.banner_color_end | default: '#c47020' }} 45%, {{ section.settings.banner_color_start | default: '#8b4513' }} 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .clp-{{ section.id }} .clp-brand-banner__divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.25rem;
+    max-width: 520px;
+    margin: 0 auto;
+  }
+  .clp-{{ section.id }} .clp-brand-banner__divider::before,
+  .clp-{{ section.id }} .clp-brand-banner__divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: currentColor;
+    opacity: 0.18;
+  }
+  .clp-{{ section.id }} .clp-brand-banner__tagline {
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    opacity: 0.5;
+    white-space: nowrap;
+  }
+  @media (max-width: 600px) {
+    .clp-{{ section.id }} .clp-brand-banner { padding: 2rem 1rem 1.5rem; }
+    .clp-{{ section.id }} .clp-brand-banner__tagline { white-space: normal; text-align: center; }
+  }
+
+  /* ==========================================================
+     A. TRUST BADGES — compact trust bar below hero
+     ========================================================== */
+  .clp-{{ section.id }} .clp-badges {
+    padding: 1.75rem 1.25rem;
+    border-bottom: 1px solid rgba(0,0,0,0.07);
+  }
+  .clp-{{ section.id }} .clp-badges__row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem 2.5rem;
+    max-width: var(--clp-max);
+    margin: 0 auto;
+  }
+  .clp-{{ section.id }} .clp-badge {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.2rem;
+  }
+  .clp-{{ section.id }} .clp-badge__icon  { font-size: 1.5rem; line-height: 1; }
+  .clp-{{ section.id }} .clp-badge__label { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.04em; }
+  .clp-{{ section.id }} .clp-badge__sub   { font-size: 0.7rem; opacity: 0.55; }
+
+  /* ==========================================================
+     B. SEASONAL / FABRIC FEEL
+     ========================================================== */
+  .clp-{{ section.id }} .clp-seasons {
+    padding: 5rem 1.25rem;
+    background: linear-gradient(180deg, rgba(139,69,19,0.04) 0%, rgba(196,112,32,0.06) 100%);
+    border-top: 1px solid rgba(139,69,19,0.1);
+    border-bottom: 1px solid rgba(139,69,19,0.1);
+  }
+  .clp-{{ section.id }} .clp-seasons .clp-section-title {
+    font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+    margin-bottom: 0.75rem;
+  }
+  .clp-{{ section.id }} .clp-seasons__subtitle {
+    text-align: center;
+    opacity: 0.55;
+    font-size: 1rem;
+    margin: 0 auto 3rem;
+    max-width: 520px;
+    line-height: 1.6;
+  }
+  .clp-{{ section.id }} .clp-seasons__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: var(--clp-gap);
+    max-width: var(--clp-max);
+    margin: 0 auto;
+  }
+  .clp-{{ section.id }} .clp-seasons__grid--single {
+    grid-template-columns: 1fr;
+    max-width: 900px;
+  }
+  /* Single-card: side-by-side, image 48% / text panel 52% */
+  .clp-{{ section.id }} .clp-seasons__grid--single .clp-season__img-wrap {
+    width: 48%;
+    aspect-ratio: 3 / 4;
+  }
+  .clp-{{ section.id }} .clp-seasons__grid--single .clp-season__body {
+    justify-content: center;
+    padding: 2rem 2rem 2rem 1.8rem;
+    gap: 0;
+  }
+  /* Season fit points list */
+  .clp-{{ section.id }} .clp-season__fit-list {
+    list-style: none;
+    margin: 1.1rem 0 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+  }
+  .clp-{{ section.id }} .clp-season__fit-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.55rem;
+    font-size: 0.84rem;
+    line-height: 1.5;
+    color: var(--clp-text);
+    opacity: 0.85;
+  }
+  .clp-{{ section.id }} .clp-season__fit-icon {
+    flex-shrink: 0;
+    width: 1.2rem;
+    height: 1.2rem;
+    background: rgba(139,69,19,0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 0.1rem;
+    font-size: 0.6rem;
+    color: var(--clp-accent);
+  }
+  /* Season card — horizontal split: large image left, text right */
+  .clp-{{ section.id }} .clp-season {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    border-radius: var(--clp-radius);
+    background: #fdf8f3;
+    border: 1px solid rgba(139,69,19,0.14);
+    overflow: hidden;
+    transition: transform var(--clp-transition), box-shadow var(--clp-transition);
+    box-shadow: 0 6px 28px rgba(139,69,19,0.1);
+  }
+  .clp-{{ section.id }} .clp-season:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 48px rgba(139,69,19,0.18);
+  }
+  /* Image — dominant left column (60%), aspect ratio drives card height */
+  .clp-{{ section.id }} .clp-season__img-wrap {
+    position: relative;
+    width: 60%;
+    flex-shrink: 0;
+    overflow: hidden;
+    aspect-ratio: 3 / 4;
+  }
+  .clp-{{ section.id }} .clp-season__img {
+    position: static;
+    inset: auto;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+    display: block;
+    transform: none;
+    transition: transform 0.55s ease;
+  }
+  .clp-{{ section.id }} .clp-season:hover .clp-season__img { transform: scale(1.04); }
+  /* Warm atmospheric overlay — enhances seasonal mood */
+  .clp-{{ section.id }} .clp-season__img-wrap::after {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      linear-gradient(to right,  transparent 55%, rgba(253,248,243,0.55) 100%),
+      linear-gradient(to bottom, rgba(0,0,0,0.22) 0%, transparent 35%);
+    pointer-events: none;
+  }
+  /* Floating annotation pills — hidden in season section */
+  .clp-{{ section.id }} .clp-season__callouts {
+    display: none;
+  }
+  .clp-{{ section.id }} .clp-season__callout {
+    display: inline-block;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(8px);
+    border-radius: 50px;
+    padding: 0.28rem 0.85rem;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: #1a1a1a;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.14);
+    white-space: nowrap;
+  }
+  /* Season icon pill — bottom-right corner */
+  .clp-{{ section.id }} .clp-season__icon-pill {
+    position: absolute;
+    bottom: 0.85rem; right: 0.85rem;
+    z-index: 2;
+    font-size: 1.35rem;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(4px);
+    border-radius: 50%;
+    width: 2.6rem; height: 2.6rem;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.14);
+  }
+  /* Text panel — right 40% */
+  .clp-{{ section.id }} .clp-season__body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 1.6rem 1.2rem 1.4rem 1.1rem;
+    text-align: left;
+    border-left: 3px solid rgba(139,69,19,0.15);
+    background: #fdf8f3;
+  }
+  .clp-{{ section.id }} .clp-season__label {
+    font-weight: 700;
+    font-size: clamp(1rem, 1.8vw, 1.25rem);
+    margin: 0 0 0.4rem;
+    color: var(--clp-text);
+    line-height: 1.2;
+  }
+  .clp-{{ section.id }} .clp-season__fabric {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--clp-accent);
+    margin: 0 0 0.9rem;
+    padding-bottom: 0.9rem;
+    border-bottom: 1px solid rgba(139,69,19,0.18);
+  }
+  .clp-{{ section.id }} .clp-season__feel {
+    font-size: 0.82rem;
+    line-height: 1.65;
+    color: var(--clp-text);
+    opacity: 0.7;
+    margin: 0;
+  }
+
+  /* ==========================================================
+     C. WHO WE ARE
+     ========================================================== */
+  .clp-{{ section.id }} .clp-wwa { padding: 5rem 1.25rem; }
+  .clp-{{ section.id }} .clp-wwa__inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3.5rem;
+    align-items: center;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .clp-{{ section.id }} .clp-wwa__img-col {
+    position: relative;
+    aspect-ratio: 3 / 4;
+    border-radius: var(--clp-radius);
+    overflow: hidden;
+  }
+  .clp-{{ section.id }} .clp-wwa__media {
+    width: 100%; height: 100%;
+    object-fit: cover; object-position: top; display: block;
+  }
+  .clp-{{ section.id }} .clp-wwa__slideshow {
+    position: relative;
+    width: 100%; height: 100%;
+  }
+  .clp-{{ section.id }} .clp-wwa__slide {
+    position: absolute;
+    inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover; object-position: top; display: block;
+    opacity: 0;
+    transition: opacity 0.9s ease;
+  }
+  .clp-{{ section.id }} .clp-wwa__slide--active { opacity: 1; }
+  .clp-{{ section.id }} .clp-wwa__origin {
+    display: inline-block;
+    font-size: 0.78rem; font-weight: 600; letter-spacing: 0.1em;
+    text-transform: uppercase; opacity: 0.5; margin-bottom: 0.85rem;
+  }
+  .clp-{{ section.id }} .clp-wwa__heading {
+    font-size: clamp(1.5rem, 2.8vw, 2.2rem); font-weight: 700;
+    margin: 0 0 1.1rem; line-height: 1.25;
+  }
+  .clp-{{ section.id }} .clp-wwa__bio { opacity: 0.82; line-height: 1.78; margin: 0 0 2rem; }
+  .clp-{{ section.id }} .clp-wwa__stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 1rem;
+  }
+  .clp-{{ section.id }} .clp-stat {
+    display: flex; flex-direction: column; align-items: center; text-align: center;
+    padding: 1rem 0.5rem;
+    border-radius: var(--clp-radius);
+    border: 1px solid rgba(0,0,0,0.08);
+  }
+  .clp-{{ section.id }} .clp-stat__num   { font-size: 1.6rem; font-weight: 800; line-height: 1.1; }
+  .clp-{{ section.id }} .clp-stat__label {
+    font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.5; margin-top: 0.25rem;
+  }
+  @media (max-width: 768px) {
+    .clp-{{ section.id }} .clp-wwa__inner   { grid-template-columns: 1fr; }
+    .clp-{{ section.id }} .clp-wwa__img-col { aspect-ratio: 4 / 3; }
+
+    /* Season card — side by side preserved on mobile, tighter spacing */
+    .clp-{{ section.id }} .clp-seasons__grid--single {
+      max-width: 100%;
+    }
+    .clp-{{ section.id }} .clp-seasons__grid--single .clp-season__img-wrap {
+      width: 44%;
+      aspect-ratio: 3 / 4;
+    }
+    .clp-{{ section.id }} .clp-season__icon-pill {
+      display: none;
+    }
+    .clp-{{ section.id }} .clp-seasons__grid--single .clp-season__body {
+      padding: 1rem 0.9rem;
+      justify-content: flex-start;
+    }
+    .clp-{{ section.id }} .clp-season__label {
+      font-size: 0.95rem;
+    }
+    .clp-{{ section.id }} .clp-season__feel {
+      font-size: 0.78rem;
+    }
+    .clp-{{ section.id }} .clp-season__fit-list {
+      gap: 0.45rem;
+    }
+    .clp-{{ section.id }} .clp-season__fit-item {
+      font-size: 0.76rem;
+    }
+  }
+{%- endstyle -%}
+
+{%- liquid
+  assign cta_link       = section.settings.cta_link | default: '/collections/all'
+  assign val_blocks     = section.blocks | where: 'type', 'value_prop'
+  assign t_blocks       = section.blocks | where: 'type', 'testimonial'
+  assign badge_blocks   = section.blocks | where: 'type', 'trust_badge'
+  assign season_blocks  = section.blocks | where: 'type', 'season_card'
+  assign wwa_blocks     = section.blocks | where: 'type', 'who_we_are'
+
+  assign current_month  = 'now' | date: "%m" | plus: 0
+  assign current_season = 'winter'
+  if current_month >= 3 and current_month <= 6
+    assign current_season = 'summer'
+  endif
+  if current_month >= 7 and current_month <= 9
+    assign current_season = 'monsoon'
+  endif
+  if current_month >= 10 and current_month <= 11
+    assign current_season = 'festive'
+  endif
+
+  assign season_match_count = 0
+  for block in season_blocks
+    if block.settings.season_key == current_season
+      assign season_match_count = season_match_count | plus: 1
+    endif
+  endfor
+
+  assign featured_col   = collections[section.settings.featured_collection]
+  assign cat_col_1      = collections[section.settings.cat_collection_1]
+  assign cat_col_2      = collections[section.settings.cat_collection_2]
+  assign cat_col_3      = collections[section.settings.cat_collection_3]
+
+  assign vi_img_class   = ',,,' | split: ','
+  assign vi_wrap_class  = ',,,'  | split: ','
+
+  assign asset_hero      = 'hero-image.png'           | asset_url
+  assign asset_prod_1    = 'anarkali-product-1.webp' | asset_url
+  assign asset_prod_2    = 'anarkali-product-2.webp' | asset_url
+  assign asset_prod_3    = 'anarkali-product-3.webp' | asset_url
+  assign asset_prod_4    = 'anarkali-product-4.webp' | asset_url
+  assign asset_prod_5    = 'anarkali-product-5.webp' | asset_url
+  assign asset_prod_6    = 'anarkali-product-6.webp' | asset_url
+-%}
+
+<div class="clp-{{ section.id }}">
+
+  {%- comment -%}══ 0. ANARKALI BRAND BANNER ══{%- endcomment -%}
+  <div class="clp-brand-banner">
+    <span class="clp-brand-banner__eyebrow">{{ section.settings.banner_eyebrow | default: 'The Art of Indian Elegance' }}</span>
+    <span class="clp-brand-banner__title">{{ section.settings.banner_title | default: 'Anarkali' }}</span>
+    <div class="clp-brand-banner__divider">
+      <span class="clp-brand-banner__tagline">{{ section.settings.banner_tagline | default: 'Handcrafted &nbsp;·&nbsp; Heritage &nbsp;·&nbsp; Timeless' }}</span>
+    </div>
+  </div>
+
+  {%- comment -%}══ 1. HERO ══{%- endcomment -%}
+  {%- if section.settings.hero_image != blank -%}
+    {%- assign hero_bg = section.settings.hero_image | image_url: width: 1800 -%}
+  {%- else -%}
+    {%- assign hero_bg = asset_hero -%}
+  {%- endif -%}
+
+  <div class="clp-hero">
+    <img class="clp-hero__bg" src="{{ hero_bg }}" alt="" aria-hidden="true" loading="eager" width="1800" height="2400">
+    <div class="clp-hero__overlay"></div>
+    <div class="clp-hero__content">
+      {%- if section.settings.hero_eyebrow != blank -%}
+        <span class="clp-hero__eyebrow">{{ section.settings.hero_eyebrow | escape }}</span>
+      {%- endif -%}
+      <h1 class="clp-hero__heading">{{ section.settings.heading | escape }}</h1>
+      <p class="clp-hero__sub">{{ section.settings.subheading | escape }}</p>
+      {%- if section.settings.hero_proof != blank -%}
+        <p class="clp-hero__proof">⭐ {{ section.settings.hero_proof | escape }}</p>
+      {%- endif -%}
+      <div class="clp-hero__cta">
+        <a href="{{ cta_link }}" class="clp-cta-primary">
+          {{ section.settings.cta_text | default: 'Shop Now' | escape }}
+        </a>
+        {%- if section.settings.cta2_text != blank -%}
+          <a href="{{ section.settings.cta2_link | default: cta_link }}" class="clp-cta-secondary">
+            {{ section.settings.cta2_text | escape }}
+          </a>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+
+  {%- comment -%}══ A. TRUST BADGES ══{%- endcomment -%}
+  {%- if badge_blocks.size > 0 -%}
+  <div class="clp-badges">
+    <div class="clp-badges__row">
+      {%- for block in badge_blocks -%}
+        <div class="clp-badge clp-a" {{ block.shopify_attributes }}>
+          <span class="clp-badge__icon" aria-hidden="true">{{ block.settings.icon | default: '✓' }}</span>
+          <span class="clp-badge__label">{{ block.settings.label | escape }}</span>
+          {%- if block.settings.sublabel != blank -%}
+            <span class="clp-badge__sub">{{ block.settings.sublabel | escape }}</span>
+          {%- endif -%}
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+  {%- endif -%}
+
+  {%- comment -%}══ 2. VALUE PROPS ══{%- endcomment -%}
+  {%- if val_blocks.size > 0 -%}
+  {%- assign vp_icons = '✨,💎,🚚,↩️' | split: ',' -%}
+  <div class="clp-values">
+    <h2 class="clp-section-title">{{ section.settings.values_heading | default: 'Why Women Choose Our Anarkalis' }}</h2>
+    <div class="clp-values__grid">
+      {%- for block in val_blocks -%}
+        <div class="clp-val clp-a" {{ block.shopify_attributes }}>
+          <div class="clp-val__icon" aria-hidden="true">{{ vp_icons[forloop.index0] }}</div>
+          <h3 class="clp-val__title">{{ block.settings.title | escape }}</h3>
+          <p class="clp-val__desc">{{ block.settings.description | escape }}</p>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+  {%- endif -%}
+
+  {%- comment -%}══ 3. PRODUCT GRID (real products from selected collection) ══{%- endcomment -%}
+  {%- assign asset_prod_cycle = asset_prod_1 | append: ',' | append: asset_prod_2 | append: ',' | append: asset_prod_3 | append: ',' | append: asset_prod_4 | append: ',' | append: asset_prod_5 | append: ',' | append: asset_prod_6 | split: ',' -%}
+  {%- if featured_col != blank -%}
+  <div class="clp-products">
+    <h2 class="clp-section-title">{{ featured_col.title }}</h2>
+    <div class="clp-prod-grid">
+      {%- for product in featured_col.products limit: section.settings.products_count -%}
+        {%- assign idx = forloop.index0 | modulo: 4 -%}
+        {%- assign cycle_idx = forloop.index0 | modulo: 6 -%}
+        {%- assign prod_asset = asset_prod_cycle[cycle_idx] -%}
+        <div class="clp-prod-card clp-a">
+          <div class="clp-prod-card__thumb {{ vi_wrap_class[idx] }}">
+            {%- if product.featured_image -%}
+              <img
+                src="{{ product.featured_image | image_url: width: 500 }}"
+                alt="{{ product.featured_image.alt | default: product.title | escape }}"
+                class="{{ vi_img_class[idx] }}"
+                width="500"
+                height="{{ 500 | divided_by: product.featured_image.aspect_ratio | round }}"
+                loading="lazy"
+              >
+            {%- else -%}
+              <img
+                src="{{ prod_asset }}"
+                alt="{{ product.title | escape }}"
+                class="{{ vi_img_class[idx] }}"
+                width="500"
+                height="667"
+                loading="lazy"
+              >
+            {%- endif -%}
+
+            {%- if product.available == false -%}
+              <div class="clp-prod-card__sold-out">Sold Out</div>
+            {%- elsif product.compare_at_price > product.price -%}
+              <div class="clp-prod-card__badge">Sale</div>
+            {%- endif -%}
+          </div>
+
+          <div class="clp-prod-card__body">
+            <p class="clp-prod-card__name">{{ product.title | escape }}</p>
+            <p class="clp-prod-card__price">
+              {%- if product.compare_at_price > product.price -%}
+                <s>{{ product.compare_at_price | money }}</s>&nbsp;
+              {%- endif -%}
+              {{ product.price | money }}
+            </p>
+            <a href="{{ product.url }}" class="button button--primary clp-prod-card__btn">
+              {%- if product.available -%}View Product{%- else -%}See Details{%- endif -%}
+            </a>
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+    {%- if section.settings.show_view_all -%}
+      <div style="text-align:center; margin-top: 2.5rem;">
+        <a href="{{ featured_col.url }}" class="button button--secondary">
+          View All {{ featured_col.title }}
+        </a>
+      </div>
+    {%- endif -%}
+  </div>
+  {%- endif -%}
+
+  {%- comment -%}══ B. SEASONAL / FABRIC FEEL ══{%- endcomment -%}
+  {%- if season_match_count > 0 -%}
+  <div class="clp-seasons">
+
+    {%- comment -%} Dynamic heading based on current season {%- endcomment -%}
+    {%- if section.settings.seasons_heading != blank -%}
+      <h2 class="clp-section-title">{{ section.settings.seasons_heading | escape }}</h2>
+    {%- else -%}
+      {%- case current_season -%}
+        {%- when 'summer'  -%}<h2 class="clp-section-title">Perfect for This Summer</h2>
+        {%- when 'monsoon' -%}<h2 class="clp-section-title">Perfect for the Monsoon Season</h2>
+        {%- when 'festive' -%}<h2 class="clp-section-title">Perfect for the Festive Season</h2>
+        {%- when 'winter'  -%}<h2 class="clp-section-title">Perfect for Winter Celebrations</h2>
+      {%- endcase -%}
+    {%- endif -%}
+
+    {%- if section.settings.seasons_subheading != blank -%}
+      <p class="clp-seasons__subtitle">{{ section.settings.seasons_subheading | escape }}</p>
+    {%- else -%}
+      <p class="clp-seasons__subtitle">Here's how this Anarkali is built for the season you're in right now.</p>
+    {%- endif -%}
+
+    {%- assign season_fallbacks = asset_prod_1 | append: ',' | append: asset_prod_2 | append: ',' | append: asset_prod_3 | append: ',' | append: asset_prod_4 | append: ',' | append: asset_prod_5 | append: ',' | append: asset_prod_6 | split: ',' -%}
+    <div class="clp-seasons__grid{% if season_match_count == 1 %} clp-seasons__grid--single{% endif %}">
+      {%- for block in season_blocks -%}
+        {%- if block.settings.season_key != current_season -%}{%- continue -%}{%- endif -%}
+        {%- assign s_idx = forloop.index0 | modulo: 6 -%}
+        <div class="clp-season clp-a" {{ block.shopify_attributes }}>
+
+          {%- comment -%} Image area with callout pills overlaid {%- endcomment -%}
+          <div class="clp-season__img-wrap">
+            {%- if block.settings.season_image != blank -%}
+              <img
+                class="clp-season__img"
+                src="{{ block.settings.season_image | image_url: width: 600 }}"
+                alt="{{ block.settings.season_label | escape }}"
+                width="600"
+                height="{{ 600 | divided_by: block.settings.season_image.aspect_ratio | round }}"
+                loading="lazy"
+              >
+            {%- else -%}
+              <img
+                class="clp-season__img"
+                src="{{ season_fallbacks[s_idx] }}"
+                alt="{{ block.settings.season_label | escape }}"
+                width="600"
+                height="800"
+                loading="lazy"
+              >
+            {%- endif -%}
+
+            {%- comment -%} Floating annotation pills {%- endcomment -%}
+            {%- assign has_callout = false -%}
+            {%- if block.settings.callout_1 != blank or block.settings.callout_2 != blank or block.settings.callout_3 != blank -%}
+              {%- assign has_callout = true -%}
+            {%- endif -%}
+            {%- if has_callout -%}
+              <div class="clp-season__callouts">
+                {%- if block.settings.callout_1 != blank -%}
+                  <span class="clp-season__callout">{{ block.settings.callout_1 | escape }}</span>
+                {%- endif -%}
+                {%- if block.settings.callout_2 != blank -%}
+                  <span class="clp-season__callout">{{ block.settings.callout_2 | escape }}</span>
+                {%- endif -%}
+                {%- if block.settings.callout_3 != blank -%}
+                  <span class="clp-season__callout">{{ block.settings.callout_3 | escape }}</span>
+                {%- endif -%}
+              </div>
+            {%- endif -%}
+
+            {%- comment -%} Season icon pill — bottom right of image {%- endcomment -%}
+            <span class="clp-season__icon-pill" aria-hidden="true">{{ block.settings.icon | default: '🌿' }}</span>
+          </div>
+
+          {%- comment -%} Text body — to the right of the image {%- endcomment -%}
+          <div class="clp-season__body">
+            <h3 class="clp-season__label">{{ block.settings.season_label | escape }}</h3>
+            {%- if block.settings.fabric_name != blank -%}
+              <p class="clp-season__fabric">{{ block.settings.fabric_name | escape }}</p>
+            {%- endif -%}
+            <p class="clp-season__feel">{{ block.settings.feel_desc | escape }}</p>
+            {%- assign has_fit = false -%}
+            {%- if block.settings.callout_1 != blank or block.settings.callout_2 != blank or block.settings.callout_3 != blank -%}
+              {%- assign has_fit = true -%}
+            {%- endif -%}
+            {%- if has_fit -%}
+              <ul class="clp-season__fit-list">
+                {%- if block.settings.callout_1 != blank -%}
+                  <li class="clp-season__fit-item">
+                    <span class="clp-season__fit-icon">✓</span>
+                    <span>{{ block.settings.callout_1 | escape }}</span>
+                  </li>
+                {%- endif -%}
+                {%- if block.settings.callout_2 != blank -%}
+                  <li class="clp-season__fit-item">
+                    <span class="clp-season__fit-icon">✓</span>
+                    <span>{{ block.settings.callout_2 | escape }}</span>
+                  </li>
+                {%- endif -%}
+                {%- if block.settings.callout_3 != blank -%}
+                  <li class="clp-season__fit-item">
+                    <span class="clp-season__fit-icon">✓</span>
+                    <span>{{ block.settings.callout_3 | escape }}</span>
+                  </li>
+                {%- endif -%}
+              </ul>
+            {%- endif -%}
+          </div>
+
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+  {%- endif -%}
+
+  {%- comment -%}══ 4. CATEGORY CARDS (real collections) ══{%- endcomment -%}
+  {%- assign has_cats = false -%}
+  {%- if cat_col_1 != blank or cat_col_2 != blank or cat_col_3 != blank -%}
+    {%- assign has_cats = true -%}
+  {%- endif -%}
+
+  {%- if has_cats -%}
+  <div class="clp-cats">
+    <h2 class="clp-section-title">{{ section.settings.cats_heading | default: 'Shop by Category' }}</h2>
+    <div class="clp-cats__grid">
+
+      {%- comment -%} Cat 1 — zoomed image {%- endcomment -%}
+      {%- if cat_col_1 != blank -%}
+        {%- if cat_col_1.image != blank -%}{%- assign cat_img_1 = cat_col_1.image | image_url: width: 800 -%}
+        {%- elsif cat_col_1.products.first.featured_image != blank -%}{%- assign cat_img_1 = cat_col_1.products.first.featured_image | image_url: width: 800 -%}
+        {%- else -%}{%- assign cat_img_1 = asset_prod_4 -%}{%- endif -%}
+        <a href="{{ cat_col_1.url }}" class="clp-cat clp-a">
+          <div class="clp-cat__bg cb-zoom" style="background-image: url('{{ cat_img_1 }}');"></div>
+          <div class="clp-cat__overlay"></div>
+          <div class="clp-cat__label"><h3>{{ cat_col_1.title }}</h3><span>Explore →</span></div>
+        </a>
+      {%- endif -%}
+
+      {%- comment -%} Cat 2 — flipped image {%- endcomment -%}
+      {%- if cat_col_2 != blank -%}
+        {%- if cat_col_2.image != blank -%}{%- assign cat_img_2 = cat_col_2.image | image_url: width: 800 -%}
+        {%- elsif cat_col_2.products.first.featured_image != blank -%}{%- assign cat_img_2 = cat_col_2.products.first.featured_image | image_url: width: 800 -%}
+        {%- else -%}{%- assign cat_img_2 = asset_prod_5 -%}{%- endif -%}
+        <a href="{{ cat_col_2.url }}" class="clp-cat clp-a">
+          <div class="clp-cat__bg cb-flip" style="background-image: url('{{ cat_img_2 }}');"></div>
+          <div class="clp-cat__overlay"></div>
+          <div class="clp-cat__label"><h3>{{ cat_col_2.title }}</h3><span>Explore →</span></div>
+        </a>
+      {%- endif -%}
+
+      {%- comment -%} Cat 3 — warm tone image {%- endcomment -%}
+      {%- if cat_col_3 != blank -%}
+        {%- if cat_col_3.image != blank -%}{%- assign cat_img_3 = cat_col_3.image | image_url: width: 800 -%}
+        {%- elsif cat_col_3.products.first.featured_image != blank -%}{%- assign cat_img_3 = cat_col_3.products.first.featured_image | image_url: width: 800 -%}
+        {%- else -%}{%- assign cat_img_3 = asset_prod_6 -%}{%- endif -%}
+        <a href="{{ cat_col_3.url }}" class="clp-cat clp-a">
+          <div class="clp-cat__bg cb-warm" style="background-image: url('{{ cat_img_3 }}');"></div>
+          <div class="clp-cat__overlay"></div>
+          <div class="clp-cat__label"><h3>{{ cat_col_3.title }}</h3><span>Explore →</span></div>
+        </a>
+      {%- endif -%}
+
+    </div>
+  </div>
+  {%- endif -%}
+
+  {%- comment -%}══ 5. TESTIMONIALS ══{%- endcomment -%}
+  {%- if t_blocks.size > 0 -%}
+  <div class="clp-testis">
+    <h2 class="clp-section-title">{{ section.settings.testis_heading | default: 'Real Women. Real Celebrations.' }}</h2>
+    <p style="text-align:center; opacity:0.55; font-size:0.88rem; margin: -1.5rem 0 2rem; letter-spacing:0.05em;">
+      ⭐⭐⭐⭐⭐ &nbsp;{{ section.settings.testis_subheading | default: 'Over 1,200 happy customers across India' }}
+    </p>
+    <div class="clp-testis__grid">
+      {%- for block in t_blocks -%}
+        {%- assign stars = '' -%}
+        {%- for i in (1..block.settings.rating) -%}{%- assign stars = stars | append: '★' -%}{%- endfor -%}
+        <div class="clp-testi clp-a" {{ block.shopify_attributes }}>
+          <div class="clp-testi__stars" aria-label="{{ block.settings.rating }} stars">{{ stars }}</div>
+          <p class="clp-testi__review">"{{ block.settings.review | escape }}"</p>
+          <div class="clp-testi__author">
+            <span class="clp-testi__avatar" aria-hidden="true">{{ block.settings.name | slice: 0 }}</span>
+            <p class="clp-testi__name">{{ block.settings.name | escape }}</p>
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+  {%- endif -%}
+
+  {%- comment -%}══ 6. BRAND STORY ══{%- endcomment -%}
+  {%- if section.settings.story_image != blank -%}
+    {%- assign story_bg = section.settings.story_image | image_url: width: 900 -%}
+  {%- elsif hero_bg -%}
+    {%- assign story_bg = hero_bg -%}
+  {%- else -%}
+    {%- assign story_bg = nil -%}
+  {%- endif -%}
+  <div class="clp-story">
+    <div class="clp-story__inner">
+      <div class="clp-story__img-col clp-a">
+        {%- if story_bg -%}
+          <div class="clp-story__img-bg" style="background-image: url('{{ story_bg }}');"></div>
+        {%- else -%}
+          <div class="clp-story__img-bg" style="background: rgba(0,0,0,0.3);"></div>
+        {%- endif -%}
+      </div>
+      <div class="clp-a">
+        <h2 class="clp-story__heading">{{ section.settings.brand_story_heading | escape }}</h2>
+        <div class="clp-story__body">{{ section.settings.brand_story_text }}</div>
+        <a href="{{ cta_link }}" class="button button--secondary">Learn More</a>
+      </div>
+    </div>
+  </div>
+
+  {%- comment -%}══ C. WHO WE ARE ══{%- endcomment -%}
+  {%- if wwa_blocks.size > 0 -%}
+    {%- assign wwa = wwa_blocks.first -%}
+  <div class="clp-wwa">
+    <div class="clp-wwa__inner">
+      <div class="clp-wwa__img-col clp-a">
+        {%- if wwa.settings.founder_video != blank -%}
+          <video
+            class="clp-wwa__media"
+            src="{{ wwa.settings.founder_video | asset_url }}"
+            autoplay muted loop playsinline
+            aria-hidden="true"
+          ></video>
+        {%- elsif wwa.settings.founder_image != blank -%}
+          <img
+            class="clp-wwa__media"
+            src="{{ wwa.settings.founder_image | image_url: width: 600 }}"
+            alt="{{ wwa.settings.founder_image.alt | default: 'Our team' | escape }}"
+            width="600"
+            height="{{ 600 | divided_by: wwa.settings.founder_image.aspect_ratio | round }}"
+            loading="lazy"
+          >
+        {%- else -%}
+          <div class="clp-wwa__slideshow" aria-hidden="true">
+            <img class="clp-wwa__slide clp-wwa__slide--active" src="{{ asset_prod_1 }}" alt="" width="600" height="800" loading="eager">
+            <img class="clp-wwa__slide" src="{{ asset_prod_2 }}" alt="" width="600" height="800" loading="lazy">
+            <img class="clp-wwa__slide" src="{{ asset_prod_3 }}" alt="" width="600" height="800" loading="lazy">
+            <img class="clp-wwa__slide" src="{{ asset_prod_4 }}" alt="" width="600" height="800" loading="lazy">
+            <img class="clp-wwa__slide" src="{{ asset_prod_5 }}" alt="" width="600" height="800" loading="lazy">
+            <img class="clp-wwa__slide" src="{{ asset_prod_6 }}" alt="" width="600" height="800" loading="lazy">
+          </div>
+        {%- endif -%}
+      </div>
+      <div class="clp-wwa__text clp-a" {{ wwa.shopify_attributes }}>
+        {%- if wwa.settings.origin_tag != blank -%}
+          <span class="clp-wwa__origin">📍 {{ wwa.settings.origin_tag | escape }}</span>
+        {%- endif -%}
+        <h2 class="clp-wwa__heading">{{ wwa.settings.heading | default: 'Who We Are' | escape }}</h2>
+        <p class="clp-wwa__bio">{{ wwa.settings.bio | escape }}</p>
+        <div class="clp-wwa__stats">
+          {%- if wwa.settings.stat1_num != blank -%}
+            <div class="clp-stat">
+              <span class="clp-stat__num">{{ wwa.settings.stat1_num | escape }}</span>
+              <span class="clp-stat__label">{{ wwa.settings.stat1_label | escape }}</span>
+            </div>
+          {%- endif -%}
+          {%- if wwa.settings.stat2_num != blank -%}
+            <div class="clp-stat">
+              <span class="clp-stat__num">{{ wwa.settings.stat2_num | escape }}</span>
+              <span class="clp-stat__label">{{ wwa.settings.stat2_label | escape }}</span>
+            </div>
+          {%- endif -%}
+          {%- if wwa.settings.stat3_num != blank -%}
+            <div class="clp-stat">
+              <span class="clp-stat__num">{{ wwa.settings.stat3_num | escape }}</span>
+              <span class="clp-stat__label">{{ wwa.settings.stat3_label | escape }}</span>
+            </div>
+          {%- endif -%}
+          {%- if wwa.settings.stat4_num != blank -%}
+            <div class="clp-stat">
+              <span class="clp-stat__num">{{ wwa.settings.stat4_num | escape }}</span>
+              <span class="clp-stat__label">{{ wwa.settings.stat4_label | escape }}</span>
+            </div>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+  </div>
+  {%- endif -%}
+
+  {%- comment -%}══ 7. OFFER / URGENCY ══{%- endcomment -%}
+  <div class="clp-offer">
+    {%- if hero_bg -%}
+      <div class="clp-offer__bg" style="background-image: url('{{ hero_bg }}');"></div>
+    {%- else -%}
+      <div class="clp-offer__bg" style="background: #111;"></div>
+    {%- endif -%}
+    <div class="clp-offer__overlay"></div>
+    <div class="clp-offer__content">
+      <h2 class="clp-offer__heading">{{ section.settings.offer_text | escape }}</h2>
+      <p class="clp-offer__sub">{{ section.settings.offer_subtext | escape }}</p>
+      <div class="clp-countdown" data-deadline="{{ section.settings.offer_deadline | escape }}">
+        <div class="clp-cd-block"><span class="clp-cd-num" data-days>00</span><span class="clp-cd-label">Days</span></div>
+        <div class="clp-cd-block"><span class="clp-cd-num" data-hours>00</span><span class="clp-cd-label">Hours</span></div>
+        <div class="clp-cd-block"><span class="clp-cd-num" data-mins>00</span><span class="clp-cd-label">Mins</span></div>
+        <div class="clp-cd-block"><span class="clp-cd-num" data-secs>00</span><span class="clp-cd-label">Secs</span></div>
+      </div>
+      <div style="margin-top: 2.5rem;">
+        <a href="{{ cta_link }}" class="clp-cta-primary">
+          {{ section.settings.offer_cta_text | default: 'Claim My Discount' | escape }}
+        </a>
+      </div>
+    </div>
+  </div>
+
+  {%- comment -%}══ 8. FOOTER LINKS ══{%- endcomment -%}
+  <div class="clp-foot">
+    <ul class="clp-foot__links">
+      <li><a href="/policies/privacy-policy">Privacy Policy</a></li>
+      <li><a href="/policies/shipping-policy">Shipping</a></li>
+      <li><a href="/policies/refund-policy">Returns</a></li>
+    </ul>
+  </div>
+
+</div>
+
+<script>
+(function () {
+  'use strict';
+
+  /* ── Countdown Timer ── */
+  var cd = document.querySelector('.clp-{{ section.id }} .clp-countdown');
+  if (cd) {
+    var end = new Date(cd.dataset.deadline).getTime();
+    if (!isNaN(end)) {
+      var pad = function (n) { return String(n).padStart(2, '0'); };
+      var tick = function () {
+        var diff = end - Date.now();
+        if (diff <= 0) { cd.closest('.clp-offer__content').style.display = 'none'; return; }
+        cd.querySelector('[data-days]').textContent  = pad(Math.floor(diff / 86400000));
+        cd.querySelector('[data-hours]').textContent = pad(Math.floor(diff % 86400000 / 3600000));
+        cd.querySelector('[data-mins]').textContent  = pad(Math.floor(diff % 3600000  / 60000));
+        cd.querySelector('[data-secs]').textContent  = pad(Math.floor(diff % 60000    / 1000));
+      };
+      tick();
+      setInterval(tick, 1000);
+    }
+  }
+
+  /* ── Who We Are — product image slideshow ── */
+  var slides = document.querySelectorAll('.clp-{{ section.id }} .clp-wwa__slide');
+  if (slides.length > 1) {
+    var slideIdx = 0;
+    setInterval(function () {
+      slides[slideIdx].classList.remove('clp-wwa__slide--active');
+      slideIdx = (slideIdx + 1) % slides.length;
+      slides[slideIdx].classList.add('clp-wwa__slide--active');
+    }, 3000);
+  }
+
+  /* ── Scroll animations ── */
+  var els = document.querySelectorAll('.clp-{{ section.id }} .clp-a');
+  if (!els.length) return;
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add('on'); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.12 });
+    els.forEach(function (el) { io.observe(el); });
+  } else {
+    els.forEach(function (el) { el.classList.add('on'); });
+  }
+
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Custom Landing Page",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    { "type": "header", "content": "Brand Banner" },
+    {
+      "type": "text",
+      "id": "banner_title",
+      "label": "Banner Title",
+      "default": "Anarkali",
+      "info": "The large centred product name displayed at the top of the page."
+    },
+    {
+      "type": "text",
+      "id": "banner_eyebrow",
+      "label": "Banner Eyebrow Text",
+      "default": "The Art of Indian Elegance",
+      "info": "Small uppercase label shown above the banner title."
+    },
+    {
+      "type": "text",
+      "id": "banner_tagline",
+      "label": "Banner Tagline",
+      "default": "Handcrafted · Heritage · Timeless",
+      "info": "Decorative text shown below the banner title, between the divider lines."
+    },
+    {
+      "type": "color",
+      "id": "banner_color_start",
+      "label": "Banner Title Colour (start)",
+      "default": "#8b4513",
+      "info": "Left and right colour of the title gradient."
+    },
+    {
+      "type": "color",
+      "id": "banner_color_end",
+      "label": "Banner Title Colour (mid)",
+      "default": "#c47020",
+      "info": "Centre colour of the title gradient."
+    },
+    { "type": "header", "content": "Hero" },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Hero Background Image",
+      "info": "If left blank, falls back to the featured collection image."
+    },
+    {
+      "type": "text",
+      "id": "hero_eyebrow",
+      "label": "Eyebrow Label (Who is it for)",
+      "default": "For Every Woman Who Deserves to Feel Extraordinary",
+      "info": "Small badge shown above the headline — describes your target customer."
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Hero Heading (What is this)",
+      "default": "Wear Confidence. Own Every Celebration."
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Hero Subheading (Why should I care)",
+      "default": "Handcrafted Anarkali suits — rooted in Mughal heritage, cut to flatter every body type, and designed to make you the most memorable woman in the room."
+    },
+    {
+      "type": "text",
+      "id": "hero_proof",
+      "label": "Social Proof Line",
+      "default": "Loved by 1,200+ women across India · 4.9★ average rating",
+      "info": "Short trust line shown below the subheading. A star ⭐ is added automatically."
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "Primary CTA Button Text",
+      "default": "Add to Cart"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "Primary CTA Button Link"
+    },
+    {
+      "type": "text",
+      "id": "cta2_text",
+      "label": "Secondary CTA Button Text (optional)",
+      "info": "Leave blank to hide the second button."
+    },
+    {
+      "type": "url",
+      "id": "cta2_link",
+      "label": "Secondary CTA Button Link"
+    },
+    {
+      "type": "text",
+      "id": "values_heading",
+      "label": "Value Props Section Heading",
+      "default": "Why Women Choose Our Anarkalis",
+      "info": "Heading shown above the benefit cards."
+    },
+    { "type": "header", "content": "Featured Products" },
+    {
+      "type": "collection",
+      "id": "featured_collection",
+      "label": "Featured Collection",
+      "info": "Products from this collection will appear in the product grid."
+    },
+    {
+      "type": "range",
+      "id": "products_count",
+      "label": "Number of Products",
+      "min": 2,
+      "max": 8,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "checkbox",
+      "id": "show_view_all",
+      "label": "Show 'View All' button",
+      "default": true
+    },
+    { "type": "header", "content": "Category Section" },
+    {
+      "type": "text",
+      "id": "cats_heading",
+      "label": "Section Heading",
+      "default": "Shop by Occasion"
+    },
+    {
+      "type": "collection",
+      "id": "cat_collection_1",
+      "label": "Category 1 (zoomed image)"
+    },
+    {
+      "type": "collection",
+      "id": "cat_collection_2",
+      "label": "Category 2 (flipped image)"
+    },
+    {
+      "type": "collection",
+      "id": "cat_collection_3",
+      "label": "Category 3 (warm tone image)"
+    },
+    { "type": "header", "content": "Brand Story" },
+    {
+      "type": "image_picker",
+      "id": "story_image",
+      "label": "Story Section Image",
+      "info": "Use a founder photo, workshop shot, or fabric close-up — something different from the hero image. Falls back to hero image if left blank."
+    },
+    {
+      "type": "text",
+      "id": "brand_story_heading",
+      "label": "Heading",
+      "default": "Born in Mughal Courts. Worn by Modern Women."
+    },
+    {
+      "type": "richtext",
+      "id": "brand_story_text",
+      "label": "Story Text",
+      "default": "<p>The word <em>Anarkali</em> means <em>flower of pomegranate</em> — delicate, vivid, and impossibly beautiful. Named after a legendary courtesan of Emperor Akbar's royal court in 16th-century India, the Anarkali silhouette has graced Mughal darbaars, Bollywood screens, and the most cherished celebrations of millions of women for over 400 years.</p><p>At Janviaika, we honour that heritage while designing for the woman of today. Every piece in our collection is crafted from premium fabrics — silk, georgette, and velvet — and adorned with hand-done embroidery: zardozi, mirror work, and thread detailing that catch the light beautifully. The dramatic flared silhouette does what it has always done — it flatters every body type, creates a graceful vertical line, and makes the woman wearing it feel utterly unforgettable.</p><p>Because we believe you deserve to feel like royalty at every celebration that matters.</p>"
+    },
+    { "type": "header", "content": "Testimonials" },
+    {
+      "type": "text",
+      "id": "testis_heading",
+      "label": "Section Heading",
+      "default": "Real Women. Real Celebrations."
+    },
+    {
+      "type": "text",
+      "id": "testis_subheading",
+      "label": "Review Count Line",
+      "default": "Over 1,200 happy customers across India",
+      "info": "Shown below the heading with 5-star icons."
+    },
+    { "type": "header", "content": "Seasonal / Fabric Feel" },
+    {
+      "type": "text",
+      "id": "seasons_heading",
+      "label": "Section Heading",
+      "default": "Crafted for Every Season",
+      "info": "Shown above the season cards. Only appears when season_card blocks are added."
+    },
+    {
+      "type": "text",
+      "id": "seasons_subheading",
+      "label": "Section Subtitle",
+      "info": "One line shown below the heading to explain the section. Leave blank to use the default text."
+    },
+    { "type": "header", "content": "Offer / Urgency" },
+    {
+      "type": "text",
+      "id": "offer_text",
+      "label": "Offer Heading",
+      "default": "Eid & Wedding Season Sale — Up to 30% Off"
+    },
+    {
+      "type": "text",
+      "id": "offer_subtext",
+      "label": "Offer Subtext",
+      "default": "Celebrate the season in your finest Anarkali. Use code ANARKALI30 at checkout. Limited pieces — don't miss out."
+    },
+    {
+      "type": "text",
+      "id": "offer_deadline",
+      "label": "Countdown Deadline",
+      "info": "Format: YYYY-MM-DDTHH:MM:SS e.g. 2026-04-10T23:59:59 — keep this within 3–7 days for real urgency.",
+      "default": "2026-04-10T23:59:59"
+    },
+    {
+      "type": "text",
+      "id": "offer_cta_text",
+      "label": "Offer CTA Button Text",
+      "default": "Claim My Discount",
+      "info": "Button shown below the countdown timer."
+    },
+  ],
+  "blocks": [
+    {
+      "type": "value_prop",
+      "name": "Value Proposition",
+      "settings": [
+        { "type": "text", "id": "title",       "label": "Title",       "default": "Free Shipping" },
+        { "type": "text", "id": "description", "label": "Description", "default": "On all domestic orders" }
+      ]
+    },
+    {
+      "type": "testimonial",
+      "name": "Testimonial",
+      "settings": [
+        { "type": "text",     "id": "name",   "label": "Customer Name", "default": "Happy Customer" },
+        { "type": "textarea", "id": "review", "label": "Review",        "default": "Absolutely love the quality. Got so many compliments!" },
+        { "type": "range",    "id": "rating", "label": "Rating (Stars)", "min": 1, "max": 5, "step": 1, "default": 5 }
+      ]
+    },
+    {
+      "type": "trust_badge",
+      "name": "Trust Badge",
+      "limit": 6,
+      "settings": [
+        { "type": "text", "id": "icon",     "label": "Icon (emoji)",  "default": "✅" },
+        { "type": "text", "id": "label",    "label": "Label",         "default": "Verified Brand" },
+        { "type": "text", "id": "sublabel", "label": "Sub-label (optional)", "info": "Small text below the label. Leave blank to hide." }
+      ]
+    },
+    {
+      "type": "season_card",
+      "name": "Season Card",
+      "limit": 6,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "season_image",
+          "label": "Season Lifestyle Photo",
+          "info": "Upload a photo of the dress being worn in this season/occasion. The callout pills will appear over this image."
+        },
+        {
+          "type": "select",
+          "id": "season_key",
+          "label": "Season",
+          "info": "This card will only show when the store is visited in the matching season.",
+          "options": [
+            { "value": "summer",  "label": "Summer (Mar – Jun)" },
+            { "value": "monsoon", "label": "Monsoon (Jul – Sep)" },
+            { "value": "festive", "label": "Festive (Oct – Nov)" },
+            { "value": "winter",  "label": "Winter (Dec – Feb)" }
+          ],
+          "default": "summer"
+        },
+        { "type": "text", "id": "icon",         "label": "Icon (emoji)",      "default": "☀️", "info": "Appears as a pill in the bottom-right corner of the image." },
+        { "type": "text", "id": "season_label", "label": "Season / Occasion", "default": "Summer" },
+        { "type": "text", "id": "fabric_name",  "label": "Fabric",            "default": "Georgette", "info": "Shown as a small uppercase tag below the season name." },
+        { "type": "textarea", "id": "feel_desc", "label": "Description",      "default": "Light and breathable — the flare keeps you cool even at outdoor ceremonies in peak summer." },
+        {
+          "type": "header",
+          "content": "Annotation Pills (overlaid on image)"
+        },
+        { "type": "text", "id": "callout_1", "label": "Pill 1", "default": "Breathable", "info": "Short label shown as a floating pill on the image. e.g. Breathable, Lightweight, Sweat-wicking." },
+        { "type": "text", "id": "callout_2", "label": "Pill 2", "default": "Lightweight" },
+        { "type": "text", "id": "callout_3", "label": "Pill 3", "info": "Leave blank to show only 2 pills." }
+      ]
+    },
+    {
+      "type": "who_we_are",
+      "name": "Who We Are",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "founder_video",
+          "label": "Brand Video (asset filename)",
+          "info": "Upload a .mp4 to your Shopify Files and enter the filename here e.g. brand-story.mp4 — plays silently on loop. Takes priority over the image below."
+        },
+        {
+          "type": "image_picker",
+          "id": "founder_image",
+          "label": "Founder / Team Photo",
+          "info": "Fallback if no video is set. Use a founder, team, or workshop photo — not a product image."
+        },
+        { "type": "text",     "id": "origin_tag", "label": "Origin Tag",   "default": "Tiruppur, Tamil Nadu", "info": "Shown as a small location label above the heading." },
+        { "type": "text",     "id": "heading",    "label": "Heading",      "default": "A Family Business, Built on Fabric & Trust" },
+        { "type": "textarea", "id": "bio",        "label": "About Us Text", "default": "We are a Tiruppur-based family business with over a decade in Indian ethnic wear. Every piece we ship is hand-picked, quality-checked, and packed with care — because we know you're dressing for a moment that matters." },
+        { "type": "text", "id": "stat1_num",   "label": "Stat 1 — Number", "default": "10+" },
+        { "type": "text", "id": "stat1_label", "label": "Stat 1 — Label",  "default": "Years in Business" },
+        { "type": "text", "id": "stat2_num",   "label": "Stat 2 — Number", "default": "1,200+" },
+        { "type": "text", "id": "stat2_label", "label": "Stat 2 — Label",  "default": "Happy Customers" },
+        { "type": "text", "id": "stat3_num",   "label": "Stat 3 — Number", "default": "18+" },
+        { "type": "text", "id": "stat3_label", "label": "Stat 3 — Label",  "default": "States Delivered" },
+        { "type": "text", "id": "stat4_num",   "label": "Stat 4 — Number", "info": "Leave blank to hide the 4th stat pill." },
+        { "type": "text", "id": "stat4_label", "label": "Stat 4 — Label" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Landing Page",
+      "blocks": [
+        { "type": "value_prop", "settings": { "title": "Flatters Every Figure", "description": "The Anarkali's dramatic flare creates a graceful vertical line — slimming and elongating for every body shape, from petite to plus size." } },
+        { "type": "value_prop", "settings": { "title": "Celebration-Ready Craft", "description": "Hand-done zardozi, mirror work, and thread embroidery — each piece built to catch every light in the room and hold its beauty for years." } },
+        { "type": "value_prop", "settings": { "title": "Free Shipping", "description": "Complimentary delivery on all domestic orders. Your Anarkali arrives safely, beautifully packed." } },
+        { "type": "value_prop", "settings": { "title": "Easy 7-Day Returns", "description": "Not the perfect fit? Return it hassle-free within 7 days. We stand behind every stitch we make." } },
+        { "type": "testimonial", "settings": { "name": "Priya S.",  "review": "I wore this Anarkali to my sister's mehendi and received compliments all night. The flare and zardozi work are even more stunning in person — exactly as pictured.", "rating": 5 } },
+        { "type": "testimonial", "settings": { "name": "Meera R.",  "review": "The silk georgette fabric feels incredibly luxurious. It drapes beautifully and the thread embroidery is done with such precision. Absolutely worth every rupee.", "rating": 5 } },
+        { "type": "testimonial", "settings": { "name": "Anita K.",  "review": "I have a pear-shaped body and was nervous ordering online. The Anarkali silhouette balanced my proportions perfectly — I felt so confident and radiant at the wedding.", "rating": 5 } },
+        { "type": "trust_badge", "settings": { "icon": "🏭", "label": "Made in Tiruppur", "sublabel": "India's textile capital" } },
+        { "type": "trust_badge", "settings": { "icon": "✅", "label": "Quality Checked", "sublabel": "Every piece inspected" } },
+        { "type": "trust_badge", "settings": { "icon": "🚚", "label": "Free Shipping", "sublabel": "All domestic orders" } },
+        { "type": "trust_badge", "settings": { "icon": "↩️", "label": "7-Day Returns", "sublabel": "Hassle-free policy" } },
+        { "type": "season_card", "settings": { "icon": "☀️", "season_label": "Summer & Eid", "fabric_name": "Georgette", "feel_desc": "Light and breathable — the flare keeps you cool even at outdoor ceremonies in peak summer heat." } },
+        { "type": "season_card", "settings": { "icon": "🌸", "season_label": "Monsoon & Mehendi", "fabric_name": "Crepe", "feel_desc": "Stays crisp and structured even in humid air. The mirror work catches the light beautifully on grey days." } },
+        { "type": "season_card", "settings": { "icon": "🪔", "season_label": "Festive & Diwali", "fabric_name": "Silk", "feel_desc": "Heavy and luminous — built for candlelight. The zardozi embroidery catches every flame in the room." } },
+        { "type": "season_card", "settings": { "icon": "❄️", "season_label": "Winter Weddings", "fabric_name": "Velvet", "feel_desc": "Warm, structured, and richly textured. Holds its shape perfectly in cold-weather banquet venues." } },
+        { "type": "who_we_are", "settings": { "origin_tag": "Tiruppur, Tamil Nadu", "heading": "A Family Business, Built on Fabric & Trust", "bio": "We are a Tiruppur-based family business with over a decade in Indian ethnic wear. Every piece we ship is hand-picked, quality-checked, and packed with care — because we know you're dressing for a moment that matters.", "stat1_num": "10+", "stat1_label": "Years in Business", "stat2_num": "1,200+", "stat2_label": "Happy Customers", "stat3_num": "18+", "stat3_label": "States Delivered" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

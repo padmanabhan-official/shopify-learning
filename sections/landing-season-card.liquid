@@ -1,0 +1,395 @@
+{%- style -%}
+  /* ============================================================
+     LANDING SEASON CARD — standalone section
+     All styles scoped to section ID so it never conflicts.
+     ============================================================ */
+
+  .lsc-{{ section.id }} {
+    --lsc-max:        900px;
+    --lsc-gap:        1.5rem;
+    --lsc-radius:     8px;
+    --lsc-transition: 0.35s ease;
+    --lsc-accent:     #8b4513;
+    --lsc-text:       #1a1a1a;
+  }
+
+  /* ── Section wrapper ── */
+  .lsc-{{ section.id }} .lsc-wrap {
+    padding: 5rem 1.25rem;
+    background: linear-gradient(180deg, rgba(139,69,19,0.04) 0%, rgba(196,112,32,0.06) 100%);
+    border-top: 1px solid rgba(139,69,19,0.1);
+    border-bottom: 1px solid rgba(139,69,19,0.1);
+  }
+
+  /* ── Heading & subtitle ── */
+  .lsc-{{ section.id }} .lsc-heading {
+    text-align: center;
+    font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+    font-weight: 700;
+    margin: 0 0 0.75rem;
+    color: var(--lsc-text);
+  }
+  .lsc-{{ section.id }} .lsc-subtitle {
+    text-align: center;
+    opacity: 0.55;
+    font-size: 1rem;
+    margin: 0 auto 3rem;
+    max-width: 520px;
+    line-height: 1.6;
+    color: var(--lsc-text);
+  }
+
+  /* ── Grid ── */
+  .lsc-{{ section.id }} .lsc-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: var(--lsc-gap);
+    max-width: var(--lsc-max);
+    margin: 0 auto;
+  }
+  .lsc-{{ section.id }} .lsc-grid--single {
+    grid-template-columns: 1fr;
+    max-width: 900px;
+  }
+
+  /* ── Card ── */
+  .lsc-{{ section.id }} .lsc-card {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    border-radius: var(--lsc-radius);
+    background: #fdf8f3;
+    border: 1px solid rgba(139,69,19,0.14);
+    overflow: hidden;
+    transition: transform var(--lsc-transition), box-shadow var(--lsc-transition);
+    box-shadow: 0 6px 28px rgba(139,69,19,0.1);
+  }
+  .lsc-{{ section.id }} .lsc-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 48px rgba(139,69,19,0.18);
+  }
+
+  /* ── Image wrap ── */
+  .lsc-{{ section.id }} .lsc-img-wrap {
+    position: relative;
+    width: 60%;
+    flex-shrink: 0;
+    overflow: hidden;
+    aspect-ratio: 3 / 4;
+  }
+  .lsc-{{ section.id }} .lsc-grid--single .lsc-img-wrap {
+    width: 48%;
+  }
+  .lsc-{{ section.id }} .lsc-img-wrap::after {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      linear-gradient(to right,  transparent 55%, rgba(253,248,243,0.55) 100%),
+      linear-gradient(to bottom, rgba(0,0,0,0.18) 0%, transparent 35%);
+    pointer-events: none;
+  }
+
+  /* ── Product image ── */
+  .lsc-{{ section.id }} .lsc-img {
+    position: static;
+    inset: auto;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+    display: block;
+    transform: none;
+    transition: transform 0.55s ease;
+  }
+  .lsc-{{ section.id }} .lsc-card:hover .lsc-img { transform: scale(1.04); }
+
+  /* ── Icon pill ── */
+  .lsc-{{ section.id }} .lsc-icon-pill {
+    position: absolute;
+    bottom: 0.85rem; right: 0.85rem;
+    z-index: 2;
+    font-size: 1.35rem;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(4px);
+    border-radius: 50%;
+    width: 2.6rem; height: 2.6rem;
+    display: flex; align-items: center; justify-content: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.14);
+  }
+
+  /* ── Text body ── */
+  .lsc-{{ section.id }} .lsc-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 2rem 2rem 2rem 1.8rem;
+    text-align: left;
+    border-left: 3px solid rgba(139,69,19,0.15);
+    background: #fdf8f3;
+  }
+
+  /* ── Season label (h3) ── */
+  .lsc-{{ section.id }} .lsc-label {
+    font-weight: 700;
+    font-size: clamp(1rem, 1.8vw, 1.4rem);
+    margin: 0 0 0.4rem;
+    color: var(--lsc-text);
+    line-height: 1.2;
+  }
+
+  /* ── Fabric tag ── */
+  .lsc-{{ section.id }} .lsc-fabric {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--lsc-accent);
+    margin: 0 0 0.9rem;
+    padding-bottom: 0.9rem;
+    border-bottom: 1px solid rgba(139,69,19,0.18);
+  }
+
+  /* ── Description ── */
+  .lsc-{{ section.id }} .lsc-feel {
+    font-size: 0.84rem;
+    line-height: 1.65;
+    color: var(--lsc-text);
+    opacity: 0.72;
+    margin: 0;
+  }
+
+  /* ── Feature fit list ── */
+  .lsc-{{ section.id }} .lsc-fit-list {
+    list-style: none;
+    margin: 1.1rem 0 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+  }
+  .lsc-{{ section.id }} .lsc-fit-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.55rem;
+    font-size: 0.84rem;
+    line-height: 1.5;
+    color: var(--lsc-text);
+    opacity: 0.85;
+  }
+  .lsc-{{ section.id }} .lsc-fit-icon {
+    flex-shrink: 0;
+    width: 1.2rem;
+    height: 1.2rem;
+    background: rgba(139,69,19,0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 0.1rem;
+    font-size: 0.6rem;
+    color: var(--lsc-accent);
+  }
+
+  /* ── Mobile ── */
+  @media (max-width: 768px) {
+    .lsc-{{ section.id }} .lsc-grid--single { max-width: 100%; }
+    .lsc-{{ section.id }} .lsc-grid--single .lsc-img-wrap {
+      width: 44%;
+      aspect-ratio: 3 / 4;
+    }
+    .lsc-{{ section.id }} .lsc-icon-pill { display: none; }
+    .lsc-{{ section.id }} .lsc-body {
+      padding: 1rem 0.9rem;
+      justify-content: flex-start;
+    }
+    .lsc-{{ section.id }} .lsc-label   { font-size: 0.95rem; }
+    .lsc-{{ section.id }} .lsc-feel    { font-size: 0.78rem; }
+    .lsc-{{ section.id }} .lsc-fit-list { gap: 0.45rem; }
+    .lsc-{{ section.id }} .lsc-fit-item { font-size: 0.76rem; }
+  }
+{%- endstyle -%}
+
+{%- liquid
+  assign season_blocks = section.blocks | where: 'type', 'season_card'
+
+  assign current_month  = 'now' | date: "%m" | plus: 0
+  assign current_season = 'winter'
+  if current_month >= 3 and current_month <= 6
+    assign current_season = 'summer'
+  endif
+  if current_month >= 7 and current_month <= 9
+    assign current_season = 'monsoon'
+  endif
+  if current_month >= 10 and current_month <= 11
+    assign current_season = 'festive'
+  endif
+
+  assign season_match_count = 0
+  for block in season_blocks
+    if block.settings.season_key == current_season
+      assign season_match_count = season_match_count | plus: 1
+    endif
+  endfor
+-%}
+
+{%- if season_match_count > 0 -%}
+<div class="lsc-{{ section.id }}">
+  <div class="lsc-wrap">
+
+    {%- comment -%} Heading — custom or auto from season {%- endcomment -%}
+    {%- if section.settings.heading != blank -%}
+      <h2 class="lsc-heading">{{ section.settings.heading | escape }}</h2>
+    {%- else -%}
+      {%- case current_season -%}
+        {%- when 'summer'  -%}<h2 class="lsc-heading">Perfect for This Summer</h2>
+        {%- when 'monsoon' -%}<h2 class="lsc-heading">Perfect for the Monsoon Season</h2>
+        {%- when 'festive' -%}<h2 class="lsc-heading">Perfect for the Festive Season</h2>
+        {%- when 'winter'  -%}<h2 class="lsc-heading">Perfect for Winter Celebrations</h2>
+      {%- endcase -%}
+    {%- endif -%}
+
+    {%- if section.settings.subtitle != blank -%}
+      <p class="lsc-subtitle">{{ section.settings.subtitle | escape }}</p>
+    {%- else -%}
+      <p class="lsc-subtitle">Here's how this piece is built for the season you're in right now.</p>
+    {%- endif -%}
+
+    <div class="lsc-grid{% if season_match_count == 1 %} lsc-grid--single{% endif %}">
+      {%- for block in season_blocks -%}
+        {%- if block.settings.season_key != current_season -%}{%- continue -%}{%- endif -%}
+
+        <div class="lsc-card" {{ block.shopify_attributes }}>
+
+          {%- comment -%} Image ─ left column {%- endcomment -%}
+          <div class="lsc-img-wrap">
+            {%- if block.settings.season_image != blank -%}
+              <img
+                class="lsc-img"
+                src="{{ block.settings.season_image | image_url: width: 600 }}"
+                alt="{{ block.settings.season_label | escape }}"
+                width="600"
+                height="{{ 600 | divided_by: block.settings.season_image.aspect_ratio | round }}"
+                loading="lazy"
+              >
+            {%- else -%}
+              <img
+                class="lsc-img"
+                src="{{ 'placeholder.svg' | asset_url }}"
+                alt="{{ block.settings.season_label | escape }}"
+                width="600"
+                height="800"
+                loading="lazy"
+              >
+            {%- endif -%}
+            <span class="lsc-icon-pill" aria-hidden="true">{{ block.settings.icon | default: '🌿' }}</span>
+          </div>
+
+          {%- comment -%} Text body ─ right column {%- endcomment -%}
+          <div class="lsc-body">
+            <h3 class="lsc-label">{{ block.settings.season_label | escape }}</h3>
+            {%- if block.settings.fabric_name != blank -%}
+              <p class="lsc-fabric">{{ block.settings.fabric_name | escape }}</p>
+            {%- endif -%}
+            <p class="lsc-feel">{{ block.settings.feel_desc | escape }}</p>
+
+            {%- if block.settings.callout_1 != blank or block.settings.callout_2 != blank or block.settings.callout_3 != blank -%}
+              <ul class="lsc-fit-list">
+                {%- if block.settings.callout_1 != blank -%}
+                  <li class="lsc-fit-item">
+                    <span class="lsc-fit-icon">✓</span>
+                    <span>{{ block.settings.callout_1 | escape }}</span>
+                  </li>
+                {%- endif -%}
+                {%- if block.settings.callout_2 != blank -%}
+                  <li class="lsc-fit-item">
+                    <span class="lsc-fit-icon">✓</span>
+                    <span>{{ block.settings.callout_2 | escape }}</span>
+                  </li>
+                {%- endif -%}
+                {%- if block.settings.callout_3 != blank -%}
+                  <li class="lsc-fit-item">
+                    <span class="lsc-fit-icon">✓</span>
+                    <span>{{ block.settings.callout_3 | escape }}</span>
+                  </li>
+                {%- endif -%}
+              </ul>
+            {%- endif -%}
+          </div>
+
+        </div>
+      {%- endfor -%}
+    </div>
+
+  </div>
+</div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Season Card",
+  "tag": "section",
+  "class": "lsc-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Section Heading",
+      "info": "Leave blank to auto-generate based on current season."
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Section Subtitle",
+      "info": "One line shown below the heading. Leave blank to use default text."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "season_card",
+      "name": "Season Card",
+      "limit": 6,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "season_image",
+          "label": "Product / Lifestyle Photo",
+          "info": "Photo of the outfit being worn in this season or occasion."
+        },
+        {
+          "type": "select",
+          "id": "season_key",
+          "label": "Season",
+          "info": "This card only shows when the store is visited in the matching season.",
+          "options": [
+            { "value": "summer",  "label": "Summer (Mar – Jun)" },
+            { "value": "monsoon", "label": "Monsoon (Jul – Sep)" },
+            { "value": "festive", "label": "Festive (Oct – Nov)" },
+            { "value": "winter",  "label": "Winter (Dec – Feb)" }
+          ],
+          "default": "summer"
+        },
+        { "type": "text",     "id": "icon",         "label": "Icon (emoji)",      "default": "☀️" },
+        { "type": "text",     "id": "season_label", "label": "Season / Occasion", "default": "Summer & Eid" },
+        { "type": "text",     "id": "fabric_name",  "label": "Fabric",            "default": "Georgette" },
+        { "type": "textarea", "id": "feel_desc",    "label": "Description",       "default": "Light and breathable — the flare keeps you cool even at outdoor ceremonies in peak summer heat." },
+        { "type": "header",   "content": "Why it works this season" },
+        { "type": "text", "id": "callout_1", "label": "Reason 1", "default": "Flare creates airflow" },
+        { "type": "text", "id": "callout_2", "label": "Reason 2", "default": "Feather-light on skin" },
+        { "type": "text", "id": "callout_3", "label": "Reason 3", "default": "No sweat marks" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Season Card",
+      "blocks": [
+        { "type": "season_card", "settings": { "icon": "☀️", "season_label": "Summer & Eid",       "fabric_name": "Georgette", "season_key": "summer",  "feel_desc": "Light and breathable — the flare keeps you cool even at outdoor ceremonies in peak summer heat.", "callout_1": "Flare creates airflow", "callout_2": "Feather-light on skin", "callout_3": "No sweat marks" } },
+        { "type": "season_card", "settings": { "icon": "🌸", "season_label": "Monsoon & Mehendi",  "fabric_name": "Crepe",     "season_key": "monsoon", "feel_desc": "Stays crisp and structured even in humid air. The mirror work catches the light beautifully on grey days.", "callout_1": "Humidity-resistant fabric", "callout_2": "Holds its shape", "callout_3": "Mirror work shines on grey days" } },
+        { "type": "season_card", "settings": { "icon": "🪔", "season_label": "Festive & Diwali",   "fabric_name": "Silk",      "season_key": "festive", "feel_desc": "Heavy and luminous — built for candlelight. The zardozi embroidery catches every flame in the room.", "callout_1": "Rich zardozi embroidery", "callout_2": "Lustrous silk finish", "callout_3": "Candlelight-ready sheen" } },
+        { "type": "season_card", "settings": { "icon": "❄️", "season_label": "Winter Weddings",    "fabric_name": "Velvet",    "season_key": "winter",  "feel_desc": "Warm, structured, and richly textured. Holds its shape perfectly in cold-weather banquet venues.", "callout_1": "Warm velvet weight", "callout_2": "Structured silhouette", "callout_3": "Rich texture in photos" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

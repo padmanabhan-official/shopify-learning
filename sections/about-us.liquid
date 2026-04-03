@@ -1,0 +1,293 @@
+{%- style -%}
+  .about-{{ section.id }} {
+    background-color: {{ section.settings.bg_color }};
+    color: {{ section.settings.text_color }};
+    line-height: 1.6;
+  }
+  .about-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+  }
+  .about-hero-image {
+    width: 100%;
+    margin-bottom: 60px;
+  }
+  .about-hero-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .about-header-centered {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 60px;
+  }
+  .about-header-centered h1 {
+    font-size: 36px;
+    color: {{ section.settings.accent_color }};
+    margin-bottom: 20px;
+  }
+  .about-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 80px;
+    gap: 40px;
+  }
+  .about-row.reverse {
+    flex-direction: row-reverse;
+  }
+  .about-column {
+    flex: 1;
+  }
+  .about-image-frame img {
+    width: 100%;
+    height: auto;
+    box-shadow: 10px 10px 0px {{ section.settings.accent_color | color_modify: 'alpha', 0.1 }};
+  }
+  .about-text-content h2 {
+    color: {{ section.settings.accent_color }};
+    font-size: 28px;
+    margin-bottom: 20px;
+  }
+  .about-quote-block {
+    margin: 25px 0;
+    font-style: italic;
+    font-size: 20px;
+    color: {{ section.settings.accent_color }};
+  }
+  .about-quote-block cite {
+    display: block;
+    font-style: normal;
+    font-size: 14px;
+    margin-top: 5px;
+    font-weight: bold;
+    text-align: right;
+  }
+
+  /* Promise Section */
+  .promise-section {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin-top: 100px;
+    padding-top: 60px;
+    border-top: 1px solid #eee;
+  }
+  .promise-list-wrapper {
+    flex: 1;
+    min-width: 300px;
+  }
+  .promise-list-wrapper h2 {
+    font-size: 32px;
+    color: {{ section.settings.accent_color }};
+    margin-bottom: 30px;
+  }
+  .promise-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
+    font-size: 18px;
+    font-weight: bold;
+  }
+  .promise-icon {
+    color: {{ section.settings.accent_color }};
+    font-size: 24px;
+  }
+  .brand-logo-footer {
+    flex: 1;
+    text-align: center;
+    min-width: 300px;
+  }
+  .footer-welcome {
+    text-align: center;
+    margin-top: 80px;
+  }
+  .footer-welcome h2 {
+    font-size: 32px;
+    color: {{ section.settings.accent_color }};
+  }
+
+  @media screen and (max-width: 768px) {
+    .about-row, .about-row.reverse, .promise-section {
+      flex-direction: column;
+    }
+    .about-header-centered h1 { font-size: 28px; }
+  }
+{%- endstyle -%}
+
+<section class="about-{{ section.id }}">
+  <div class="about-container">
+
+    <div class="about-row reverse">
+      <div class="about-column">
+        <div class="about-image-frame">
+          {% if section.settings.image_1 %}
+            <img src="{{ section.settings.image_1 | image_url: width: 600 }}" alt="Our Heritage" width="600" height="{{ 600 | divided_by: section.settings.image_1.aspect_ratio | round }}">
+          {% else %}
+            {{ 'image' | placeholder_svg_tag }}
+          {% endif %}
+        </div>
+      </div>
+      <div class="about-column">
+        <div class="about-text-content">
+          <h2>A Premium Celebration-Wear Brand for the World</h2>
+          <p>
+            Demo Store is a premium celebration-wear brand designed for women who want to feel confident,
+            elegant, and unforgettable during life's most meaningful moments. Our collections include beautifully
+            crafted ethnic wear, graceful suits, refined dresses, elegant party wear and effortless everyday
+            styles — each piece blending traditional craftsmanship with modern aesthetics.
+          </p>
+
+          <div class="about-quote-block">
+            "Fashion is the armor to survive the reality of everyday life."
+            <cite>— Bill Cunningham</cite>
+          </div>
+          <p>
+            At Demo Store, we believe fashion is more than clothing — it is confidence, identity, and celebration.
+            Our first store began in Sample City, and from there, we envisioned a brand that would expand across
+            the country and connect with customers globally through online platforms.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="about-row">
+      <div class="about-column">
+        <div class="about-image-frame">
+          {% if section.settings.image_2 %}
+            <img src="{{ section.settings.image_2 | image_url: width: 600 }}" alt="Style" width="600" height="{{ 600 | divided_by: section.settings.image_2.aspect_ratio | round }}">
+          {% else %}
+            {{ 'image' | placeholder_svg_tag }}
+          {% endif %}
+        </div>
+      </div>
+      <div class="about-column">
+        <div class="about-text-content">
+          <h2>The Visionary Behind Demo Store</h2>
+          <p>
+            Demo Store is led by Jane Doe, a dynamic entrepreneur with international business expertise and a deep
+            appreciation for cultural heritage. With global exposure and a passion for design, she brings a
+            unique perspective to the brand — where tradition meets international sensibility. Her vision is
+            clear: to build a celebration-wear brand that feels both traditional and modern. She believes
+            traditional outfits should not be limited to rituals or weddings — they should become the go-to choice
+            for parties, milestones, and celebrations worldwide.
+          </p>
+          <div class="about-quote-block">
+            "We are not just selling outfits. We are helping people feel confident and special during
+            their most important moments."
+          </div>
+          <p>
+            Her leadership reflects a balance of global strategy and cultural authenticity — expanding reach while
+            staying rooted in values.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="about-row reverse">
+      <div class="about-column">
+        <div class="about-image-frame">
+          {% if section.settings.image_3 %}
+            <img src="{{ section.settings.image_3 | image_url: width: 600 }}" alt="Tradition Reimagined" width="600" height="{{ 600 | divided_by: section.settings.image_3.aspect_ratio | round }}">
+          {% else %}
+            {{ 'image' | placeholder_svg_tag }}
+          {% endif %}
+        </div>
+      </div>
+      <div class="about-column">
+        <div class="about-text-content">
+          <h2>Tradition, Reimagined</h2>
+          <p>
+            Demo Store represents the evolution of celebration wear. We honor age-old artistry — rich
+            fabrics, intricate embroidery, classic silhouettes — while adapting them to the lifestyle of today's
+            woman. We believe tradition should never feel outdated. It should feel powerful, relevant, and beautiful.
+          </p>
+          <div class="about-quote-block">
+            "If you can dream it, you can do it."
+            <cite>— Walt Disney</cite>
+          </div>
+          <p>Demo Store dreams beyond borders — while staying deeply connected to its cultural roots.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="about-row">
+      <div class="about-column">
+        <div class="about-image-frame">
+          {% if section.settings.image_4 %}
+            <img src="{{ section.settings.image_4 | image_url: width: 600 }}" alt="Quality" width="600" height="{{ 600 | divided_by: section.settings.image_4.aspect_ratio | round }}">
+          {% else %}
+            {{ 'image' | placeholder_svg_tag }}
+          {% endif %}
+        </div>
+      </div>
+      <div class="about-column">
+        <div class="about-text-content">
+          <h2>Quality Is Our Signature</h2>
+          <p>
+            For us, quality is not a feature — it is the foundation. From fabric selection and design detailing to
+            stitching precision and finishing, every piece goes through careful quality evaluation. We focus on
+            comfort, craftsmanship, durability, and elegance — because celebration wear is not just worn for a day;
+            it becomes part of your memories.
+          </p>
+          <div class="about-quote-block">
+            "Luxury must be comfortable, otherwise it is not luxury."
+            <cite>— Coco Chanel</cite>
+          </div>
+          <p>
+            We stand by a belief that has guided us from day one:
+            <strong>"Quality is remembered long after the price is forgotten."</strong>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="promise-section">
+      <div class="promise-list-wrapper">
+        <h2>Our Promise — Everywhere</h2>
+        <div class="promise-item"><span class="promise-icon">✱</span> Thoughtful designs and collections</div>
+        <div class="promise-item"><span class="promise-icon">✱</span> Uncompromising quality</div>
+        <div class="promise-item"><span class="promise-icon">✱</span> Fair, transparent pricing</div>
+        <div class="promise-item"><span class="promise-icon">✱</span> Reliable delivery</div>
+        <div class="promise-item"><span class="promise-icon">✱</span> Deep respect for every customer</div>
+      </div>
+      <div class="brand-logo-footer">
+        {% if section.settings.image_1 %}
+          <img
+            src="{{ section.settings.image_1 | image_url: width: 300 }}"
+            alt="Demo Store Logo"
+            width="300"
+            height="{{ 300 | divided_by: section.settings.image_1.aspect_ratio | round }}"
+            style="width: 250px;"
+          >
+        {% else %}
+          {{ 'image' | placeholder_svg_tag: class: 'placeholder-svg' }}
+        {% endif %}
+        <p style="margin-top: 15px; font-size: 14px; letter-spacing: 2px;">ETHNIC WEAR | PARTY WEAR | EVERYDAY STYLES</p>
+      </div>
+    </div>
+
+    <div class="footer-welcome">
+      <h2>Welcome to Demo Store.</h2>
+      <p>Your moments. Our craftsmanship.</p>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "About Us Story V2",
+  "settings": [
+    { "type": "image_picker", "id": "image_1", "label": "Image 1 (Quote Row)" },
+    { "type": "image_picker", "id": "image_2", "label": "Image 2 (Reverse Row)" },
+    { "type": "image_picker", "id": "image_3", "label": "Image 3 (Quality Row)" },
+    { "type": "image_picker", "id": "image_4", "label": "Image 4 (Quality Row)" },
+    { "type": "color", "id": "bg_color", "label": "Background Color", "default": "#FAF6F0" },
+    { "type": "color", "id": "text_color", "label": "Text Color", "default": "#2C2C2C" },
+    { "type": "color", "id": "accent_color", "label": "Accent Color", "default": "#801515" }
+  ],
+  "presets": [{ "name": "About Us Story V2" }]
+}
+{% endschema %}
