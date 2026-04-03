@@ -10,6 +10,9 @@
     --clp-transition: 0.35s ease;
     --clp-dark:       rgba(0,0,0,0.45);
     --clp-mid:        rgba(0,0,0,0.28);
+    --clp-accent:     #8b4513;
+    --clp-accent-mid: #c47020;
+    --clp-text:       #1a1a1a;
     overflow-x: hidden;
   }
 
@@ -29,8 +32,10 @@
   /* ── Shared helpers ── */
   .clp-{{ section.id }} .clp-section-title {
     text-align: center;
-    font-size: clamp(1.5rem, 3vw, 2.2rem);
+    font-size: clamp(1.6rem, 3vw, 2.4rem);
     font-weight: 700;
+    line-height: 1.2;
+    color: var(--clp-text);
     margin: 0 0 2.5rem;
   }
 
@@ -104,7 +109,7 @@
   }
   /* "Why should I care" proof line */
   .clp-{{ section.id }} .clp-hero__proof {
-    font-size: 0.85rem;
+    font-size: clamp(0.78rem, 1.4vw, 0.88rem);
     opacity: 0.75;
     margin: 0 0 2rem;
     display: flex;
@@ -122,7 +127,7 @@
   .clp-{{ section.id }} .clp-cta-primary {
     display: inline-block;
     padding: 1rem 2.2rem;
-    font-size: 1.05rem;
+    font-size: clamp(0.9rem, 1.8vw, 1.05rem);
     font-weight: 700;
     border-radius: var(--clp-radius);
     background: #fff;
@@ -140,7 +145,7 @@
   .clp-{{ section.id }} .clp-cta-secondary {
     display: inline-block;
     padding: 0.95rem 1.75rem;
-    font-size: 1rem;
+    font-size: clamp(0.88rem, 1.6vw, 1rem);
     font-weight: 600;
     border-radius: var(--clp-radius);
     border: 2px solid rgba(255,255,255,0.75);
@@ -180,7 +185,7 @@
     .clp-{{ section.id }} .clp-hero__eyebrow { display: none; }
     /* Subheading — hide on very small screens to reduce clutter */
     .clp-{{ section.id }} .clp-hero__sub {
-      font-size: 0.88rem;
+      font-size: clamp(0.82rem, 3vw, 0.95rem);
       opacity: 0.85;
       display: -webkit-box;
       -webkit-line-clamp: 2;
@@ -189,7 +194,7 @@
     }
     /* Proof line — compact */
     .clp-{{ section.id }} .clp-hero__proof {
-      font-size: 0.78rem;
+      font-size: clamp(0.72rem, 2.4vw, 0.82rem);
       justify-content: center;
       margin-bottom: 1.5rem;
     }
@@ -206,7 +211,7 @@
       width: auto;
       text-align: center;
       padding: 0.7rem 1.25rem;
-      font-size: 0.88rem;
+      font-size: clamp(0.82rem, 3vw, 0.9rem);
       white-space: nowrap;
     }
   }
@@ -233,9 +238,9 @@
     transform: translateY(-4px);
     box-shadow: 0 12px 32px rgba(0,0,0,0.09);
   }
-  .clp-{{ section.id }} .clp-val__icon  { font-size: 2rem; margin-bottom: 0.75rem; }
-  .clp-{{ section.id }} .clp-val__title { font-weight: 700; font-size: 1.05rem; margin: 0 0 0.4rem; }
-  .clp-{{ section.id }} .clp-val__desc  { font-size: 0.88rem; opacity: 0.72; margin: 0; }
+  .clp-{{ section.id }} .clp-val__icon  { font-size: clamp(1.6rem, 3vw, 2rem); margin-bottom: 0.75rem; display: block; }
+  .clp-{{ section.id }} .clp-val__title { font-weight: 700; font-size: clamp(0.9rem, 1.6vw, 1.05rem); margin: 0 0 0.4rem; }
+  .clp-{{ section.id }} .clp-val__desc  { font-size: clamp(0.8rem, 1.4vw, 0.88rem); opacity: 0.72; margin: 0; line-height: 1.65; text-align: left; }
 
   /* ==========================================================
      3. PRODUCT GRID — real products, CSS filter variations
@@ -280,8 +285,8 @@
     gap: 0.65rem;
     flex: 1;
   }
-  .clp-{{ section.id }} .clp-prod-card__name  { font-weight: 600; font-size: 1rem; margin: 0; }
-  .clp-{{ section.id }} .clp-prod-card__price { font-size: 0.92rem; opacity: 0.75; margin: 0; }
+  .clp-{{ section.id }} .clp-prod-card__name  { font-weight: 600; font-size: clamp(0.88rem, 1.5vw, 1rem); margin: 0; }
+  .clp-{{ section.id }} .clp-prod-card__price { font-size: clamp(0.8rem, 1.4vw, 0.92rem); opacity: 0.75; margin: 0; }
   .clp-{{ section.id }} .clp-prod-card__btn   { margin-top: auto; }
 
   /* Product image — no filters, clean and accurate */
@@ -298,7 +303,7 @@
     left: 0.75rem;
     background: rgba(0,0,0,0.65);
     color: #fff;
-    font-size: 0.7rem;
+    font-size: clamp(0.62rem, 1.1vw, 0.7rem);
     letter-spacing: 1px;
     text-transform: uppercase;
     padding: 0.25rem 0.6rem;
@@ -359,8 +364,8 @@
     padding: 1.5rem;
     color: #fff;
   }
-  .clp-{{ section.id }} .clp-cat__label h3 { margin: 0 0 0.35rem; font-weight: 700; font-size: 1.25rem; color: #fff; }
-  .clp-{{ section.id }} .clp-cat__label span { font-size: 0.85rem; color: rgba(255,255,255,0.82); text-decoration: underline; }
+  .clp-{{ section.id }} .clp-cat__label h3 { margin: 0 0 0.35rem; font-weight: 700; font-size: clamp(1rem, 2vw, 1.25rem); color: #fff; }
+  .clp-{{ section.id }} .clp-cat__label span { font-size: clamp(0.75rem, 1.3vw, 0.85rem); color: rgba(255,255,255,0.82); text-decoration: underline; }
 
   /* Category bg visual treatments (applied to .clp-cat__bg only) */
   .clp-{{ section.id }} .cb-zoom { background-size: 150%; background-position: top center; }
@@ -369,41 +374,93 @@
   .clp-{{ section.id }} .cb-warm { filter: brightness(1.18) saturate(1.45); background-position: center 35%; }
 
   /* ==========================================================
-     5. TESTIMONIALS
+     5. TESTIMONIALS — marquee carousel
      ========================================================== */
-  .clp-{{ section.id }} .clp-testis { padding: 4.5rem 1.25rem; }
-  .clp-{{ section.id }} .clp-testis__grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: var(--clp-gap);
+  .clp-{{ section.id }} .clp-testis { padding: 4.5rem 0; }
+  .clp-{{ section.id }} .clp-testis > .clp-section-title,
+  .clp-{{ section.id }} .clp-testis > p { padding: 0 1.25rem; }
+
+  /* Carousel — full-width container, arrows float inside at the edges */
+  .clp-{{ section.id }} .clp-tcarousel {
+    position: relative;
     max-width: var(--clp-max);
     margin: 0 auto;
+    padding: 0 1.25rem;
   }
+  .clp-{{ section.id }} .clp-tcar__track-wrap {
+    overflow: hidden;
+  }
+  .clp-{{ section.id }} .clp-tcar__track {
+    display: flex;
+    gap: 1.25rem;
+    will-change: transform;
+    user-select: none;
+  }
+
+  /* Card */
   .clp-{{ section.id }} .clp-testi {
-    padding: 2rem;
+    flex: 0 0 280px;
+    padding: 1.6rem;
     border-radius: var(--clp-radius);
     border: 1px solid rgba(0,0,0,0.08);
+    background: #fff;
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 0.85rem;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.05);
   }
-  .clp-{{ section.id }} .clp-testi__stars  { color: gold; font-size: 1.05rem; letter-spacing: 2px; }
-  .clp-{{ section.id }} .clp-testi__review { font-style: italic; opacity: 0.82; margin: 0; line-height: 1.7; }
+  .clp-{{ section.id }} .clp-testi__stars  { color: var(--clp-accent-mid); font-size: 1rem; letter-spacing: 2px; }
+  .clp-{{ section.id }} .clp-testi__review { font-size: 0.9rem; font-style: italic; opacity: 0.82; margin: 0; line-height: 1.72; }
   .clp-{{ section.id }} .clp-testi__author { display: flex; align-items: center; gap: 0.75rem; margin-top: auto; }
   .clp-{{ section.id }} .clp-testi__avatar {
-    width: 44px; height: 44px;
+    width: 38px; height: 38px;
     border-radius: 50%;
-    background: rgba(0,0,0,0.08);
+    background: rgba(139,69,19,0.1);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1rem;
+    font-size: 0.9rem;
     font-weight: 700;
     text-transform: uppercase;
     flex-shrink: 0;
-    color: inherit;
+    color: var(--clp-accent);
   }
-  .clp-{{ section.id }} .clp-testi__name { font-weight: 600; font-size: 0.9rem; margin: 0; }
+  .clp-{{ section.id }} .clp-testi__name { font-weight: 600; font-size: 0.85rem; margin: 0; }
+
+  /* Arrow buttons — absolutely inside the container, centred on the track */
+  .clp-{{ section.id }} .clp-tcar__btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 3;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(0,0,0,0.14);
+    background: #fff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    line-height: 1;
+    color: var(--clp-text);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    transition: var(--clp-transition);
+    padding: 0;
+  }
+  .clp-{{ section.id }} .clp-tcar__btn--prev { left:  1.25rem; }
+  .clp-{{ section.id }} .clp-tcar__btn--next { right: 1.25rem; }
+  .clp-{{ section.id }} .clp-tcar__btn:hover {
+    background: var(--clp-accent);
+    border-color: var(--clp-accent);
+    color: #fff;
+    box-shadow: 0 4px 14px rgba(139,69,19,0.28);
+  }
+  @media (max-width: 480px) {
+    .clp-{{ section.id }} .clp-tcar__btn  { width: 36px; height: 36px; font-size: 1.1rem; }
+    .clp-{{ section.id }} .clp-testi      { flex: 0 0 220px; }
+  }
 
   /* ==========================================================
      6. BRAND STORY
@@ -430,7 +487,7 @@
     background-position: center;
     transform: scale(1.0);
   }
-  .clp-{{ section.id }} .clp-story__heading { font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 700; margin: 0 0 1.25rem; }
+  .clp-{{ section.id }} .clp-story__heading { font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 700; line-height: 1.2; color: var(--clp-text); margin: 0 0 1.25rem; }
   .clp-{{ section.id }} .clp-story__body    { opacity: 0.82; line-height: 1.78; margin: 0 0 1.75rem; }
   .clp-{{ section.id }} .clp-story__body p  { margin: 0 0 0.9rem; }
   @media (max-width: 768px) {
@@ -452,13 +509,13 @@
     inset: 0;
     background-size: cover;
     background-position: center 40%;
-    filter: brightness(0.28) saturate(0.5);
+    filter: brightness(0.52) saturate(0.7);
     transform: scale(1.04);
   }
   .clp-{{ section.id }} .clp-offer__overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(135deg, rgba(0,0,0,0.55) 0%, transparent 100%);
+    background: linear-gradient(135deg, rgba(0,0,0,0.28) 0%, transparent 100%);
     z-index: 1;
   }
   .clp-{{ section.id }} .clp-offer__content { position: relative; z-index: 2; color: #fff; max-width: 640px; margin: 0 auto; }
@@ -469,11 +526,11 @@
     text-shadow: 0 2px 10px rgba(0,0,0,0.5);
     color: #fff;
   }
-  .clp-{{ section.id }} .clp-offer__sub { font-size: 1.05rem; opacity: 0.88; margin: 0 0 2.5rem; }
+  .clp-{{ section.id }} .clp-offer__sub { font-size: clamp(0.88rem, 1.8vw, 1.05rem); opacity: 0.88; margin: 0 0 2.5rem; }
   .clp-{{ section.id }} .clp-countdown  { display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; }
   .clp-{{ section.id }} .clp-cd-block   { display: flex; flex-direction: column; align-items: center; min-width: 72px; }
   .clp-{{ section.id }} .clp-cd-num {
-    font-size: 2.5rem; font-weight: 800; line-height: 1;
+    font-size: clamp(1.6rem, 4vw, 2.5rem); font-weight: 800; line-height: 1;
     padding: 0.5rem 0.75rem;
     border-radius: calc(var(--clp-radius) * 0.75);
     background: rgba(255,255,255,0.14);
@@ -481,50 +538,36 @@
     min-width: 64px; text-align: center;
   }
   .clp-{{ section.id }} .clp-cd-label {
-    font-size: 0.68rem; letter-spacing: 1.5px;
+    font-size: clamp(0.6rem, 1vw, 0.68rem); letter-spacing: 1.5px;
     text-transform: uppercase; margin-top: 0.4rem; opacity: 0.72;
   }
-
-  /* ==========================================================
-     8. FOOTER LINKS
-     ========================================================== */
-  .clp-{{ section.id }} .clp-foot {
-    padding: 2rem 1.25rem;
-    border-top: 1px solid rgba(0,0,0,0.1);
-    text-align: center;
-  }
-  .clp-{{ section.id }} .clp-foot__links {
-    display: flex; gap: 1.5rem; justify-content: center;
-    flex-wrap: wrap; list-style: none; margin: 0; padding: 0;
-  }
-  .clp-{{ section.id }} .clp-foot__links a {
-    font-size: 0.88rem; opacity: 0.68; text-decoration: none;
-    transition: opacity var(--clp-transition);
-  }
-  .clp-{{ section.id }} .clp-foot__links a:hover { opacity: 1; text-decoration: underline; }
 
   /* ==========================================================
      RESPONSIVE
      ========================================================== */
   @media (max-width: 600px) {
     .clp-{{ section.id }} .clp-hero { min-height: 75vh; }
+    .clp-{{ section.id }} .clp-values__grid { grid-template-columns: 1fr 1fr; }
     .clp-{{ section.id }} .clp-prod-grid,
     .clp-{{ section.id }} .clp-cats__grid { grid-template-columns: 1fr 1fr; }
-    .clp-{{ section.id }} .clp-testis__grid { grid-template-columns: 1fr; }
     .clp-{{ section.id }} .clp-countdown { gap: 0.75rem; }
-    .clp-{{ section.id }} .clp-cd-num { font-size: 1.8rem; min-width: 48px; }
+    .clp-{{ section.id }} .clp-cd-num { min-width: 48px; }
+  }
+  @media (max-width: 380px) {
+    .clp-{{ section.id }} .clp-values__grid { grid-template-columns: 1fr; }
+    .clp-{{ section.id }} .clp-prod-grid { grid-template-columns: 1fr; }
   }
 
   /* ==========================================================
      0. ANARKALI TITLE BANNER
      ========================================================== */
   .clp-{{ section.id }} .clp-brand-banner {
-    padding: 0.25rem 1.25rem 1.5rem;
+    padding: 0 1.25rem 1.5rem;
     text-align: center;
   }
   .clp-{{ section.id }} .clp-brand-banner__eyebrow {
     display: block;
-    font-size: 0.72rem;
+    font-size: clamp(0.62rem, 1.1vw, 0.72rem);
     font-weight: 700;
     letter-spacing: 0.3em;
     text-transform: uppercase;
@@ -562,11 +605,28 @@
     opacity: 0.18;
   }
   .clp-{{ section.id }} .clp-brand-banner__tagline {
-    font-size: 0.75rem;
+    font-size: clamp(0.65rem, 1.2vw, 0.75rem);
     letter-spacing: 0.2em;
     text-transform: uppercase;
     opacity: 0.5;
     white-space: nowrap;
+  }
+  /* Brand logo — top-left corner */
+  .clp-{{ section.id }} .clp-corner-logo {
+    display: block;
+    padding: 1rem 1.25rem 0;
+  }
+  .clp-{{ section.id }} .clp-corner-logo img {
+    height: clamp(2.5rem, 5vw, 4rem);
+    width: auto;
+    max-width: 220px;
+    object-fit: contain;
+    display: block;
+  }
+  @media (max-width: 600px) {
+    .clp-{{ section.id }} .clp-corner-logo img {
+      height: 2.2rem;
+    }
   }
   @media (max-width: 600px) {
     .clp-{{ section.id }} .clp-brand-banner { padding: 2rem 1rem 1.5rem; }
@@ -595,9 +655,9 @@
     text-align: center;
     gap: 0.2rem;
   }
-  .clp-{{ section.id }} .clp-badge__icon  { font-size: 1.5rem; line-height: 1; }
-  .clp-{{ section.id }} .clp-badge__label { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.04em; }
-  .clp-{{ section.id }} .clp-badge__sub   { font-size: 0.7rem; opacity: 0.55; }
+  .clp-{{ section.id }} .clp-badge__icon  { font-size: clamp(1.25rem, 2.5vw, 1.5rem); line-height: 1; }
+  .clp-{{ section.id }} .clp-badge__label { font-size: clamp(0.72rem, 1.3vw, 0.8rem); font-weight: 700; letter-spacing: 0.04em; }
+  .clp-{{ section.id }} .clp-badge__sub   { font-size: clamp(0.62rem, 1.1vw, 0.7rem); opacity: 0.55; }
 
   /* ==========================================================
      B. SEASONAL / FABRIC FEEL
@@ -609,13 +669,13 @@
     border-bottom: 1px solid rgba(139,69,19,0.1);
   }
   .clp-{{ section.id }} .clp-seasons .clp-section-title {
-    font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+    font-size: clamp(1.6rem, 3vw, 2.4rem);
     margin-bottom: 0.75rem;
   }
   .clp-{{ section.id }} .clp-seasons__subtitle {
     text-align: center;
     opacity: 0.55;
-    font-size: 1rem;
+    font-size: clamp(0.88rem, 1.6vw, 1rem);
     margin: 0 auto 3rem;
     max-width: 520px;
     line-height: 1.6;
@@ -654,7 +714,7 @@
     display: flex;
     align-items: flex-start;
     gap: 0.55rem;
-    font-size: 0.84rem;
+    font-size: clamp(0.76rem, 1.3vw, 0.84rem);
     line-height: 1.5;
     color: var(--clp-text);
     opacity: 0.85;
@@ -766,7 +826,7 @@
     line-height: 1.2;
   }
   .clp-{{ section.id }} .clp-season__fabric {
-    font-size: 0.68rem;
+    font-size: clamp(0.6rem, 1vw, 0.68rem);
     font-weight: 700;
     letter-spacing: 0.14em;
     text-transform: uppercase;
@@ -776,7 +836,7 @@
     border-bottom: 1px solid rgba(139,69,19,0.18);
   }
   .clp-{{ section.id }} .clp-season__feel {
-    font-size: 0.82rem;
+    font-size: clamp(0.76rem, 1.3vw, 0.82rem);
     line-height: 1.65;
     color: var(--clp-text);
     opacity: 0.7;
@@ -820,12 +880,12 @@
   .clp-{{ section.id }} .clp-wwa__slide--active { opacity: 1; }
   .clp-{{ section.id }} .clp-wwa__origin {
     display: inline-block;
-    font-size: 0.78rem; font-weight: 600; letter-spacing: 0.1em;
+    font-size: clamp(0.68rem, 1.2vw, 0.78rem); font-weight: 600; letter-spacing: 0.1em;
     text-transform: uppercase; opacity: 0.5; margin-bottom: 0.85rem;
   }
   .clp-{{ section.id }} .clp-wwa__heading {
-    font-size: clamp(1.5rem, 2.8vw, 2.2rem); font-weight: 700;
-    margin: 0 0 1.1rem; line-height: 1.25;
+    font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 700;
+    margin: 0 0 1.1rem; line-height: 1.2; color: var(--clp-text);
   }
   .clp-{{ section.id }} .clp-wwa__bio { opacity: 0.82; line-height: 1.78; margin: 0 0 2rem; }
   .clp-{{ section.id }} .clp-wwa__stats {
@@ -839,9 +899,9 @@
     border-radius: var(--clp-radius);
     border: 1px solid rgba(0,0,0,0.08);
   }
-  .clp-{{ section.id }} .clp-stat__num   { font-size: 1.6rem; font-weight: 800; line-height: 1.1; }
+  .clp-{{ section.id }} .clp-stat__num   { font-size: clamp(1.2rem, 2.8vw, 1.6rem); font-weight: 800; line-height: 1.1; color: var(--clp-accent); }
   .clp-{{ section.id }} .clp-stat__label {
-    font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.5; margin-top: 0.25rem;
+    font-size: clamp(0.62rem, 1vw, 0.7rem); letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.5; margin-top: 0.25rem;
   }
   @media (max-width: 768px) {
     .clp-{{ section.id }} .clp-wwa__inner   { grid-template-columns: 1fr; }
@@ -863,16 +923,16 @@
       justify-content: flex-start;
     }
     .clp-{{ section.id }} .clp-season__label {
-      font-size: 0.95rem;
+      font-size: clamp(0.88rem, 2.5vw, 0.95rem);
     }
     .clp-{{ section.id }} .clp-season__feel {
-      font-size: 0.78rem;
+      font-size: clamp(0.72rem, 2vw, 0.78rem);
     }
     .clp-{{ section.id }} .clp-season__fit-list {
       gap: 0.45rem;
     }
     .clp-{{ section.id }} .clp-season__fit-item {
-      font-size: 0.76rem;
+      font-size: clamp(0.7rem, 2vw, 0.76rem);
     }
   }
 {%- endstyle -%}
@@ -923,6 +983,28 @@
 
 <div class="clp-{{ section.id }}">
 
+  {%- comment -%}══ TOP-LEFT LOGO ══{%- endcomment -%}
+  {%- assign banner_logo = section.settings.banner_logo | default: settings.logo -%}
+  <div class="clp-corner-logo">
+    {%- if banner_logo != blank -%}
+      <img
+        src="{{ banner_logo | image_url: width: 400 }}"
+        alt="{{ shop.name }}"
+        width="{{ banner_logo.width | default: 400 }}"
+        height="{{ banner_logo.height | default: 120 }}"
+        loading="eager"
+      >
+    {%- else -%}
+      <img
+        src="{{ 'logo.avif' | asset_url }}"
+        alt="{{ shop.name }}"
+        width="400"
+        height="120"
+        loading="eager"
+      >
+    {%- endif -%}
+  </div>
+
   {%- comment -%}══ 0. ANARKALI BRAND BANNER ══{%- endcomment -%}
   <div class="clp-brand-banner">
     <span class="clp-brand-banner__eyebrow">{{ section.settings.banner_eyebrow | default: 'The Art of Indian Elegance' }}</span>
@@ -943,9 +1025,6 @@
     <img class="clp-hero__bg" src="{{ hero_bg }}" alt="" aria-hidden="true" loading="eager" width="1800" height="2400">
     <div class="clp-hero__overlay"></div>
     <div class="clp-hero__content">
-      {%- if section.settings.hero_eyebrow != blank -%}
-        <span class="clp-hero__eyebrow">{{ section.settings.hero_eyebrow | escape }}</span>
-      {%- endif -%}
       <h1 class="clp-hero__heading">{{ section.settings.heading | escape }}</h1>
       <p class="clp-hero__sub">{{ section.settings.subheading | escape }}</p>
       {%- if section.settings.hero_proof != blank -%}
@@ -1230,24 +1309,30 @@
 
   {%- comment -%}══ 5. TESTIMONIALS ══{%- endcomment -%}
   {%- if t_blocks.size > 0 -%}
-  <div class="clp-testis">
+  <div class="clp-testis" id="clp-testis-{{ section.id }}">
     <h2 class="clp-section-title">{{ section.settings.testis_heading | default: 'Real Women. Real Celebrations.' }}</h2>
     <p style="text-align:center; opacity:0.55; font-size:0.88rem; margin: -1.5rem 0 2rem; letter-spacing:0.05em;">
       ⭐⭐⭐⭐⭐ &nbsp;{{ section.settings.testis_subheading | default: 'Over 1,200 happy customers across India' }}
     </p>
-    <div class="clp-testis__grid">
-      {%- for block in t_blocks -%}
-        {%- assign stars = '' -%}
-        {%- for i in (1..block.settings.rating) -%}{%- assign stars = stars | append: '★' -%}{%- endfor -%}
-        <div class="clp-testi clp-a" {{ block.shopify_attributes }}>
-          <div class="clp-testi__stars" aria-label="{{ block.settings.rating }} stars">{{ stars }}</div>
-          <p class="clp-testi__review">"{{ block.settings.review | escape }}"</p>
-          <div class="clp-testi__author">
-            <span class="clp-testi__avatar" aria-hidden="true">{{ block.settings.name | slice: 0 }}</span>
-            <p class="clp-testi__name">{{ block.settings.name | escape }}</p>
-          </div>
+    <div class="clp-tcarousel">
+      <button class="clp-tcar__btn clp-tcar__btn--prev" aria-label="Previous reviews">&#8249;</button>
+      <div class="clp-tcar__track-wrap">
+        <div class="clp-tcar__track" id="clp-tcar-track-{{ section.id }}">
+          {%- for block in t_blocks -%}
+            {%- assign stars = '' -%}
+            {%- for i in (1..block.settings.rating) -%}{%- assign stars = stars | append: '★' -%}{%- endfor -%}
+            <div class="clp-testi" {{ block.shopify_attributes }}>
+              <div class="clp-testi__stars" aria-label="{{ block.settings.rating }} stars">{{ stars }}</div>
+              <p class="clp-testi__review">"{{ block.settings.review | escape }}"</p>
+              <div class="clp-testi__author">
+                <span class="clp-testi__avatar" aria-hidden="true">{{ block.settings.name | slice: 0 }}</span>
+                <p class="clp-testi__name">{{ block.settings.name | escape }}</p>
+              </div>
+            </div>
+          {%- endfor -%}
         </div>
-      {%- endfor -%}
+      </div>
+      <button class="clp-tcar__btn clp-tcar__btn--next" aria-label="Next reviews">&#8250;</button>
     </div>
   </div>
   {%- endif -%}
@@ -1372,14 +1457,6 @@
     </div>
   </div>
 
-  {%- comment -%}══ 8. FOOTER LINKS ══{%- endcomment -%}
-  <div class="clp-foot">
-    <ul class="clp-foot__links">
-      <li><a href="/policies/privacy-policy">Privacy Policy</a></li>
-      <li><a href="/policies/shipping-policy">Shipping</a></li>
-      <li><a href="/policies/refund-policy">Returns</a></li>
-    </ul>
-  </div>
 
 </div>
 
@@ -1405,6 +1482,73 @@
       setInterval(tick, 1000);
     }
   }
+
+  /* ── Testimonials — marquee carousel ── */
+  (function () {
+    var wrap    = document.querySelector('#clp-testis-{{ section.id }} .clp-tcarousel');
+    if (!wrap) return;
+    var trackWrap = wrap.querySelector('.clp-tcar__track-wrap');
+    var track     = wrap.querySelector('.clp-tcar__track');
+    var prevBtn   = wrap.querySelector('.clp-tcar__btn--prev');
+    var nextBtn   = wrap.querySelector('.clp-tcar__btn--next');
+    if (!track || !trackWrap) return;
+
+    var pos          = 0;     /* current translateX in px */
+    var speed        = 0.5;   /* px per rAF tick ≈ 30px/s at 60fps */
+    var hoverPaused  = false;
+    var userPaused   = false;
+    var resumeTimer  = null;
+
+    function gapPx() {
+      return parseFloat(window.getComputedStyle(track).gap) || 20;
+    }
+    function cardW() {
+      var c = track.querySelector('.clp-testi');
+      return c ? c.offsetWidth + gapPx() : 310;
+    }
+    /* max scroll = total track width minus the visible viewport */
+    function maxScroll() {
+      return track.scrollWidth - trackWrap.clientWidth;
+    }
+
+    function applyPos(smooth) {
+      track.style.transition = smooth ? 'transform 0.4s ease' : 'none';
+      track.style.transform  = 'translateX(-' + pos + 'px)';
+    }
+
+    (function tick() {
+      if (!hoverPaused && !userPaused) {
+        pos += speed;
+        var max = maxScroll();
+        if (max > 0 && pos >= max) {
+          /* reached the end — snap back to start in one frame */
+          pos = 0;
+          applyPos(false);
+        } else {
+          applyPos(false);
+        }
+      }
+      requestAnimationFrame(tick);
+    }());
+
+    /* Pause auto-scroll while hovering */
+    trackWrap.addEventListener('mouseenter', function () { hoverPaused = true; });
+    trackWrap.addEventListener('mouseleave', function () { hoverPaused = false; });
+
+    /* Arrow buttons */
+    function step(dir) {
+      userPaused = true;
+      clearTimeout(resumeTimer);
+      var max = maxScroll();
+      pos += dir * cardW();
+      if (pos < 0)   pos = 0;
+      if (pos > max) pos = max;
+      applyPos(true);
+      resumeTimer = setTimeout(function () { userPaused = false; }, 2000);
+    }
+    prevBtn && prevBtn.addEventListener('click', function () { step(-1); });
+    nextBtn && nextBtn.addEventListener('click', function () { step(1); });
+  }());
 
   /* ── Who We Are — product image slideshow ── */
   var slides = document.querySelectorAll('.clp-{{ section.id }} .clp-wwa__slide');
@@ -1441,6 +1585,12 @@
   "class": "section",
   "settings": [
     { "type": "header", "content": "Brand Banner" },
+    {
+      "type": "image_picker",
+      "id": "banner_logo",
+      "label": "Brand Logo",
+      "info": "Upload a logo for the landing page. Falls back to the main theme logo if left blank."
+    },
     {
       "type": "text",
       "id": "banner_title",
@@ -1761,9 +1911,16 @@
         { "type": "value_prop", "settings": { "title": "Celebration-Ready Craft", "description": "Hand-done zardozi, mirror work, and thread embroidery — each piece built to catch every light in the room and hold its beauty for years." } },
         { "type": "value_prop", "settings": { "title": "Free Shipping", "description": "Complimentary delivery on all domestic orders. Your Anarkali arrives safely, beautifully packed." } },
         { "type": "value_prop", "settings": { "title": "Easy 7-Day Returns", "description": "Not the perfect fit? Return it hassle-free within 7 days. We stand behind every stitch we make." } },
-        { "type": "testimonial", "settings": { "name": "Priya S.",  "review": "I wore this Anarkali to my sister's mehendi and received compliments all night. The flare and zardozi work are even more stunning in person — exactly as pictured.", "rating": 5 } },
-        { "type": "testimonial", "settings": { "name": "Meera R.",  "review": "The silk georgette fabric feels incredibly luxurious. It drapes beautifully and the thread embroidery is done with such precision. Absolutely worth every rupee.", "rating": 5 } },
-        { "type": "testimonial", "settings": { "name": "Anita K.",  "review": "I have a pear-shaped body and was nervous ordering online. The Anarkali silhouette balanced my proportions perfectly — I felt so confident and radiant at the wedding.", "rating": 5 } },
+        { "type": "testimonial", "settings": { "name": "Priya S.",    "review": "I wore this Anarkali to my sister's mehendi and received compliments all night. The flare and zardozi work are even more stunning in person — exactly as pictured.", "rating": 5 } },
+        { "type": "testimonial", "settings": { "name": "Meera R.",    "review": "The silk georgette fabric feels incredibly luxurious. It drapes beautifully and the thread embroidery is done with such precision. Absolutely worth every rupee.", "rating": 5 } },
+        { "type": "testimonial", "settings": { "name": "Anita K.",    "review": "I have a pear-shaped body and was nervous ordering online. The Anarkali silhouette balanced my proportions perfectly — I felt so confident and radiant at the wedding.", "rating": 5 } },
+        { "type": "testimonial", "settings": { "name": "Divya M.",    "review": "Ordered for my best friend's Haldi ceremony — the colour was even more vibrant in real life. Packaging was beautiful, delivery was fast, and it fit perfectly straight out of the box.", "rating": 5 } },
+        { "type": "testimonial", "settings": { "name": "Roshni T.",   "review": "The mirror embroidery on this piece is absolutely breathtaking. Every light catches it differently. I wore it to a sangeet and couldn't stop dancing — the flare moves like a dream.", "rating": 5 } },
+        { "type": "testimonial", "settings": { "name": "Kavya P.",    "review": "Finally found an ethnic brand that caters to tall women without compromising on the design. The length is perfect and the velvet feels so rich. Will definitely be ordering again.", "rating": 5 } },
+        { "type": "testimonial", "settings": { "name": "Sunita B.",   "review": "My mother and I ordered matching Anarkalis for Diwali. The quality exceeded our expectations — the thread work is so detailed it looks hand-painted. Received so many DMs on Instagram!", "rating": 5 } },
+        { "type": "testimonial", "settings": { "name": "Deepa N.",    "review": "I was skeptical about buying a heavy ethnic outfit online but the photos matched perfectly. The crepe fabric is cool and lightweight, ideal for a summer wedding reception.", "rating": 5 } },
+        { "type": "testimonial", "settings": { "name": "Lalitha V.",  "review": "Ordered three pieces over the past six months — every single one has been flawless. The stitching, finishing, and embellishments are consistently high quality. Genuinely my go-to brand.", "rating": 5 } },
+        { "type": "testimonial", "settings": { "name": "Jhanvi S.",   "review": "Wore this to my cousin's engagement as a bridesmaid and outshone even the bride (she said it herself!). The zardozi detailing is exquisite and the fit is absolutely spot on.", "rating": 5 } },
         { "type": "trust_badge", "settings": { "icon": "🏭", "label": "Made in Tiruppur", "sublabel": "India's textile capital" } },
         { "type": "trust_badge", "settings": { "icon": "✅", "label": "Quality Checked", "sublabel": "Every piece inspected" } },
         { "type": "trust_badge", "settings": { "icon": "🚚", "label": "Free Shipping", "sublabel": "All domestic orders" } },

@@ -102,10 +102,15 @@
       </linearGradient>
     </svg>
 
+    {%- assign is_landing_page = false -%}
+    {%- if request.page_type == 'page' and page.template_suffix == 'landing' -%}
+      {%- assign is_landing_page = true -%}
+    {%- endif -%}
+
     <a href="#main" class="visually-hidden skip-to-content">{{ 'general.accessibility.skip_to_content' | t }}</a>
     <loading-bar class="loading-bar"></loading-bar>
 
-    {%- if request.page_type != 'gift_card' and request.page_type != 'password' -%}
+    {%- if request.page_type != 'gift_card' and request.page_type != 'password' and is_landing_page == false -%}
       {%- sections 'header-group' -%}
       {%- sections 'overlay-group' -%}
 
