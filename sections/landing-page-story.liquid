@@ -1,0 +1,993 @@
+{%- comment -%}
+  PRODUCT LANDING REQUIREMENTS (all implemented in THIS file — not in custom-landing-page.liquid):
+
+  1) Founder video     → Settings: "Founder video" (upload) OR "Video embed code" (YouTube/Vimeo iframe).
+  2) Video testimonials → Blocks: "Video testimonial" (embed iframe + quote + name).
+  3) GBP reviews        → Settings: "Reviews widget embed code" (sync via third-party widget) +
+                          Blocks: "Manual Google review" (optional backup).
+  4) Single product     → Settings: "Featured product" + description + add to cart form.
+  5) Brand story        → Settings: "Brand story" heading, image, richtext.
+  6) Instagram / reels → Blocks: "Instagram / reel" (cover image + URL — add one block per post).
+
+  Template: page.landing.json (suffix "landing"). Legacy Anarkali: "landing-anarkali" (custom-landing-page).
+{%- endcomment -%}
+
+{%- style -%}
+  .lps-{{ section.id }} {
+    --lps-gap: 1.5rem;
+    --lps-max: 1180px;
+    --lps-radius: var(--block-border-radius, 8px);
+    --lps-accent: #8b4513;
+    --lps-accent-mid: #c47020;
+    --lps-bg-warm: #fdf8f3;
+    --lps-text: #1a1a1a;
+    overflow-x: hidden;
+  }
+  .lps-{{ section.id }} .lps-inner { max-width: var(--lps-max); margin: 0 auto; padding-left: 1.25rem; padding-right: 1.25rem; }
+  .lps-{{ section.id }} .lps-section-title {
+    text-align: center;
+    font-size: clamp(1.5rem, 3vw, 2.2rem);
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--lps-text);
+    margin: 0 0 0.75rem;
+  }
+  .lps-{{ section.id }} .lps-section-sub {
+    text-align: center;
+    opacity: 0.65;
+    font-size: 0.95rem;
+    margin: 0 0 2.25rem;
+    max-width: 42rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* Hero */
+  .lps-{{ section.id }} .lps-hero {
+    position: relative;
+    min-height: 72vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 4rem 1.25rem;
+    color: #fff;
+  }
+  .lps-{{ section.id }} .lps-hero__bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+  }
+  .lps-{{ section.id }} .lps-hero__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.45), rgba(0,0,0,0.65));
+    z-index: 1;
+  }
+  .lps-{{ section.id }} .lps-hero__content { position: relative; z-index: 2; max-width: 720px; }
+  .lps-{{ section.id }} .lps-hero__eyebrow {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    opacity: 0.95;
+  }
+  .lps-{{ section.id }} .lps-hero__heading {
+    font-size: clamp(1.85rem, 5vw, 3rem);
+    font-weight: 800;
+    line-height: 1.15;
+    margin: 0 0 1rem;
+    text-shadow: 0 2px 16px rgba(0,0,0,0.35);
+  }
+  .lps-{{ section.id }} .lps-hero__sub {
+    font-size: clamp(0.95rem, 2vw, 1.1rem);
+    line-height: 1.55;
+    margin: 0 0 1.75rem;
+    opacity: 0.92;
+  }
+  .lps-{{ section.id }} .lps-hero__cta {
+    display: inline-block;
+    padding: 1rem 2rem;
+    font-weight: 700;
+    border-radius: var(--lps-radius);
+    background: #fff;
+    color: #1a1a1a;
+    text-decoration: none;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+    transition: transform 0.25s ease, background 0.25s ease;
+  }
+  .lps-{{ section.id }} .lps-hero__cta:hover {
+    background: #f5f5f5;
+    transform: translateY(-2px);
+  }
+
+  /* Featured product */
+  .lps-{{ section.id }} .lps-product {
+    padding: 4rem 0;
+    background: var(--lps-bg-warm);
+    border-top: 1px solid rgba(139,69,19,0.1);
+    border-bottom: 1px solid rgba(139,69,19,0.1);
+  }
+  .lps-{{ section.id }} .lps-product__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+    align-items: start;
+  }
+  .lps-{{ section.id }} .lps-product__media {
+    border-radius: var(--lps-radius);
+    overflow: hidden;
+    background: #fff;
+    border: 1px solid rgba(0,0,0,0.06);
+    aspect-ratio: 3/4;
+  }
+  .lps-{{ section.id }} .lps-product__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .lps-{{ section.id }} .lps-product__title {
+    font-size: clamp(1.5rem, 2.5vw, 2rem);
+    font-weight: 700;
+    margin: 0 0 0.5rem;
+    color: var(--lps-text);
+  }
+  .lps-{{ section.id }} .lps-product__price {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--lps-accent);
+    margin: 0 0 1rem;
+  }
+  .lps-{{ section.id }} .lps-product__price s { opacity: 0.55; font-weight: 500; margin-right: 0.35rem; }
+  .lps-{{ section.id }} .lps-product__desc {
+    font-size: 0.95rem;
+    line-height: 1.65;
+    opacity: 0.85;
+    margin: 0 0 1.25rem;
+  }
+  .lps-{{ section.id }} .lps-product__desc.rte { margin-bottom: 1.5rem; }
+  .lps-{{ section.id }} .lps-product__form select {
+    width: 100%;
+    max-width: 320px;
+    padding: 0.65rem 0.85rem;
+    margin-bottom: 1rem;
+    border-radius: var(--lps-radius);
+    border: 1px solid rgba(0,0,0,0.15);
+    font-size: 0.95rem;
+    background: #fff;
+  }
+  .lps-{{ section.id }} .lps-product__link {
+    display: inline-block;
+    margin-top: 0.75rem;
+    font-weight: 600;
+    color: var(--lps-accent);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  @media (max-width: 900px) {
+    .lps-{{ section.id }} .lps-product__grid { grid-template-columns: 1fr; }
+    .lps-{{ section.id }} .lps-product__media { aspect-ratio: 4/5; max-height: 70vh; }
+  }
+
+  /* Video sections (founder + testimonials) */
+  .lps-{{ section.id }} .lps-video-block {
+    padding: 4rem 0;
+  }
+  .lps-{{ section.id }} .lps-video-block--alt { background: #fff; }
+  .lps-{{ section.id }} .lps-video-wrap {
+    position: relative;
+    border-radius: var(--lps-radius);
+    overflow: hidden;
+    background: #111;
+    aspect-ratio: 16/9;
+    max-width: 900px;
+    margin: 0 auto;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+  }
+  .lps-{{ section.id }} .lps-video-wrap .lps-video-placeholder {
+    --lps-vph-bg: #111111;
+  }
+  .lps-{{ section.id }} .lps-video-wrap iframe,
+  .lps-{{ section.id }} .lps-video-wrap video {
+    width: 100%;
+    height: 100%;
+    display: block;
+    border: 0;
+    object-fit: cover;
+  }
+  /* Empty video slot — label matches bg; stroke is a darker mix of the same hue */
+  .lps-{{ section.id }} .lps-video-placeholder {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    --lps-vph-bg: #141414;
+    background: var(--lps-vph-bg);
+  }
+  .lps-{{ section.id }} .lps-video-placeholder--card {
+    --lps-vph-bg: #0d0d0d;
+  }
+  .lps-{{ section.id }} .lps-video-placeholder__text {
+    font-size: clamp(0.82rem, 2.2vw, 1rem);
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: color-mix(in srgb, var(--lps-vph-bg) 42%, #ffffff 58%);
+    -webkit-text-stroke: 1.5px color-mix(in srgb, var(--lps-vph-bg) 12%, #000000 88%);
+    paint-order: stroke fill;
+    text-shadow:
+      0 1px 0 color-mix(in srgb, var(--lps-vph-bg) 8%, #000000 92%),
+      0 -1px 0 color-mix(in srgb, var(--lps-vph-bg) 8%, #000000 92%),
+      1px 0 0 color-mix(in srgb, var(--lps-vph-bg) 8%, #000000 92%),
+      -1px 0 0 color-mix(in srgb, var(--lps-vph-bg) 8%, #000000 92%);
+  }
+  @supports not (color: color-mix(in srgb, black, white)) {
+    .lps-{{ section.id }} .lps-video-placeholder__text {
+      color: rgba(255,255,255,0.38);
+      -webkit-text-stroke: 1.5px #000000;
+      text-shadow:
+        0 1px 0 #000,
+        0 -1px 0 #000,
+        1px 0 0 #000,
+        -1px 0 0 #000;
+    }
+  }
+  .lps-{{ section.id }} .lps-vtesti__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+  }
+  .lps-{{ section.id }} .lps-vtesti__card {
+    background: var(--lps-bg-warm);
+    border: 1px solid rgba(139,69,19,0.12);
+    border-radius: var(--lps-radius);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+  .lps-{{ section.id }} .lps-vtesti__embed {
+    position: relative;
+    aspect-ratio: 16/9;
+    background: #000;
+  }
+  .lps-{{ section.id }} .lps-vtesti__embed iframe { width: 100%; height: 100%; border: 0; display: block; }
+  .lps-{{ section.id }} .lps-vtesti__body { padding: 1.1rem 1.15rem 1.25rem; flex: 1; }
+  .lps-{{ section.id }} .lps-vtesti__quote {
+    font-size: 0.92rem;
+    line-height: 1.55;
+    margin: 0 0 0.65rem;
+    font-style: italic;
+    opacity: 0.88;
+  }
+  .lps-{{ section.id }} .lps-vtesti__name {
+    font-weight: 700;
+    font-size: 0.88rem;
+    margin: 0;
+    color: var(--lps-accent);
+  }
+
+  /* Google reviews */
+  .lps-{{ section.id }} .lps-gbp {
+    padding: 4rem 0;
+    background: linear-gradient(180deg, #fff 0%, var(--lps-bg-warm) 100%);
+  }
+  .lps-{{ section.id }} .lps-gbp__embed {
+    border-radius: var(--lps-radius);
+    overflow: hidden;
+    min-height: 120px;
+  }
+  .lps-{{ section.id }} .lps-gbp__manual {
+    display: grid;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+  .lps-{{ section.id }} .lps-gbp__review {
+    padding: 1.15rem 1.25rem;
+    background: #fff;
+    border-radius: var(--lps-radius);
+    border: 1px solid rgba(0,0,0,0.06);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+  }
+  .lps-{{ section.id }} .lps-gbp__stars { letter-spacing: 2px; color: #e6a317; font-size: 0.9rem; margin-bottom: 0.35rem; }
+  .lps-{{ section.id }} .lps-gbp__text { margin: 0; font-size: 0.92rem; line-height: 1.55; }
+  .lps-{{ section.id }} .lps-gbp__meta { margin-top: 0.65rem; font-size: 0.78rem; opacity: 0.55; }
+
+  /* Brand story */
+  .lps-{{ section.id }} .lps-story {
+    padding: 4rem 0;
+  }
+  .lps-{{ section.id }} .lps-story__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5rem;
+    align-items: center;
+  }
+  .lps-{{ section.id }} .lps-story__img {
+    border-radius: var(--lps-radius);
+    overflow: hidden;
+    aspect-ratio: 4/5;
+    background: #eee;
+  }
+  .lps-{{ section.id }} .lps-story__img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .lps-{{ section.id }} .lps-story__body .lps-section-title { text-align: left; margin-bottom: 1.25rem; }
+  .lps-{{ section.id }} .lps-story__rte { line-height: 1.75; opacity: 0.9; }
+  @media (max-width: 900px) {
+    .lps-{{ section.id }} .lps-story__grid { grid-template-columns: 1fr; }
+    .lps-{{ section.id }} .lps-story__body .lps-section-title { text-align: center; }
+  }
+
+  /* Instagram grid */
+  .lps-{{ section.id }} .lps-ig {
+    padding: 4rem 0 5rem;
+    background: #fff;
+    border-top: 1px solid rgba(139,69,19,0.08);
+  }
+  .lps-{{ section.id }} .lps-ig__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 0.85rem;
+  }
+  @media (min-width: 700px) {
+    .lps-{{ section.id }} .lps-ig__grid { grid-template-columns: repeat(4, 1fr); }
+  }
+  .lps-{{ section.id }} .lps-ig__item {
+    position: relative;
+    aspect-ratio: 9/16;
+    border-radius: var(--lps-radius);
+    overflow: hidden;
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    border: 1px solid rgba(0,0,0,0.06);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .lps-{{ section.id }} .lps-ig__item:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 28px rgba(0,0,0,0.12);
+  }
+  .lps-{{ section.id }} .lps-ig__item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .lps-{{ section.id }} .lps-ig__cap {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 0.5rem 0.6rem;
+    font-size: 0.68rem;
+    line-height: 1.3;
+    background: linear-gradient(transparent, rgba(0,0,0,0.75));
+    color: #fff;
+    max-height: 42%;
+    overflow: hidden;
+  }
+{%- endstyle -%}
+
+{%- liquid
+  assign product = section.settings.featured_product
+  assign vtesti_blocks = section.blocks | where: 'type', 'video_testimonial'
+  assign ig_blocks = section.blocks | where: 'type', 'instagram_post'
+  assign gbp_manual = section.blocks | where: 'type', 'gbp_review'
+  assign hero_link = section.settings.hero_cta_link
+  if hero_link == blank and product != blank
+    assign hero_link = '#lps-product'
+  elsif hero_link == blank
+    assign hero_link = routes.all_products_collection_url
+  endif
+-%}
+
+<div class="lps-{{ section.id }}">
+
+  {%- comment -%} Hero {%- endcomment -%}
+  <section class="lps-hero">
+    {%- if section.settings.hero_image != blank -%}
+      <img class="lps-hero__bg" src="{{ section.settings.hero_image | image_url: width: 2000 }}" alt="" width="2000" height="1200" loading="eager">
+    {%- else -%}
+      <div class="lps-hero__bg" style="background: linear-gradient(135deg, #5c3317 0%, #8b4513 50%, #c47020 100%);"></div>
+    {%- endif -%}
+    <div class="lps-hero__overlay"></div>
+    <div class="lps-hero__content lps-inner">
+      {%- if section.settings.hero_eyebrow != blank -%}
+        <p class="lps-hero__eyebrow">{{ section.settings.hero_eyebrow | escape }}</p>
+      {%- endif -%}
+      <h1 class="lps-hero__heading">{{ section.settings.hero_heading | escape }}</h1>
+      {%- if section.settings.hero_subheading != blank -%}
+        <p class="lps-hero__sub">{{ section.settings.hero_subheading | escape }}</p>
+      {%- endif -%}
+      {%- if section.settings.hero_cta_text != blank -%}
+        <a href="{{ hero_link }}" class="lps-hero__cta">
+          {{ section.settings.hero_cta_text | escape }}
+        </a>
+      {%- endif -%}
+    </div>
+  </section>
+
+  {%- comment -%} Single product {%- endcomment -%}
+  {%- if product != blank -%}
+    <section class="lps-product" id="lps-product">
+      <div class="lps-inner">
+        <h2 class="lps-section-title">{{ section.settings.product_section_heading | escape }}</h2>
+        {%- if section.settings.product_section_subheading != blank -%}
+          <p class="lps-section-sub">{{ section.settings.product_section_subheading | escape }}</p>
+        {%- endif -%}
+
+        <div class="lps-product__grid">
+          <div class="lps-product__media">
+            {%- if product.featured_media -%}
+              <img
+                src="{{ product.featured_media | image_url: width: 900 }}"
+                alt="{{ product.featured_media.alt | default: product.title | escape }}"
+                width="900"
+                height="{{ 900 | divided_by: product.featured_media.aspect_ratio | round }}"
+                loading="lazy"
+              >
+            {%- endif -%}
+          </div>
+          <div class="lps-product__info">
+            <h3 class="lps-product__title">{{ product.title | escape }}</h3>
+            <p class="lps-product__price">
+              {%- if product.compare_at_price > product.price -%}
+                <s>{{ product.compare_at_price | money }}</s>
+              {%- endif -%}
+              {{ product.price | money }}
+            </p>
+
+            {%- if section.settings.show_product_description -%}
+              <div class="lps-product__desc rte">
+                {%- if section.settings.product_description_truncate -%}
+                  {{ product.description | strip_html | truncatewords: 55 }}
+                {%- else -%}
+                  {{ product.description }}
+                {%- endif -%}
+              </div>
+            {%- endif -%}
+
+            {%- if product.available -%}
+              {%- assign product_form_id = 'lps-product-form-' | append: section.id -%}
+              {%- form 'product', product, id: product_form_id, is: 'product-form', class: 'lps-product__form' -%}
+                <input type="hidden" name="quantity" value="1">
+                {%- if product.variants.size > 1 -%}
+                  <label class="visually-hidden" for="{{ product_form_id }}-select">Variant</label>
+                  <select name="id" id="{{ product_form_id }}-select">
+                    {%- for variant in product.variants -%}
+                      <option
+                        value="{{ variant.id }}"
+                        {% if variant == product.selected_or_first_available_variant %}selected{% endif %}
+                        {% unless variant.available %}disabled{% endunless %}
+                      >
+                        {{ variant.title }} — {{ variant.price | money }}{% unless variant.available %} (Sold out){% endunless %}
+                      </option>
+                    {%- endfor -%}
+                  </select>
+                {%- else -%}
+                  <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+                {%- endif -%}
+                <button type="submit" class="button button--primary" name="add">
+                  {{ section.settings.product_cta_text | default: 'Add to cart' | escape }}
+                </button>
+              {%- endform -%}
+            {%- else -%}
+              <p class="lps-product__desc">Sold out</p>
+            {%- endif -%}
+
+            <a href="{{ product.url }}" class="lps-product__link">{{ section.settings.product_full_link_text | default: 'View full details' | escape }}</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  {%- endif -%}
+
+  {%- comment -%} Founder video {%- endcomment -%}
+  {%- liquid
+    assign show_founder_section = false
+    if section.settings.founder_heading != blank or section.settings.founder_subheading != blank or section.settings.founder_embed != blank or section.settings.founder_video != blank
+      assign show_founder_section = true
+    endif
+  -%}
+  {%- if show_founder_section -%}
+    <section class="lps-video-block lps-video-block--alt">
+      <div class="lps-inner">
+        {%- if section.settings.founder_heading != blank -%}
+          <h2 class="lps-section-title">{{ section.settings.founder_heading | escape }}</h2>
+        {%- endif -%}
+        {%- if section.settings.founder_subheading != blank -%}
+          <p class="lps-section-sub">{{ section.settings.founder_subheading | escape }}</p>
+        {%- endif -%}
+        <div class="lps-video-wrap">
+          {%- if section.settings.founder_embed != blank -%}
+            {{- section.settings.founder_embed -}}
+          {%- elsif section.settings.founder_video != blank -%}
+            {{ section.settings.founder_video | video_tag: image_size: '1100x', autoplay: true, loop: true, muted: true, controls: true }}
+          {%- else -%}
+            <div class="lps-video-placeholder" role="img" aria-label="Video">
+              <span class="lps-video-placeholder__text">Video</span>
+            </div>
+          {%- endif -%}
+        </div>
+      </div>
+    </section>
+  {%- endif -%}
+
+  {%- comment -%} Video testimonials {%- endcomment -%}
+  {%- if vtesti_blocks.size > 0 -%}
+    <section class="lps-video-block">
+      <div class="lps-inner">
+        <h2 class="lps-section-title">{{ section.settings.vtesti_heading | escape }}</h2>
+        {%- if section.settings.vtesti_subheading != blank -%}
+          <p class="lps-section-sub">{{ section.settings.vtesti_subheading | escape }}</p>
+        {%- endif -%}
+        <div class="lps-vtesti__grid">
+          {%- for block in vtesti_blocks -%}
+            <article class="lps-vtesti__card" {{ block.shopify_attributes }}>
+              <div class="lps-vtesti__embed">
+                {%- if block.settings.embed != blank -%}
+                  {{- block.settings.embed -}}
+                {%- else -%}
+                  <div class="lps-video-placeholder lps-video-placeholder--card" role="img" aria-label="Video">
+                    <span class="lps-video-placeholder__text">Video</span>
+                  </div>
+                {%- endif -%}
+              </div>
+              <div class="lps-vtesti__body">
+                {%- if block.settings.quote != blank -%}
+                  <p class="lps-vtesti__quote">“{{ block.settings.quote | escape }}”</p>
+                {%- endif -%}
+                {%- if block.settings.customer_name != blank -%}
+                  <p class="lps-vtesti__name">{{ block.settings.customer_name | escape }}</p>
+                {%- endif -%}
+              </div>
+            </article>
+          {%- endfor -%}
+        </div>
+      </div>
+    </section>
+  {%- endif -%}
+
+  {%- comment -%} Google Business Profile reviews (embed + optional manual) {%- endcomment -%}
+  {%- if section.settings.gbp_heading != blank or section.settings.gbp_embed != blank or gbp_manual.size > 0 -%}
+    <section class="lps-gbp">
+      <div class="lps-inner">
+        {%- if section.settings.gbp_heading != blank -%}
+          <h2 class="lps-section-title">{{ section.settings.gbp_heading | escape }}</h2>
+        {%- endif -%}
+        {%- if section.settings.gbp_subheading != blank -%}
+          <p class="lps-section-sub">{{ section.settings.gbp_subheading | escape }}</p>
+        {%- endif -%}
+        {%- if section.settings.gbp_embed != blank -%}
+          <div class="lps-gbp__embed">
+            {{- section.settings.gbp_embed -}}
+          </div>
+        {%- endif -%}
+        {%- if gbp_manual.size > 0 -%}
+          <div class="lps-gbp__manual">
+            {%- for block in gbp_manual -%}
+              <div class="lps-gbp__review" {{ block.shopify_attributes }}>
+                {%- assign r = block.settings.rating | default: 5 -%}
+                <div class="lps-gbp__stars" aria-label="{{ r }} stars">
+                  {%- for i in (1..r) -%}★{%- endfor -%}
+                </div>
+                {%- if block.settings.review_text != blank -%}
+                  <p class="lps-gbp__text">{{ block.settings.review_text | escape }}</p>
+                {%- endif -%}
+                <div class="lps-gbp__meta">
+                  {%- if block.settings.author != blank -%}
+                    <span>{{ block.settings.author | escape }}</span>
+                  {%- endif -%}
+                  {%- if block.settings.review_date != blank -%}
+                    <span> · {{ block.settings.review_date | escape }}</span>
+                  {%- endif -%}
+                </div>
+              </div>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+      </div>
+    </section>
+  {%- endif -%}
+
+  {%- comment -%} Brand story {%- endcomment -%}
+  {%- if section.settings.brand_story_heading != blank or section.settings.brand_story_text != blank -%}
+    <section class="lps-story">
+      <div class="lps-inner lps-story__grid">
+        <div class="lps-story__img">
+          {%- if section.settings.brand_story_image != blank -%}
+            <img
+              src="{{ section.settings.brand_story_image | image_url: width: 800 }}"
+              alt="{{ section.settings.brand_story_image.alt | default: section.settings.brand_story_heading | escape }}"
+              width="800"
+              height="{{ 800 | divided_by: section.settings.brand_story_image.aspect_ratio | round }}"
+              loading="lazy"
+            >
+          {%- elsif section.settings.hero_image != blank -%}
+            <img
+              src="{{ section.settings.hero_image | image_url: width: 800 }}"
+              alt=""
+              width="800"
+              height="600"
+              loading="lazy"
+            >
+          {%- else -%}
+            <div style="width:100%;height:100%;min-height:280px;background:linear-gradient(145deg,#eee,#e5e0d8);" aria-hidden="true"></div>
+          {%- endif -%}
+        </div>
+        <div class="lps-story__body">
+          {%- if section.settings.brand_story_heading != blank -%}
+            <h2 class="lps-section-title">{{ section.settings.brand_story_heading | escape }}</h2>
+          {%- endif -%}
+          <div class="lps-story__rte rte">{{ section.settings.brand_story_text }}</div>
+        </div>
+      </div>
+    </section>
+  {%- endif -%}
+
+  {%- comment -%} Instagram / social posts (curated) {%- endcomment -%}
+  {%- if ig_blocks.size > 0 -%}
+    <section class="lps-ig">
+      <div class="lps-inner">
+        <h2 class="lps-section-title">{{ section.settings.ig_heading | escape }}</h2>
+        {%- if section.settings.ig_subheading != blank -%}
+          <p class="lps-section-sub">{{ section.settings.ig_subheading | escape }}</p>
+        {%- endif -%}
+        <div class="lps-ig__grid">
+          {%- for block in ig_blocks -%}
+            {%- if block.settings.post_link != blank and block.settings.cover_image != blank -%}
+              <a href="{{ block.settings.post_link }}" class="lps-ig__item" target="_blank" rel="noopener noreferrer" {{ block.shopify_attributes }}>
+                <img
+                  src="{{ block.settings.cover_image | image_url: width: 600 }}"
+                  alt="{{ block.settings.caption | default: 'Instagram post' | escape }}"
+                  width="600"
+                  height="{{ 600 | divided_by: block.settings.cover_image.aspect_ratio | round }}"
+                  loading="lazy"
+                >
+                {%- if block.settings.caption != blank -%}
+                  <span class="lps-ig__cap">{{ block.settings.caption | escape }}</span>
+                {%- endif -%}
+              </a>
+            {%- elsif block.settings.cover_image != blank -%}
+              <div class="lps-ig__item" {{ block.shopify_attributes }}>
+                <img
+                  src="{{ block.settings.cover_image | image_url: width: 600 }}"
+                  alt="{{ block.settings.caption | default: 'Social post' | escape }}"
+                  width="600"
+                  height="{{ 600 | divided_by: block.settings.cover_image.aspect_ratio | round }}"
+                  loading="lazy"
+                >
+                {%- if block.settings.caption != blank -%}
+                  <span class="lps-ig__cap">{{ block.settings.caption | escape }}</span>
+                {%- endif -%}
+              </div>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      </div>
+    </section>
+  {%- endif -%}
+
+</div>
+
+{% schema %}
+{
+  "name": "Story landing page",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Hero"
+    },
+    {
+      "type": "text",
+      "id": "hero_eyebrow",
+      "label": "Eyebrow (optional)",
+      "default": "Handcrafted for you",
+      "info": "Short line above the headline — who this is for."
+    },
+    {
+      "type": "text",
+      "id": "hero_heading",
+      "label": "Heading",
+      "default": "Feel extraordinary in every celebration"
+    },
+    {
+      "type": "textarea",
+      "id": "hero_subheading",
+      "label": "Subheading",
+      "default": "Premium ethnic wear with honest craft, fast delivery, and a fit that flatters."
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Background image",
+      "info": "Full-width lifestyle or product shot. If empty, a warm gradient is used."
+    },
+    {
+      "type": "text",
+      "id": "hero_cta_text",
+      "label": "Primary button text",
+      "default": "Shop the look"
+    },
+    {
+      "type": "url",
+      "id": "hero_cta_link",
+      "label": "Primary button link",
+      "info": "Defaults to the featured product section anchor if left blank."
+    },
+    {
+      "type": "header",
+      "content": "Featured product"
+    },
+    {
+      "type": "product",
+      "id": "featured_product",
+      "label": "Product"
+    },
+    {
+      "type": "text",
+      "id": "product_section_heading",
+      "label": "Section heading",
+      "default": "Our signature piece"
+    },
+    {
+      "type": "text",
+      "id": "product_section_subheading",
+      "label": "Section subheading",
+      "info": "Optional supporting line under the heading."
+    },
+    {
+      "type": "checkbox",
+      "id": "show_product_description",
+      "label": "Show product description",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "product_description_truncate",
+      "label": "Shorten description (first ~55 words)",
+      "default": true,
+      "info": "Turn off to show the full HTML description."
+    },
+    {
+      "type": "text",
+      "id": "product_cta_text",
+      "label": "Add to cart button text",
+      "default": "Add to cart"
+    },
+    {
+      "type": "text",
+      "id": "product_full_link_text",
+      "label": "Link to full product page",
+      "default": "View full details"
+    },
+    {
+      "type": "header",
+      "content": "Founder video"
+    },
+    {
+      "type": "text",
+      "id": "founder_heading",
+      "label": "Heading",
+      "default": "Meet the founder"
+    },
+    {
+      "type": "text",
+      "id": "founder_subheading",
+      "label": "Subheading",
+      "info": "Optional."
+    },
+    {
+      "type": "video",
+      "id": "founder_video",
+      "label": "Video (upload)",
+      "info": "Upload an MP4 to Shopify. Ignored if embed code below is filled."
+    },
+    {
+      "type": "html",
+      "id": "founder_embed",
+      "label": "Video embed code (optional)",
+      "info": "Paste a YouTube/Vimeo embed iframe here — takes priority over the uploaded video."
+    },
+    {
+      "type": "header",
+      "content": "Video testimonials"
+    },
+    {
+      "type": "text",
+      "id": "vtesti_heading",
+      "label": "Heading",
+      "default": "Hear from our clients"
+    },
+    {
+      "type": "text",
+      "id": "vtesti_subheading",
+      "label": "Subheading"
+    },
+    {
+      "type": "header",
+      "content": "Google Business reviews"
+    },
+    {
+      "type": "paragraph",
+      "content": "Live syncing from Google requires a reviews app or widget (e.g. Elfsight, Tagembed). Paste the embed code below. You can add manual review blocks as a backup."
+    },
+    {
+      "type": "text",
+      "id": "gbp_heading",
+      "label": "Heading",
+      "default": "Google reviews"
+    },
+    {
+      "type": "text",
+      "id": "gbp_subheading",
+      "label": "Subheading",
+      "default": "What customers say on Google"
+    },
+    {
+      "type": "html",
+      "id": "gbp_embed",
+      "label": "Reviews widget embed code",
+      "info": "Paste the HTML/JS snippet from your Google Business reviews app."
+    },
+    {
+      "type": "header",
+      "content": "Brand story"
+    },
+    {
+      "type": "image_picker",
+      "id": "brand_story_image",
+      "label": "Image",
+      "info": "Team, workshop, or lifestyle — optional; falls back to hero image."
+    },
+    {
+      "type": "text",
+      "id": "brand_story_heading",
+      "label": "Heading",
+      "default": "Our story"
+    },
+    {
+      "type": "richtext",
+      "id": "brand_story_text",
+      "label": "Text",
+      "default": "<p>We started with a simple belief: every woman deserves to feel confident in what she wears. Today we ship across the country, with every piece checked by hand.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Instagram & reels"
+    },
+    {
+      "type": "text",
+      "id": "ig_heading",
+      "label": "Heading",
+      "default": "On Instagram"
+    },
+    {
+      "type": "text",
+      "id": "ig_subheading",
+      "label": "Subheading",
+      "info": "Add posts or reels below — upload a cover image and link each to the post URL."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "video_testimonial",
+      "name": "Video testimonial",
+      "settings": [
+        {
+          "type": "html",
+          "id": "embed",
+          "label": "Video embed",
+          "info": "Paste the iframe from YouTube or Vimeo (Share → Embed)."
+        },
+        {
+          "type": "textarea",
+          "id": "quote",
+          "label": "Quote (optional)"
+        },
+        {
+          "type": "text",
+          "id": "customer_name",
+          "label": "Customer name",
+          "default": "Happy customer"
+        }
+      ]
+    },
+    {
+      "type": "gbp_review",
+      "name": "Manual Google review",
+      "settings": [
+        {
+          "type": "text",
+          "id": "author",
+          "label": "Name",
+          "default": "Verified customer"
+        },
+        {
+          "type": "textarea",
+          "id": "review_text",
+          "label": "Review text"
+        },
+        {
+          "type": "range",
+          "id": "rating",
+          "label": "Stars",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "default": 5
+        },
+        {
+          "type": "text",
+          "id": "review_date",
+          "label": "Date (optional)",
+          "info": "e.g. March 2026"
+        }
+      ]
+    },
+    {
+      "type": "instagram_post",
+      "name": "Instagram / reel",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "cover_image",
+          "label": "Cover image",
+          "info": "Screenshot or export from Instagram — reels use a vertical 9:16 crop."
+        },
+        {
+          "type": "url",
+          "id": "post_link",
+          "label": "Post or reel URL",
+          "info": "Opens in a new tab."
+        },
+        {
+          "type": "text",
+          "id": "caption",
+          "label": "Short label (optional)",
+          "info": "Shown over the image on hover / bottom."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Story landing page",
+      "blocks": [
+        {
+          "type": "video_testimonial",
+          "settings": {
+            "quote": "The quality exceeded my expectations.",
+            "customer_name": "Client name"
+          }
+        },
+        {
+          "type": "gbp_review",
+          "settings": {
+            "author": "Google reviewer",
+            "review_text": "Beautiful pieces and fast delivery!",
+            "rating": 5,
+            "review_date": "2026"
+          }
+        },
+        {
+          "type": "instagram_post",
+          "settings": {}
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

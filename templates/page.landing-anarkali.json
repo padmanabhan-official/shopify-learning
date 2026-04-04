@@ -1,0 +1,189 @@
+{
+  "sections": {
+    "custom_landing": {
+      "type": "custom-landing-page",
+      "blocks": {
+        "val_1": {
+          "type": "value_prop",
+          "settings": {
+            "title": "Flatters Every Figure",
+            "description": "The Anarkali's dramatic flare creates a graceful vertical line — slimming and elongating for every body shape, from petite to plus size."
+          }
+        },
+        "val_2": {
+          "type": "value_prop",
+          "settings": {
+            "title": "Celebration-Ready Craft",
+            "description": "Hand-done zardozi, mirror work, and thread embroidery — each piece built to catch every light in the room and hold its beauty for years."
+          }
+        },
+        "val_3": {
+          "type": "value_prop",
+          "settings": {
+            "title": "Free Shipping",
+            "description": "Complimentary delivery on all domestic orders. Your Anarkali arrives safely, beautifully packed."
+          }
+        },
+        "val_4": {
+          "type": "value_prop",
+          "settings": {
+            "title": "Easy 7-Day Returns",
+            "description": "Not the perfect fit? Return it hassle-free within 7 days. We stand behind every stitch we make."
+          }
+        },
+        "testi_1": {
+          "type": "testimonial",
+          "settings": {
+            "name": "Priya S.",
+            "review": "I wore this Anarkali to my sister's mehendi and received compliments all night. The flare and zardozi work are even more stunning in person — exactly as pictured.",
+            "rating": 5
+          }
+        },
+        "testi_2": {
+          "type": "testimonial",
+          "settings": {
+            "name": "Meera R.",
+            "review": "The silk georgette fabric feels incredibly luxurious. It drapes beautifully and the thread embroidery is done with such precision. Absolutely worth every rupee.",
+            "rating": 5
+          }
+        },
+        "testi_3": {
+          "type": "testimonial",
+          "settings": {
+            "name": "Anita K.",
+            "review": "I have a pear-shaped body and was nervous ordering online. The Anarkali silhouette balanced my proportions perfectly — I felt so confident and radiant at the wedding.",
+            "rating": 5
+          }
+        },
+        "badge_1": {
+          "type": "trust_badge",
+          "settings": {
+            "icon": "🏭",
+            "label": "Made in Tiruppur",
+            "sublabel": "India's textile capital"
+          }
+        },
+        "badge_2": {
+          "type": "trust_badge",
+          "settings": {
+            "icon": "✅",
+            "label": "Quality Checked",
+            "sublabel": "Every piece inspected"
+          }
+        },
+        "badge_3": {
+          "type": "trust_badge",
+          "settings": {
+            "icon": "📦",
+            "label": "Cash on Delivery",
+            "sublabel": "Available nationwide"
+          }
+        },
+        "badge_4": {
+          "type": "trust_badge",
+          "settings": {
+            "icon": "🔒",
+            "label": "Secure Payments",
+            "sublabel": "100% safe checkout"
+          }
+        },
+        "season_1": {
+          "type": "season_card",
+          "settings": {
+            "season_key": "summer",
+            "icon": "☀️",
+            "season_label": "Summer & Eid",
+            "fabric_name": "Georgette Anarkali",
+            "feel_desc": "The flared silhouette creates natural airflow around your legs — you stay cool while the fabric floats. Georgette is so light you forget you're wearing it, even in 40°C outdoor ceremonies.",
+            "callout_1": "Flare creates airflow",
+            "callout_2": "Feather-light on skin",
+            "callout_3": "No sweat marks"
+          }
+        },
+        "season_2": {
+          "type": "season_card",
+          "settings": {
+            "season_key": "monsoon",
+            "icon": "🌸",
+            "season_label": "Monsoon & Mehendi",
+            "fabric_name": "Crepe Anarkali",
+            "feel_desc": "Crepe doesn't cling or lose shape when humidity rises. The Anarkali's structured bodice stays pressed and the skirt holds its flare — even after hours at an outdoor mehendi.",
+            "callout_1": "Doesn't cling in humidity",
+            "callout_2": "Bodice stays pressed",
+            "callout_3": "Mirror work shines in grey light"
+          }
+        },
+        "season_3": {
+          "type": "season_card",
+          "settings": {
+            "season_key": "festive",
+            "icon": "🪔",
+            "season_label": "Festive & Diwali",
+            "fabric_name": "Silk Anarkali",
+            "feel_desc": "Silk catches every diya and fairy light in the room. As you move, the Anarkali's dramatic flare fans out — the zardozi embroidery glitters with every step. Made to be noticed.",
+            "callout_1": "Catches diyas & fairy lights",
+            "callout_2": "Flare fans on every step",
+            "callout_3": "Zardozi glitters in motion"
+          }
+        },
+        "season_4": {
+          "type": "season_card",
+          "settings": {
+            "season_key": "winter",
+            "icon": "❄️",
+            "season_label": "Winter Weddings",
+            "fabric_name": "Velvet Anarkali",
+            "feel_desc": "Velvet is naturally warm — no shawl needed indoors. The rich pile adds visible depth to the embroidery, and the structured Anarkali silhouette holds its form beautifully in cold-weather venues.",
+            "callout_1": "Naturally warm — no shawl needed",
+            "callout_2": "Velvet deepens embroidery colours",
+            "callout_3": "Holds silhouette in cold air"
+          }
+        },
+        "wwa_1": {
+          "type": "who_we_are",
+          "settings": {
+            "origin_tag": "Tiruppur, Tamil Nadu",
+            "heading": "A Family Business, Built on Fabric & Trust",
+            "bio": "We are a Tiruppur-based family business with over a decade in Indian ethnic wear. Every piece we ship is hand-picked, quality-checked, and packed with care — because we know you're dressing for a moment that matters.",
+            "stat1_num": "10+",
+            "stat1_label": "Years in Business",
+            "stat2_num": "1,200+",
+            "stat2_label": "Happy Customers",
+            "stat3_num": "18+",
+            "stat3_label": "States Delivered"
+          }
+        }
+      },
+      "block_order": ["val_1", "val_2", "val_3", "val_4", "testi_1", "testi_2", "testi_3", "badge_1", "badge_2", "badge_3", "badge_4", "season_1", "season_2", "season_3", "season_4", "wwa_1"],
+      "settings": {
+        "banner_eyebrow": "The Art of Indian Elegance",
+        "banner_tagline": "Handcrafted · Heritage · Timeless",
+        "hero_eyebrow": "For Every Woman Who Deserves to Feel Extraordinary",
+        "heading": "Wear Confidence. Own Every Celebration.",
+        "subheading": "Handcrafted Anarkali suits — rooted in Mughal heritage, cut to flatter every body type, and designed to make you the most memorable woman in the room.",
+        "hero_proof": "Loved by 1,200+ women across India · 4.9★ average rating",
+        "cta_text": "Add to Cart",
+        "cta_link": "/collections/anarkali",
+        "cta2_text": "Explore Styles",
+        "cta2_link": "/collections/anarkali",
+        "featured_collection": "anarkali",
+        "products_count": 4,
+        "show_view_all": true,
+        "values_heading": "Why Women Choose Our Anarkalis",
+        "cats_heading": "Shop by Occasion",
+        "cat_collection_1": "anarkali",
+        "cat_collection_2": "anarkali",
+        "cat_collection_3": "anarkali",
+        "testis_heading": "Real Women. Real Celebrations.",
+        "testis_subheading": "Over 1,200 happy customers across India",
+        "brand_story_heading": "Born in Mughal Courts. Worn by Modern Women.",
+        "brand_story_text": "<p>The word <em>Anarkali<\/em> means <em>flower of pomegranate<\/em> — delicate, vivid, and impossibly beautiful. Named after a legendary courtesan of Emperor Akbar's royal court in 16th-century India, the Anarkali silhouette has graced Mughal darbaars, Bollywood screens, and the most cherished celebrations of millions of women for over 400 years.<\/p><p>At Janviaika, we honour that heritage while designing for the woman of today. Every piece in our collection is crafted from premium fabrics — silk, georgette, and velvet — and adorned with hand-done embroidery: zardozi, mirror work, and thread detailing that catch the light beautifully. The dramatic flared silhouette does what it has always done — it flatters every body type, creates a graceful vertical line, and makes the woman wearing it feel utterly unforgettable.<\/p><p>Because we believe you deserve to feel like royalty at every celebration that matters.<\/p>",
+        "offer_text": "Eid & Wedding Season Sale — Up to 30% Off",
+        "offer_subtext": "Celebrate the season in your finest Anarkali. Use code ANARKALI30 at checkout. Limited pieces — don't miss out.",
+        "offer_cta_text": "Claim My Discount",
+        "offer_deadline": "2026-04-10T23:59:59"
+      }
+    }
+  },
+  "order": ["custom_landing"]
+}
