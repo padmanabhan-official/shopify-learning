@@ -3,11 +3,15 @@
     "landing_story": {
       "type": "landing-page-story",
       "settings": {
+        "banner_eyebrow": "The Art of Indian Elegance",
+        "banner_title": "Product title",
+        "banner_tagline": "Handcrafted · Heritage · Timeless",
         "hero_eyebrow": "Handcrafted for you",
         "hero_heading": "Feel extraordinary in every celebration",
         "hero_subheading": "Premium ethnic wear with honest craft, fast delivery, and a fit that flatters.",
+        "hero_proof": "Loved by customers · 5★ rated",
         "hero_cta_text": "Shop the look",
-        "product_section_heading": "Our signature piece",
+        "product_section_heading": "Product title",
         "product_section_subheading": "One hero product — full details and checkout below.",
         "show_product_description": true,
         "product_description_truncate": true,
@@ -17,8 +21,12 @@
         "founder_subheading": "The story behind the brand, in our own words.",
         "vtesti_heading": "Hear from our clients",
         "vtesti_subheading": "Real voices from real celebrations.",
+        "vtesti_horizontal_scroll": true,
+        "vtesti_marquee_seconds": 60,
         "gbp_heading": "Google reviews",
         "gbp_subheading": "What customers say on Google",
+        "gbp_reviews_marquee": true,
+        "gbp_marquee_seconds": 45,
         "brand_story_heading": "Our story",
         "brand_story_text": "<p>We started with a simple belief: every woman deserves to feel confident in what she wears. Today we ship across the country, with every piece checked by hand.</p>",
         "ig_heading": "On Instagram",
@@ -32,6 +40,41 @@
             "customer_name": "Happy Customer"
           }
         },
+        "vtesti_2": {
+          "type": "video_testimonial",
+          "settings": {
+            "quote": "Perfect fit for my event — everyone asked where I got it.",
+            "customer_name": "Priya S."
+          }
+        },
+        "vtesti_3": {
+          "type": "video_testimonial",
+          "settings": {
+            "quote": "Shipping was quick and the fabric feels premium.",
+            "customer_name": "Ananya K."
+          }
+        },
+        "vtesti_4": {
+          "type": "video_testimonial",
+          "settings": {
+            "quote": "Beautiful craftsmanship — true to the photos online.",
+            "customer_name": "Meera R."
+          }
+        },
+        "vtesti_5": {
+          "type": "video_testimonial",
+          "settings": {
+            "quote": "My go-to for festive wear now. Highly recommend.",
+            "customer_name": "Divya N."
+          }
+        },
+        "vtesti_6": {
+          "type": "video_testimonial",
+          "settings": {
+            "quote": "The team helped me pick the right size — great service.",
+            "customer_name": "Sneha T."
+          }
+        },
         "gbp_1": {
           "type": "gbp_review",
           "settings": {
@@ -42,7 +85,7 @@
           }
         }
       },
-      "block_order": ["vtesti_1", "gbp_1"]
+      "block_order": ["vtesti_1", "vtesti_2", "vtesti_3", "vtesti_4", "vtesti_5", "vtesti_6", "gbp_1"]
     }
   },
   "order": ["landing_story"]
