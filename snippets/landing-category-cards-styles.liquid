@@ -1,0 +1,65 @@
+{% comment %} Styles for landing-category-cards section. {% endcomment %}
+{%- style -%}
+  .lcc-{{ section.id }} {
+    --lcc-gap: 1.5rem;
+    --lcc-max: 1200px;
+    --lcc-radius: var(--block-border-radius, 8px);
+    --lcc-transition: 0.35s ease;
+    --lcc-text: #1a1a1a;
+  }
+  .lcc-{{ section.id }} .lcc-section-title {
+    text-align: center;
+    font-size: clamp(1.6rem, 3vw, 2.4rem);
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--lcc-text);
+    margin: 0 0 2.5rem;
+  }
+  .lcc-{{ section.id }} .lcc-cats { padding: 4.5rem 1.25rem; }
+  .lcc-{{ section.id }} .lcc-cats__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: var(--lcc-gap);
+    max-width: var(--lcc-max);
+    margin: 0 auto;
+  }
+  .lcc-{{ section.id }} .lcc-cat {
+    position: relative;
+    aspect-ratio: 4 / 5;
+    border-radius: var(--lcc-radius);
+    overflow: hidden;
+    cursor: pointer;
+    text-decoration: none;
+    display: block;
+  }
+  .lcc-{{ section.id }} .lcc-cat__bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.55s ease;
+  }
+  .lcc-{{ section.id }} .lcc-cat:hover .lcc-cat__bg { transform: scale(1.07); }
+  .lcc-{{ section.id }} .lcc-cat__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.62) 0%, transparent 55%);
+    z-index: 1;
+  }
+  .lcc-{{ section.id }} .lcc-cat__label {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    z-index: 2;
+    padding: 1.5rem;
+    color: #fff;
+  }
+  .lcc-{{ section.id }} .lcc-cat__label h3 { margin: 0 0 0.35rem; font-weight: 700; font-size: clamp(1rem, 2vw, 1.25rem); color: #fff; }
+  .lcc-{{ section.id }} .lcc-cat__label span { font-size: clamp(0.75rem, 1.3vw, 0.85rem); color: rgba(255,255,255,0.82); text-decoration: underline; }
+  .lcc-{{ section.id }} .cb-zoom { background-size: 150%; background-position: top center; }
+  .lcc-{{ section.id }} .cb-flip { transform: scaleX(-1); }
+  .lcc-{{ section.id }} .lcc-cat:hover .lcc-cat__bg.cb-flip { transform: scaleX(-1) scale(1.07); }
+  .lcc-{{ section.id }} .cb-warm { filter: brightness(1.18) saturate(1.45); background-position: center 35%; }
+  @media (max-width: 600px) {
+    .lcc-{{ section.id }} .lcc-cats__grid { grid-template-columns: 1fr 1fr; }
+  }
+{%- endstyle -%}

@@ -1,0 +1,73 @@
+{% render 'landing-brand-story-styles', section: section %}
+
+
+{%- liquid
+  assign cta_link = section.settings.cta_link | default: '/collections/all'
+  assign asset_hero = 'hero-image.png' | asset_url
+  if section.settings.story_image != blank
+    assign story_bg = section.settings.story_image | image_url: width: 900
+  elsif section.settings.fallback_hero_image != blank
+    assign story_bg = section.settings.fallback_hero_image | image_url: width: 900
+  else
+    assign story_bg = asset_hero
+  endif
+-%}
+
+<div class="lbs-{{ section.id }} landing-anarkali-page">
+  <div class="lbs-story">
+    <div class="lbs-story__inner">
+      <div class="lbs-story__img-col landing-clp-a">
+        {%- if story_bg -%}
+          <div class="lbs-story__img-bg" style="background-image: url('{{ story_bg }}');"></div>
+        {%- else -%}
+          <div class="lbs-story__img-bg" style="background: rgba(0,0,0,0.3);"></div>
+        {%- endif -%}
+      </div>
+      <div class="landing-clp-a">
+        <h2 class="lbs-story__heading">{{ section.settings.brand_story_heading | escape }}</h2>
+        <div class="lbs-story__body">{{ section.settings.brand_story_text }}</div>
+        <a href="{{ cta_link }}" class="button button--secondary">Learn More</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Landing — brand story",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "story_image",
+      "label": "Story image",
+      "info": "Founder, workshop, or fabric. Falls back to “Hero fallback” then theme asset if blank."
+    },
+    {
+      "type": "image_picker",
+      "id": "fallback_hero_image",
+      "label": "Hero fallback image",
+      "info": "Use the same image as the landing hero when story image is empty."
+    },
+    {
+      "type": "text",
+      "id": "brand_story_heading",
+      "label": "Heading",
+      "default": "Born in Mughal Courts. Worn by Modern Women."
+    },
+    {
+      "type": "richtext",
+      "id": "brand_story_text",
+      "label": "Story text",
+      "default": "<p>Your brand story here.</p>"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "Learn more button link"
+    }
+  ],
+  "presets": [{ "name": "Landing — brand story" }]
+}
+{% endschema %}

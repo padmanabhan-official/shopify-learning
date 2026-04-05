@@ -1,0 +1,51 @@
+{% render 'landing-trust-badges-styles', section: section %}
+
+
+{%- assign badge_blocks = section.blocks | where: 'type', 'trust_badge' -%}
+
+{%- if badge_blocks.size > 0 -%}
+<div class="ltb-{{ section.id }} landing-anarkali-page">
+  <div class="ltb-badges">
+    <div class="ltb-badges__row">
+      {%- for block in badge_blocks -%}
+        <div class="ltb-badge landing-clp-a" {{ block.shopify_attributes }}>
+          <span class="ltb-badge__icon" aria-hidden="true">{{ block.settings.icon | default: '✓' }}</span>
+          <span class="ltb-badge__label">{{ block.settings.label | escape }}</span>
+          {%- if block.settings.sublabel != blank -%}
+            <span class="ltb-badge__sub">{{ block.settings.sublabel | escape }}</span>
+          {%- endif -%}
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Landing — trust badges",
+  "tag": "section",
+  "class": "section",
+  "blocks": [
+    {
+      "type": "trust_badge",
+      "name": "Trust badge",
+      "limit": 6,
+      "settings": [
+        { "type": "text", "id": "icon",     "label": "Icon (emoji)",  "default": "✅" },
+        { "type": "text", "id": "label",    "label": "Label",         "default": "Verified Brand" },
+        { "type": "text", "id": "sublabel", "label": "Sub-label (optional)" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Landing — trust badges",
+      "blocks": [
+        { "type": "trust_badge", "settings": { "icon": "🏭", "label": "Made in Tiruppur", "sublabel": "India's textile capital" } },
+        { "type": "trust_badge", "settings": { "icon": "✅", "label": "Quality Checked", "sublabel": "Every piece inspected" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,43 @@
+{%- comment -%}
+  Shared scroll-reveal for all sections using .landing-anarkali-page .landing-clp-a
+  Place this section last on the Anarkali landing template.
+{%- endcomment -%}
+{% render 'landing-anarkali-runtime-styles', section: section %}
+
+<script>
+(function () {
+  'use strict';
+  if (window.__landingAnarkaliIO) return;
+  window.__landingAnarkaliIO = true;
+  var els = document.querySelectorAll('.landing-anarkali-page .landing-clp-a');
+  if (!els.length) return;
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) {
+          e.target.classList.add('on');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    els.forEach(function (el) { io.observe(el); });
+  } else {
+    els.forEach(function (el) { el.classList.add('on'); });
+  }
+})();
+</script>
+
+{% schema %}
+{
+  "name": "Landing scroll reveal",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "paragraph",
+      "content": "Adds scroll-in animation for elements marked with the landing component classes. Add once at the bottom of the Anarkali landing page template."
+    }
+  ],
+  "presets": [{ "name": "Landing scroll reveal" }]
+}
+{% endschema %}

@@ -1,0 +1,91 @@
+{% render 'landing-category-cards-styles', section: section %}
+
+
+{%- liquid
+  assign cat_col_1 = collections[section.settings.cat_collection_1]
+  assign cat_col_2 = collections[section.settings.cat_collection_2]
+  assign cat_col_3 = collections[section.settings.cat_collection_3]
+  assign asset_prod_4 = 'anarkali-product-4.webp' | asset_url
+  assign asset_prod_5 = 'anarkali-product-5.webp' | asset_url
+  assign asset_prod_6 = 'anarkali-product-6.webp' | asset_url
+  assign has_cats = false
+  if cat_col_1 != blank or cat_col_2 != blank or cat_col_3 != blank
+    assign has_cats = true
+  endif
+-%}
+
+{%- if has_cats -%}
+<div class="lcc-{{ section.id }} landing-anarkali-page">
+  <div class="lcc-cats">
+    <h2 class="lcc-section-title">{{ section.settings.cats_heading | default: 'Shop by Occasion' }}</h2>
+    <div class="lcc-cats__grid">
+
+      {%- if cat_col_1 != blank -%}
+        {%- if cat_col_1.image != blank -%}{%- assign cat_img_1 = cat_col_1.image | image_url: width: 800 -%}
+        {%- elsif cat_col_1.products.first.featured_image != blank -%}{%- assign cat_img_1 = cat_col_1.products.first.featured_image | image_url: width: 800 -%}
+        {%- else -%}{%- assign cat_img_1 = asset_prod_4 -%}{%- endif -%}
+        <a href="{{ cat_col_1.url }}" class="lcc-cat landing-clp-a">
+          <div class="lcc-cat__bg cb-zoom" style="background-image: url('{{ cat_img_1 }}');"></div>
+          <div class="lcc-cat__overlay"></div>
+          <div class="lcc-cat__label"><h3>{{ cat_col_1.title }}</h3><span>Explore →</span></div>
+        </a>
+      {%- endif -%}
+
+      {%- if cat_col_2 != blank -%}
+        {%- if cat_col_2.image != blank -%}{%- assign cat_img_2 = cat_col_2.image | image_url: width: 800 -%}
+        {%- elsif cat_col_2.products.first.featured_image != blank -%}{%- assign cat_img_2 = cat_col_2.products.first.featured_image | image_url: width: 800 -%}
+        {%- else -%}{%- assign cat_img_2 = asset_prod_5 -%}{%- endif -%}
+        <a href="{{ cat_col_2.url }}" class="lcc-cat landing-clp-a">
+          <div class="lcc-cat__bg cb-flip" style="background-image: url('{{ cat_img_2 }}');"></div>
+          <div class="lcc-cat__overlay"></div>
+          <div class="lcc-cat__label"><h3>{{ cat_col_2.title }}</h3><span>Explore →</span></div>
+        </a>
+      {%- endif -%}
+
+      {%- if cat_col_3 != blank -%}
+        {%- if cat_col_3.image != blank -%}{%- assign cat_img_3 = cat_col_3.image | image_url: width: 800 -%}
+        {%- elsif cat_col_3.products.first.featured_image != blank -%}{%- assign cat_img_3 = cat_col_3.products.first.featured_image | image_url: width: 800 -%}
+        {%- else -%}{%- assign cat_img_3 = asset_prod_6 -%}{%- endif -%}
+        <a href="{{ cat_col_3.url }}" class="lcc-cat landing-clp-a">
+          <div class="lcc-cat__bg cb-warm" style="background-image: url('{{ cat_img_3 }}');"></div>
+          <div class="lcc-cat__overlay"></div>
+          <div class="lcc-cat__label"><h3>{{ cat_col_3.title }}</h3><span>Explore →</span></div>
+        </a>
+      {%- endif -%}
+
+    </div>
+  </div>
+</div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Landing — category cards",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "cats_heading",
+      "label": "Section heading",
+      "default": "Shop by Occasion"
+    },
+    {
+      "type": "collection",
+      "id": "cat_collection_1",
+      "label": "Category 1 (zoomed image)"
+    },
+    {
+      "type": "collection",
+      "id": "cat_collection_2",
+      "label": "Category 2 (flipped image)"
+    },
+    {
+      "type": "collection",
+      "id": "cat_collection_3",
+      "label": "Category 3 (warm tone image)"
+    }
+  ],
+  "presets": [{ "name": "Landing — category cards" }]
+}
+{% endschema %}

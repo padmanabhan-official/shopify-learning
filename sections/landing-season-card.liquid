@@ -1,217 +1,15 @@
-{%- style -%}
-  /* ============================================================
-     LANDING SEASON CARD — standalone section
-     All styles scoped to section ID so it never conflicts.
-     ============================================================ */
+{% render 'landing-season-card-styles', section: section %}
 
-  .lsc-{{ section.id }} {
-    --lsc-max:        900px;
-    --lsc-gap:        1.5rem;
-    --lsc-radius:     8px;
-    --lsc-transition: 0.35s ease;
-    --lsc-accent:     #8b4513;
-    --lsc-text:       #1a1a1a;
-  }
-
-  /* ── Section wrapper ── */
-  .lsc-{{ section.id }} .lsc-wrap {
-    padding: 5rem 1.25rem;
-    background: linear-gradient(180deg, rgba(139,69,19,0.04) 0%, rgba(196,112,32,0.06) 100%);
-    border-top: 1px solid rgba(139,69,19,0.1);
-    border-bottom: 1px solid rgba(139,69,19,0.1);
-  }
-
-  /* ── Heading & subtitle ── */
-  .lsc-{{ section.id }} .lsc-heading {
-    text-align: center;
-    font-size: clamp(1.8rem, 3.5vw, 2.6rem);
-    font-weight: 700;
-    margin: 0 0 0.75rem;
-    color: var(--lsc-text);
-  }
-  .lsc-{{ section.id }} .lsc-subtitle {
-    text-align: center;
-    opacity: 0.55;
-    font-size: 1rem;
-    margin: 0 auto 3rem;
-    max-width: 520px;
-    line-height: 1.6;
-    color: var(--lsc-text);
-  }
-
-  /* ── Grid ── */
-  .lsc-{{ section.id }} .lsc-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: var(--lsc-gap);
-    max-width: var(--lsc-max);
-    margin: 0 auto;
-  }
-  .lsc-{{ section.id }} .lsc-grid--single {
-    grid-template-columns: 1fr;
-    max-width: 900px;
-  }
-
-  /* ── Card ── */
-  .lsc-{{ section.id }} .lsc-card {
-    display: flex;
-    flex-direction: row;
-    align-items: stretch;
-    border-radius: var(--lsc-radius);
-    background: #fdf8f3;
-    border: 1px solid rgba(139,69,19,0.14);
-    overflow: hidden;
-    transition: transform var(--lsc-transition), box-shadow var(--lsc-transition);
-    box-shadow: 0 6px 28px rgba(139,69,19,0.1);
-  }
-  .lsc-{{ section.id }} .lsc-card:hover {
-    transform: translateY(-6px);
-    box-shadow: 0 20px 48px rgba(139,69,19,0.18);
-  }
-
-  /* ── Image wrap ── */
-  .lsc-{{ section.id }} .lsc-img-wrap {
-    position: relative;
-    width: 60%;
-    flex-shrink: 0;
-    overflow: hidden;
-    aspect-ratio: 3 / 4;
-  }
-  .lsc-{{ section.id }} .lsc-grid--single .lsc-img-wrap {
-    width: 48%;
-  }
-  .lsc-{{ section.id }} .lsc-img-wrap::after {
-    content: '';
-    position: absolute; inset: 0;
-    background:
-      linear-gradient(to right,  transparent 55%, rgba(253,248,243,0.55) 100%),
-      linear-gradient(to bottom, rgba(0,0,0,0.18) 0%, transparent 35%);
-    pointer-events: none;
-  }
-
-  /* ── Product image ── */
-  .lsc-{{ section.id }} .lsc-img {
-    position: static;
-    inset: auto;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center center;
-    display: block;
-    transform: none;
-    transition: transform 0.55s ease;
-  }
-  .lsc-{{ section.id }} .lsc-card:hover .lsc-img { transform: scale(1.04); }
-
-  /* ── Icon pill ── */
-  .lsc-{{ section.id }} .lsc-icon-pill {
-    position: absolute;
-    bottom: 0.85rem; right: 0.85rem;
-    z-index: 2;
-    font-size: 1.35rem;
-    background: rgba(255,255,255,0.92);
-    backdrop-filter: blur(4px);
-    border-radius: 50%;
-    width: 2.6rem; height: 2.6rem;
-    display: flex; align-items: center; justify-content: center;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.14);
-  }
-
-  /* ── Text body ── */
-  .lsc-{{ section.id }} .lsc-body {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 2rem 2rem 2rem 1.8rem;
-    text-align: left;
-    border-left: 3px solid rgba(139,69,19,0.15);
-    background: #fdf8f3;
-  }
-
-  /* ── Season label (h3) ── */
-  .lsc-{{ section.id }} .lsc-label {
-    font-weight: 700;
-    font-size: clamp(1rem, 1.8vw, 1.4rem);
-    margin: 0 0 0.4rem;
-    color: var(--lsc-text);
-    line-height: 1.2;
-  }
-
-  /* ── Fabric tag ── */
-  .lsc-{{ section.id }} .lsc-fabric {
-    font-size: 0.68rem;
-    font-weight: 700;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--lsc-accent);
-    margin: 0 0 0.9rem;
-    padding-bottom: 0.9rem;
-    border-bottom: 1px solid rgba(139,69,19,0.18);
-  }
-
-  /* ── Description ── */
-  .lsc-{{ section.id }} .lsc-feel {
-    font-size: 0.84rem;
-    line-height: 1.65;
-    color: var(--lsc-text);
-    opacity: 0.72;
-    margin: 0;
-  }
-
-  /* ── Feature fit list ── */
-  .lsc-{{ section.id }} .lsc-fit-list {
-    list-style: none;
-    margin: 1.1rem 0 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 0.65rem;
-  }
-  .lsc-{{ section.id }} .lsc-fit-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 0.55rem;
-    font-size: 0.84rem;
-    line-height: 1.5;
-    color: var(--lsc-text);
-    opacity: 0.85;
-  }
-  .lsc-{{ section.id }} .lsc-fit-icon {
-    flex-shrink: 0;
-    width: 1.2rem;
-    height: 1.2rem;
-    background: rgba(139,69,19,0.1);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 0.1rem;
-    font-size: 0.6rem;
-    color: var(--lsc-accent);
-  }
-
-  /* ── Mobile ── */
-  @media (max-width: 768px) {
-    .lsc-{{ section.id }} .lsc-grid--single { max-width: 100%; }
-    .lsc-{{ section.id }} .lsc-grid--single .lsc-img-wrap {
-      width: 44%;
-      aspect-ratio: 3 / 4;
-    }
-    .lsc-{{ section.id }} .lsc-icon-pill { display: none; }
-    .lsc-{{ section.id }} .lsc-body {
-      padding: 1rem 0.9rem;
-      justify-content: flex-start;
-    }
-    .lsc-{{ section.id }} .lsc-label   { font-size: 0.95rem; }
-    .lsc-{{ section.id }} .lsc-feel    { font-size: 0.78rem; }
-    .lsc-{{ section.id }} .lsc-fit-list { gap: 0.45rem; }
-    .lsc-{{ section.id }} .lsc-fit-item { font-size: 0.76rem; }
-  }
-{%- endstyle -%}
 
 {%- liquid
   assign season_blocks = section.blocks | where: 'type', 'season_card'
+  assign asset_prod_1 = 'anarkali-product-1.webp' | asset_url
+  assign asset_prod_2 = 'anarkali-product-2.webp' | asset_url
+  assign asset_prod_3 = 'anarkali-product-3.webp' | asset_url
+  assign asset_prod_4 = 'anarkali-product-4.webp' | asset_url
+  assign asset_prod_5 = 'anarkali-product-5.webp' | asset_url
+  assign asset_prod_6 = 'anarkali-product-6.webp' | asset_url
+  assign season_fallbacks = asset_prod_1 | append: ',' | append: asset_prod_2 | append: ',' | append: asset_prod_3 | append: ',' | append: asset_prod_4 | append: ',' | append: asset_prod_5 | append: ',' | append: asset_prod_6 | split: ','
 
   assign current_month  = 'now' | date: "%m" | plus: 0
   assign current_season = 'winter'
@@ -234,7 +32,7 @@
 -%}
 
 {%- if season_match_count > 0 -%}
-<div class="lsc-{{ section.id }}">
+<div class="lsc-{{ section.id }} landing-anarkali-page">
   <div class="lsc-wrap">
 
     {%- comment -%} Heading — custom or auto from season {%- endcomment -%}
@@ -258,6 +56,7 @@
     <div class="lsc-grid{% if season_match_count == 1 %} lsc-grid--single{% endif %}">
       {%- for block in season_blocks -%}
         {%- if block.settings.season_key != current_season -%}{%- continue -%}{%- endif -%}
+        {%- assign s_idx = forloop.index0 | modulo: 6 -%}
 
         <div class="lsc-card" {{ block.shopify_attributes }}>
 
@@ -275,7 +74,7 @@
             {%- else -%}
               <img
                 class="lsc-img"
-                src="{{ 'placeholder.svg' | asset_url }}"
+                src="{{ season_fallbacks[s_idx] }}"
                 alt="{{ block.settings.season_label | escape }}"
                 width="600"
                 height="800"

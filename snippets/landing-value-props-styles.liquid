@@ -1,0 +1,46 @@
+{% comment %} Styles for landing-value-props section. {% endcomment %}
+{%- style -%}
+  .lvp-{{ section.id }} {
+    --lvp-gap: 1.5rem;
+    --lvp-max: 1200px;
+    --lvp-radius: var(--block-border-radius, 8px);
+    --lvp-transition: 0.35s ease;
+    --lvp-text: #1a1a1a;
+  }
+  .lvp-{{ section.id }} .lvp-section-title {
+    text-align: center;
+    font-size: clamp(1.6rem, 3vw, 2.4rem);
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--lvp-text);
+    margin: 0 0 2.5rem;
+  }
+  .lvp-{{ section.id }} .lvp-values { padding: 4.5rem 1.25rem; }
+  .lvp-{{ section.id }} .lvp-values__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--lvp-gap);
+    max-width: var(--lvp-max);
+    margin: 0 auto;
+  }
+  .lvp-{{ section.id }} .lvp-val {
+    padding: 2rem 1.5rem;
+    border-radius: var(--lvp-radius);
+    text-align: center;
+    border: 1px solid rgba(0,0,0,0.08);
+    transition: transform var(--lvp-transition), box-shadow var(--lvp-transition);
+  }
+  .lvp-{{ section.id }} .lvp-val:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.09);
+  }
+  .lvp-{{ section.id }} .lvp-val__icon  { font-size: clamp(1.6rem, 3vw, 2rem); margin-bottom: 0.75rem; display: block; }
+  .lvp-{{ section.id }} .lvp-val__title { font-weight: 700; font-size: clamp(0.9rem, 1.6vw, 1.05rem); margin: 0 0 0.4rem; color: var(--lvp-text); }
+  .lvp-{{ section.id }} .lvp-val__desc  { font-size: clamp(0.8rem, 1.4vw, 0.88rem); opacity: 0.72; margin: 0; line-height: 1.65; text-align: left; }
+  @media (max-width: 600px) {
+    .lvp-{{ section.id }} .lvp-values__grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 380px) {
+    .lvp-{{ section.id }} .lvp-values__grid { grid-template-columns: 1fr; }
+  }
+{%- endstyle -%}

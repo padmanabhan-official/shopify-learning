@@ -1,0 +1,97 @@
+{% comment %} Styles for landing-featured-collection section. {% endcomment %}
+{%- style -%}
+  .lfc-{{ section.id }} {
+    --lfc-gap: 1.5rem;
+    --lfc-max: 1200px;
+    --lfc-radius: var(--block-border-radius, 8px);
+    --lfc-transition: 0.35s ease;
+    --lfc-text: #1a1a1a;
+  }
+  .lfc-{{ section.id }} .lfc-section-title {
+    text-align: center;
+    font-size: clamp(1.6rem, 3vw, 2.4rem);
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--lfc-text);
+    margin: 0 0 2.5rem;
+  }
+  .lfc-{{ section.id }} .lfc-products { padding: 4.5rem 1.25rem; }
+  .lfc-{{ section.id }} .lfc-prod-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: var(--lfc-gap);
+    max-width: var(--lfc-max);
+    margin: 0 auto;
+  }
+  .lfc-{{ section.id }} .lfc-prod-card {
+    border-radius: var(--lfc-radius);
+    overflow: hidden;
+    border: 1px solid rgba(0,0,0,0.08);
+    transition: transform var(--lfc-transition), box-shadow var(--lfc-transition);
+    display: flex;
+    flex-direction: column;
+  }
+  .lfc-{{ section.id }} .lfc-prod-card:hover {
+    transform: translateY(-6px) scale(1.01);
+    box-shadow: 0 22px 48px rgba(0,0,0,0.13);
+  }
+  .lfc-{{ section.id }} .lfc-prod-card__thumb {
+    aspect-ratio: 3 / 4;
+    overflow: hidden;
+    position: relative;
+  }
+  .lfc-{{ section.id }} .lfc-prod-card__thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+  }
+  .lfc-{{ section.id }} .lfc-prod-card:hover .lfc-prod-card__thumb img { transform: scale(1.07); }
+  .lfc-{{ section.id }} .lfc-prod-card__body {
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+    flex: 1;
+  }
+  .lfc-{{ section.id }} .lfc-prod-card__name  { font-weight: 600; font-size: clamp(0.88rem, 1.5vw, 1rem); margin: 0; color: var(--lfc-text); }
+  .lfc-{{ section.id }} .lfc-prod-card__price { font-size: clamp(0.8rem, 1.4vw, 0.92rem); opacity: 0.75; margin: 0; }
+  .lfc-{{ section.id }} .lfc-prod-card__btn   { margin-top: auto; }
+  .lfc-{{ section.id }} .lfc-prod-card__badge {
+    position: absolute;
+    top: 0.75rem;
+    left: 0.75rem;
+    background: rgba(0,0,0,0.65);
+    color: #fff;
+    font-size: clamp(0.62rem, 1.1vw, 0.7rem);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 0.25rem 0.6rem;
+    border-radius: 4px;
+    z-index: 2;
+  }
+  .lfc-{{ section.id }} .lfc-prod-card__sold-out {
+    position: absolute;
+    inset: 0;
+    background: rgba(255,255,255,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+  .lfc-{{ section.id }} .vi-0,
+  .lfc-{{ section.id }} .vi-2 { filter: none; }
+  .lfc-{{ section.id }} .vw-1 img,
+  .lfc-{{ section.id }} .vw-3 img { filter: none; transform: none; }
+  .lfc-{{ section.id }} .vw-3 { transform: none; }
+  @media (max-width: 600px) {
+    .lfc-{{ section.id }} .lfc-prod-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 380px) {
+    .lfc-{{ section.id }} .lfc-prod-grid { grid-template-columns: 1fr; }
+  }
+{%- endstyle -%}

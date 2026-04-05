@@ -1,0 +1,12 @@
+{% comment %} Styles for landing-anarkali-runtime section. {% endcomment %}
+{%- style -%}
+  .landing-anarkali-page .landing-clp-a {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.55s ease, transform 0.55s ease;
+  }
+  .landing-anarkali-page .landing-clp-a.on {
+    opacity: 1;
+    transform: translateY(0);
+  }
+{%- endstyle -%}

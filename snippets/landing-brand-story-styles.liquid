@@ -1,0 +1,36 @@
+{% comment %} Styles for landing-brand-story section. {% endcomment %}
+{%- style -%}
+  .lbs-{{ section.id }} {
+    --lbs-radius: var(--block-border-radius, 8px);
+    --lbs-text: #1a1a1a;
+  }
+  .lbs-{{ section.id }} .lbs-story { padding: 5rem 1.25rem; }
+  .lbs-{{ section.id }} .lbs-story__inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .lbs-{{ section.id }} .lbs-story__img-col {
+    position: relative;
+    aspect-ratio: 3 / 4;
+    border-radius: var(--lbs-radius);
+    overflow: hidden;
+  }
+  .lbs-{{ section.id }} .lbs-story__img-bg {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    transform: scale(1.0);
+  }
+  .lbs-{{ section.id }} .lbs-story__heading { font-size: clamp(1.6rem, 3vw, 2.4rem); font-weight: 700; line-height: 1.2; color: var(--lbs-text); margin: 0 0 1.25rem; }
+  .lbs-{{ section.id }} .lbs-story__body    { opacity: 0.82; line-height: 1.78; margin: 0 0 1.75rem; }
+  .lbs-{{ section.id }} .lbs-story__body p  { margin: 0 0 0.9rem; }
+  @media (max-width: 768px) {
+    .lbs-{{ section.id }} .lbs-story__inner   { grid-template-columns: 1fr; }
+    .lbs-{{ section.id }} .lbs-story__img-col { aspect-ratio: 16 / 9; }
+  }
+{%- endstyle -%}

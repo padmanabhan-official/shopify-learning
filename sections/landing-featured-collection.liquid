@@ -1,0 +1,110 @@
+{% render 'landing-featured-collection-styles', section: section %}
+
+
+{%- liquid
+  assign featured_col = collections[section.settings.featured_collection]
+  assign vi_img_class = ',,,' | split: ','
+  assign vi_wrap_class = ',,,' | split: ','
+  assign asset_prod_1 = 'anarkali-product-1.webp' | asset_url
+  assign asset_prod_2 = 'anarkali-product-2.webp' | asset_url
+  assign asset_prod_3 = 'anarkali-product-3.webp' | asset_url
+  assign asset_prod_4 = 'anarkali-product-4.webp' | asset_url
+  assign asset_prod_5 = 'anarkali-product-5.webp' | asset_url
+  assign asset_prod_6 = 'anarkali-product-6.webp' | asset_url
+  assign asset_prod_cycle = asset_prod_1 | append: ',' | append: asset_prod_2 | append: ',' | append: asset_prod_3 | append: ',' | append: asset_prod_4 | append: ',' | append: asset_prod_5 | append: ',' | append: asset_prod_6 | split: ','
+-%}
+
+{%- if featured_col != blank -%}
+<div class="lfc-{{ section.id }} landing-anarkali-page">
+  <div class="lfc-products">
+    <h2 class="lfc-section-title">{{ featured_col.title }}</h2>
+    <div class="lfc-prod-grid">
+      {%- for product in featured_col.products limit: section.settings.products_count -%}
+        {%- assign idx = forloop.index0 | modulo: 4 -%}
+        {%- assign cycle_idx = forloop.index0 | modulo: 6 -%}
+        {%- assign prod_asset = asset_prod_cycle[cycle_idx] -%}
+        <div class="lfc-prod-card landing-clp-a">
+          <div class="lfc-prod-card__thumb {{ vi_wrap_class[idx] }}">
+            {%- if product.featured_image -%}
+              <img
+                src="{{ product.featured_image | image_url: width: 500 }}"
+                alt="{{ product.featured_image.alt | default: product.title | escape }}"
+                class="{{ vi_img_class[idx] }}"
+                width="500"
+                height="{{ 500 | divided_by: product.featured_image.aspect_ratio | round }}"
+                loading="lazy"
+              >
+            {%- else -%}
+              <img
+                src="{{ prod_asset }}"
+                alt="{{ product.title | escape }}"
+                class="{{ vi_img_class[idx] }}"
+                width="500"
+                height="667"
+                loading="lazy"
+              >
+            {%- endif -%}
+
+            {%- if product.available == false -%}
+              <div class="lfc-prod-card__sold-out">Sold Out</div>
+            {%- elsif product.compare_at_price > product.price -%}
+              <div class="lfc-prod-card__badge">Sale</div>
+            {%- endif -%}
+          </div>
+
+          <div class="lfc-prod-card__body">
+            <p class="lfc-prod-card__name">{{ product.title | escape }}</p>
+            <p class="lfc-prod-card__price">
+              {%- if product.compare_at_price > product.price -%}
+                <s>{{ product.compare_at_price | money }}</s>&nbsp;
+              {%- endif -%}
+              {{ product.price | money }}
+            </p>
+            <a href="{{ product.url }}" class="button button--primary lfc-prod-card__btn">
+              {%- if product.available -%}View Product{%- else -%}See Details{%- endif -%}
+            </a>
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+    {%- if section.settings.show_view_all -%}
+      <div style="text-align:center; margin-top: 2.5rem;">
+        <a href="{{ featured_col.url }}" class="button button--secondary">
+          View All {{ featured_col.title }}
+        </a>
+      </div>
+    {%- endif -%}
+  </div>
+</div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Landing featured grid",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "collection",
+      "id": "featured_collection",
+      "label": "Featured collection"
+    },
+    {
+      "type": "range",
+      "id": "products_count",
+      "label": "Number of products",
+      "min": 2,
+      "max": 8,
+      "step": 1,
+      "default": 4
+    },
+    {
+      "type": "checkbox",
+      "id": "show_view_all",
+      "label": "Show View all button",
+      "default": true
+    }
+  ],
+  "presets": [{ "name": "Landing featured grid" }]
+}
+{% endschema %}

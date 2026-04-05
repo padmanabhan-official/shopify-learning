@@ -1,0 +1,29 @@
+{% comment %} Styles for landing-trust-badges section. {% endcomment %}
+{%- style -%}
+  .ltb-{{ section.id }} {
+    --ltb-max: 1200px;
+    --ltb-text: #1a1a1a;
+  }
+  .ltb-{{ section.id }} .ltb-badges {
+    padding: 1.75rem 1.25rem;
+    border-bottom: 1px solid rgba(0,0,0,0.07);
+  }
+  .ltb-{{ section.id }} .ltb-badges__row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem 2.5rem;
+    max-width: var(--ltb-max);
+    margin: 0 auto;
+  }
+  .ltb-{{ section.id }} .ltb-badge {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.2rem;
+  }
+  .ltb-{{ section.id }} .ltb-badge__icon  { font-size: clamp(1.25rem, 2.5vw, 1.5rem); line-height: 1; }
+  .ltb-{{ section.id }} .ltb-badge__label { font-size: clamp(0.72rem, 1.3vw, 0.8rem); font-weight: 700; letter-spacing: 0.04em; color: var(--ltb-text); }
+  .ltb-{{ section.id }} .ltb-badge__sub   { font-size: clamp(0.62rem, 1.1vw, 0.7rem); opacity: 0.55; }
+{%- endstyle -%}

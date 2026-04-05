@@ -1,0 +1,56 @@
+{% render 'landing-value-props-styles', section: section %}
+
+
+{%- assign val_blocks = section.blocks | where: 'type', 'value_prop' -%}
+
+{%- if val_blocks.size > 0 -%}
+{%- assign vp_icons = '✨,💎,🚚,↩️' | split: ',' -%}
+<div class="lvp-{{ section.id }} landing-anarkali-page">
+  <div class="lvp-values">
+    <h2 class="lvp-section-title">{{ section.settings.values_heading | default: 'Why Women Choose Our Anarkalis' }}</h2>
+    <div class="lvp-values__grid">
+      {%- for block in val_blocks -%}
+        <div class="lvp-val landing-clp-a" {{ block.shopify_attributes }}>
+          <div class="lvp-val__icon" aria-hidden="true">{{ vp_icons[forloop.index0] }}</div>
+          <h3 class="lvp-val__title">{{ block.settings.title | escape }}</h3>
+          <p class="lvp-val__desc">{{ block.settings.description | escape }}</p>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Landing — value props",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "values_heading",
+      "label": "Section heading",
+      "default": "Why Women Choose Our Anarkalis"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "value_prop",
+      "name": "Value proposition",
+      "settings": [
+        { "type": "text", "id": "title",       "label": "Title",       "default": "Free Shipping" },
+        { "type": "text", "id": "description", "label": "Description", "default": "On all domestic orders" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Landing — value props",
+      "blocks": [
+        { "type": "value_prop", "settings": { "title": "Flatters Every Figure", "description": "The Anarkali's dramatic flare creates a graceful vertical line." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,247 @@
+{% comment %} Styles for landing-anarkali-header section. {% endcomment %}
+{%- style -%}
+  .lah-{{ section.id }} {
+    --lah-gap:        1.5rem;
+    --lah-max:        1200px;
+    --lah-radius:     var(--block-border-radius, 8px);
+    --lah-transition: 0.35s ease;
+    --lah-text:       #1a1a1a;
+    overflow-x: hidden;
+  }
+  @keyframes lah-rise-{{ section.id }} {
+    from { opacity: 0; transform: translateY(26px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .lah-{{ section.id }} .lah-corner-logo {
+    display: block;
+    padding: 1rem 1.25rem 0;
+  }
+  .lah-{{ section.id }} .lah-corner-logo img {
+    height: clamp(2.5rem, 5vw, 4rem);
+    width: auto;
+    max-width: 220px;
+    object-fit: contain;
+    display: block;
+  }
+  @media (max-width: 600px) {
+    .lah-{{ section.id }} .lah-corner-logo img { height: 2.2rem; }
+  }
+  .lah-{{ section.id }} .lah-brand-banner {
+    padding: 0 1.25rem 1.5rem;
+    text-align: center;
+  }
+  .lah-{{ section.id }} .lah-brand-banner__eyebrow {
+    display: block;
+    font-size: clamp(0.62rem, 1.1vw, 0.72rem);
+    font-weight: 700;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    opacity: 0.45;
+    margin-bottom: 0.75rem;
+  }
+  .lah-{{ section.id }} .lah-brand-banner__title {
+    display: block;
+    font-family: var(--font-heading-family, inherit);
+    font-size: clamp(2.4rem, 7vw, 5rem);
+    font-weight: var(--font-heading-weight, 700);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    line-height: 1.05;
+    margin: 0 auto 1rem;
+    background: linear-gradient(135deg, {{ section.settings.banner_color_start | default: '#8b4513' }} 0%, {{ section.settings.banner_color_end | default: '#c47020' }} 45%, {{ section.settings.banner_color_start | default: '#8b4513' }} 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .lah-{{ section.id }} .lah-brand-banner__divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.25rem;
+    max-width: 520px;
+    margin: 0 auto;
+  }
+  .lah-{{ section.id }} .lah-brand-banner__divider::before,
+  .lah-{{ section.id }} .lah-brand-banner__divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: currentColor;
+    opacity: 0.18;
+  }
+  .lah-{{ section.id }} .lah-brand-banner__tagline {
+    font-size: clamp(0.65rem, 1.2vw, 0.75rem);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    opacity: 0.5;
+    white-space: nowrap;
+  }
+  @media (max-width: 600px) {
+    .lah-{{ section.id }} .lah-brand-banner { padding: 2rem 1rem 1.5rem; }
+    .lah-{{ section.id }} .lah-brand-banner__tagline { white-space: normal; text-align: center; }
+  }
+  .lah-{{ section.id }} .lah-hero {
+    position: relative;
+    min-height: 90vh;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    overflow: hidden;
+  }
+  .lah-{{ section.id }} .lah-hero__bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: left 70%;
+    transform: scale(1.0);
+    transition: transform 7s ease;
+  }
+  .lah-{{ section.id }} .lah-hero:hover .lah-hero__bg { transform: scale(1.02); }
+  .lah-{{ section.id }} .lah-hero__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right, rgba(0,0,0,0.72) 38%, rgba(0,0,0,0.18) 65%, transparent 100%);
+    z-index: 1;
+  }
+  .lah-{{ section.id }} .lah-hero__content {
+    position: relative;
+    z-index: 2;
+    text-align: left;
+    color: #fff;
+    padding: 3rem 2rem 3rem 4rem;
+    max-width: 560px;
+    margin-left: 2vw;
+  }
+  .lah-{{ section.id }} .lah-hero__eyebrow {
+    display: inline-block;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    background: rgba(255,255,255,0.18);
+    border: 1px solid rgba(255,255,255,0.4);
+    border-radius: 50px;
+    padding: 0.35rem 1rem;
+    margin-bottom: 1.25rem;
+    animation: lah-rise-{{ section.id }} 0.9s ease both;
+  }
+  .lah-{{ section.id }} .lah-hero__heading {
+    font-size: clamp(2rem, 5vw, 3.4rem);
+    font-weight: 800;
+    line-height: 1.15;
+    margin: 0 0 1rem;
+    text-shadow: 0 2px 12px rgba(0,0,0,0.35);
+    color: #fff;
+    animation: lah-rise-{{ section.id }} 0.9s 0.1s ease both;
+  }
+  .lah-{{ section.id }} .lah-hero__sub {
+    font-size: clamp(0.95rem, 2vw, 1.15rem);
+    margin: 0 0 0.75rem;
+    opacity: 0.9;
+    line-height: 1.6;
+    animation: lah-rise-{{ section.id }} 0.9s 0.2s ease both;
+  }
+  .lah-{{ section.id }} .lah-hero__proof {
+    font-size: clamp(0.78rem, 1.4vw, 0.88rem);
+    opacity: 0.75;
+    margin: 0 0 2rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    animation: lah-rise-{{ section.id }} 0.9s 0.28s ease both;
+  }
+  .lah-{{ section.id }} .lah-hero__cta {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    animation: lah-rise-{{ section.id }} 0.9s 0.36s ease both;
+  }
+  .lah-{{ section.id }} .lah-cta-primary {
+    display: inline-block;
+    padding: 1rem 2.2rem;
+    font-size: clamp(0.9rem, 1.8vw, 1.05rem);
+    font-weight: 700;
+    border-radius: var(--lah-radius);
+    background: #fff;
+    color: #1a1a1a;
+    text-decoration: none;
+    letter-spacing: 0.02em;
+    transition: background var(--lah-transition), transform var(--lah-transition);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+  }
+  .lah-{{ section.id }} .lah-cta-primary:hover {
+    background: #f0f0f0;
+    transform: translateY(-2px);
+  }
+  .lah-{{ section.id }} .lah-cta-secondary {
+    display: inline-block;
+    padding: 0.95rem 1.75rem;
+    font-size: clamp(0.88rem, 1.6vw, 1rem);
+    font-weight: 600;
+    border-radius: var(--lah-radius);
+    border: 2px solid rgba(255,255,255,0.75);
+    color: #fff;
+    text-decoration: none;
+    transition: border-color var(--lah-transition), background var(--lah-transition);
+  }
+  .lah-{{ section.id }} .lah-cta-secondary:hover {
+    background: rgba(255,255,255,0.12);
+    border-color: #fff;
+  }
+  @media (max-width: 768px) {
+    .lah-{{ section.id }} .lah-hero__overlay {
+      background: linear-gradient(
+        to top,
+        rgba(0,0,0,0.88) 0%,
+        rgba(0,0,0,0.55) 45%,
+        rgba(0,0,0,0.18) 75%,
+        transparent 100%
+      );
+    }
+    .lah-{{ section.id }} .lah-hero__content {
+      text-align: center;
+      padding: 2rem 1.5rem 3rem;
+      margin-left: 0;
+      align-self: flex-end;
+      margin-bottom: 0;
+      max-width: 100%;
+    }
+    .lah-{{ section.id }} .lah-hero__heading {
+      font-size: clamp(1.6rem, 6.5vw, 2.2rem);
+    }
+    .lah-{{ section.id }} .lah-hero__eyebrow { display: none; }
+    .lah-{{ section.id }} .lah-hero__sub {
+      font-size: clamp(0.82rem, 3vw, 0.95rem);
+      opacity: 0.85;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .lah-{{ section.id }} .lah-hero__proof {
+      font-size: clamp(0.72rem, 2.4vw, 0.82rem);
+      justify-content: center;
+      margin-bottom: 1.5rem;
+    }
+    .lah-{{ section.id }} .lah-hero__cta {
+      justify-content: center;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      gap: 0.5rem;
+    }
+    .lah-{{ section.id }} .lah-hero .lah-cta-primary,
+    .lah-{{ section.id }} .lah-hero .lah-cta-secondary {
+      flex: 0 0 auto;
+      width: auto;
+      text-align: center;
+      padding: 0.7rem 1.25rem;
+      font-size: clamp(0.82rem, 3vw, 0.9rem);
+      white-space: nowrap;
+    }
+  }
+  @media (max-width: 600px) {
+    .lah-{{ section.id }} .lah-hero { min-height: 75vh; }
+  }
+{%- endstyle -%}

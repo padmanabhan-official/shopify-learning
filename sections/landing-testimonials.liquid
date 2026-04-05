@@ -1,0 +1,138 @@
+{% render 'landing-testimonials-styles', section: section %}
+
+
+{%- assign t_blocks = section.blocks | where: 'type', 'testimonial' -%}
+
+{%- if t_blocks.size > 0 -%}
+<div class="ltt-{{ section.id }} landing-anarkali-page">
+  <div class="ltt-testis" id="ltt-testis-{{ section.id }}">
+    <h2 class="ltt-section-title">{{ section.settings.testis_heading | default: 'Real Women. Real Celebrations.' }}</h2>
+    <p style="text-align:center; opacity:0.55; font-size:0.88rem; margin: -1.5rem 0 2rem; letter-spacing:0.05em;">
+      ⭐⭐⭐⭐⭐ &nbsp;{{ section.settings.testis_subheading | default: 'Over 1,200 happy customers across India' }}
+    </p>
+    <div class="ltt-tcarousel">
+      <button class="ltt-tcar__btn ltt-tcar__btn--prev" type="button" aria-label="Previous reviews">&#8249;</button>
+      <div class="ltt-tcar__track-wrap">
+        <div class="ltt-tcar__track" id="ltt-tcar-track-{{ section.id }}">
+          {%- for block in t_blocks -%}
+            {%- assign stars = '' -%}
+            {%- for i in (1..block.settings.rating) -%}{%- assign stars = stars | append: '★' -%}{%- endfor -%}
+            <div class="ltt-testi" {{ block.shopify_attributes }}>
+              <div class="ltt-testi__stars" aria-label="{{ block.settings.rating }} stars">{{ stars }}</div>
+              <p class="ltt-testi__review">"{{ block.settings.review | escape }}"</p>
+              <div class="ltt-testi__author">
+                <span class="ltt-testi__avatar" aria-hidden="true">{{ block.settings.name | slice: 0 }}</span>
+                <p class="ltt-testi__name">{{ block.settings.name | escape }}</p>
+              </div>
+            </div>
+          {%- endfor -%}
+        </div>
+      </div>
+      <button class="ltt-tcar__btn ltt-tcar__btn--next" type="button" aria-label="Next reviews">&#8250;</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  var wrap = document.querySelector('#ltt-testis-{{ section.id }} .ltt-tcarousel');
+  if (!wrap) return;
+  var trackWrap = wrap.querySelector('.ltt-tcar__track-wrap');
+  var track     = wrap.querySelector('.ltt-tcar__track');
+  var prevBtn   = wrap.querySelector('.ltt-tcar__btn--prev');
+  var nextBtn   = wrap.querySelector('.ltt-tcar__btn--next');
+  if (!track || !trackWrap) return;
+
+  var pos = 0;
+  var speed = 0.5;
+  var hoverPaused = false;
+  var userPaused = false;
+  var resumeTimer = null;
+
+  function gapPx() {
+    return parseFloat(window.getComputedStyle(track).gap) || 20;
+  }
+  function cardW() {
+    var c = track.querySelector('.ltt-testi');
+    return c ? c.offsetWidth + gapPx() : 310;
+  }
+  function maxScroll() {
+    return track.scrollWidth - trackWrap.clientWidth;
+  }
+  function applyPos(smooth) {
+    track.style.transition = smooth ? 'transform 0.4s ease' : 'none';
+    track.style.transform  = 'translateX(-' + pos + 'px)';
+  }
+  (function tick() {
+    if (!hoverPaused && !userPaused) {
+      pos += speed;
+      var max = maxScroll();
+      if (max > 0 && pos >= max) {
+        pos = 0;
+        applyPos(false);
+      } else {
+        applyPos(false);
+      }
+    }
+    requestAnimationFrame(tick);
+  }());
+
+  trackWrap.addEventListener('mouseenter', function () { hoverPaused = true; });
+  trackWrap.addEventListener('mouseleave', function () { hoverPaused = false; });
+
+  function step(dir) {
+    userPaused = true;
+    clearTimeout(resumeTimer);
+    var max = maxScroll();
+    pos += dir * cardW();
+    if (pos < 0) pos = 0;
+    if (pos > max) pos = max;
+    applyPos(true);
+    resumeTimer = setTimeout(function () { userPaused = false; }, 2000);
+  }
+  if (prevBtn) prevBtn.addEventListener('click', function () { step(-1); });
+  if (nextBtn) nextBtn.addEventListener('click', function () { step(1); });
+})();
+</script>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Landing — testimonials",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "testis_heading",
+      "label": "Section heading",
+      "default": "Real Women. Real Celebrations."
+    },
+    {
+      "type": "text",
+      "id": "testis_subheading",
+      "label": "Review count line",
+      "default": "Over 1,200 happy customers across India"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "testimonial",
+      "name": "Testimonial",
+      "settings": [
+        { "type": "text",     "id": "name",   "label": "Customer name", "default": "Happy Customer" },
+        { "type": "textarea", "id": "review", "label": "Review",        "default": "Absolutely love the quality!" },
+        { "type": "range",    "id": "rating", "label": "Rating (stars)", "min": 1, "max": 5, "step": 1, "default": 5 }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Landing — testimonials",
+      "blocks": [
+        { "type": "testimonial", "settings": { "name": "Priya S.", "review": "Stunning quality.", "rating": 5 } }
+      ]
+    }
+  ]
+}
+{% endschema %}
