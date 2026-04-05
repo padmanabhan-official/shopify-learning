@@ -24,7 +24,7 @@
       </div>
     </div>
 
-    {%- unless template.suffix contains 'contact' or template.suffix contains 'faq' -%}
+    {%- unless template.suffix contains 'contact' or template.suffix contains 'faq' or template.suffix == 'landing' -%}
       <div class="page-content page-content--{{ section.settings.page_width }} rte">
         {{- page.content -}}
       </div>

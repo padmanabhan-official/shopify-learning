@@ -1,5 +1,13 @@
 {
   "sections": {
+    "main": {
+      "type": "main-page",
+      "disabled": true,
+      "settings": {
+        "show_title": false,
+        "page_width": "large"
+      }
+    },
     "landing_story": {
       "type": "landing-page-story",
       "settings": {
@@ -29,8 +37,8 @@
         "gbp_marquee_seconds": 45,
         "brand_story_heading": "Our story",
         "brand_story_text": "<p>We started with a simple belief: every woman deserves to feel confident in what she wears. Today we ship across the country, with every piece checked by hand.</p>",
-        "ig_heading": "On Instagram",
-        "ig_subheading": "Follow along for new drops, reels, and behind the scenes."
+        "ig_heading": "Reels & posts",
+        "ig_subheading": "Tap a tile to open on Instagram — new drops, reels, and behind the scenes."
       },
       "blocks": {
         "vtesti_1": {
@@ -83,10 +91,42 @@
             "rating": 5,
             "review_date": "2026"
           }
+        },
+        "ig_1": {
+          "type": "instagram_post",
+          "settings": {
+            "ig_tile_shape": "reel",
+            "ig_show_reel_badge": true,
+            "caption": "New drop"
+          }
+        },
+        "ig_2": {
+          "type": "instagram_post",
+          "settings": {
+            "ig_tile_shape": "reel",
+            "ig_show_reel_badge": true,
+            "caption": "Behind the scenes"
+          }
+        },
+        "ig_3": {
+          "type": "instagram_post",
+          "settings": {
+            "ig_tile_shape": "reel",
+            "ig_show_reel_badge": true,
+            "caption": "Festive edit"
+          }
+        },
+        "ig_4": {
+          "type": "instagram_post",
+          "settings": {
+            "ig_tile_shape": "reel",
+            "ig_show_reel_badge": true,
+            "caption": "Styling tips"
+          }
         }
       },
-      "block_order": ["vtesti_1", "vtesti_2", "vtesti_3", "vtesti_4", "vtesti_5", "vtesti_6", "gbp_1"]
+      "block_order": ["vtesti_1", "vtesti_2", "vtesti_3", "vtesti_4", "vtesti_5", "vtesti_6", "gbp_1", "ig_1", "ig_2", "ig_3", "ig_4"]
     }
   },
-  "order": ["landing_story"]
+  "order": ["main", "landing_story"]
 }

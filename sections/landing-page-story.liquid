@@ -7,7 +7,7 @@
                           Blocks: "Manual Google review" (optional backup).
   4) Single product     → Settings: "Featured product" + description + add to cart form.
   5) Brand story        → Settings: "Brand story" heading, image, richtext.
-  6) Instagram / reels → Blocks: "Instagram / reel" (cover image + URL — add one block per post).
+  6) Instagram / reels → Blocks: "Instagram / reel" (tile shape: Reel 9:16 or square post, cover image, URL, optional Reels badge — add one block per item).
 
   Template: page.landing.json (suffix "landing"). Legacy Anarkali: "landing-anarkali" (custom-landing-page).
 {%- endcomment -%}
@@ -673,6 +673,60 @@
     border: 1px solid rgba(0,0,0,0.06);
     transition: transform 0.25s ease, box-shadow 0.25s ease;
   }
+  /* Feed-style square tiles (optional per block) */
+  .lps-{{ section.id }} .lps-ig__item--square {
+    aspect-ratio: 1;
+  }
+  .lps-{{ section.id }} .lps-ig__reel-badge {
+    position: absolute;
+    top: 0.45rem;
+    right: 0.45rem;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.75rem;
+    height: 1.75rem;
+    border-radius: 6px;
+    background: rgba(0,0,0,0.55);
+    color: #fff;
+    pointer-events: none;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.25);
+  }
+  .lps-{{ section.id }} .lps-ig__reel-badge svg {
+    width: 0.95rem;
+    height: 0.95rem;
+    display: block;
+  }
+  /* No cover image yet — Instagram / Reel placeholder (feeds preview) */
+  .lps-{{ section.id }} .lps-ig__placeholder {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    padding: 1rem;
+    text-align: center;
+    background: linear-gradient(165deg, #1a0f0a 0%, #3d2415 42%, #6b3f24 100%);
+  }
+  .lps-{{ section.id }} .lps-ig__placeholder__label {
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.45);
+  }
+  .lps-{{ section.id }} .lps-ig__placeholder__text {
+    font-size: clamp(0.78rem, 2.8vw, 1rem);
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.28);
+    -webkit-text-stroke: 1px rgba(0,0,0,0.35);
+    paint-order: stroke fill;
+  }
   .lps-{{ section.id }} .lps-ig__item:hover {
     transform: translateY(-4px);
     box-shadow: 0 12px 28px rgba(0,0,0,0.12);
@@ -1127,31 +1181,60 @@
         {%- endif -%}
         <div class="lps-ig__grid">
           {%- for block in ig_blocks -%}
-            {%- if block.settings.post_link != blank and block.settings.cover_image != blank -%}
-              <a href="{{ block.settings.post_link }}" class="lps-ig__item" target="_blank" rel="noopener noreferrer" {{ block.shopify_attributes }}>
+            {%- assign ig_shape = block.settings.ig_tile_shape | default: 'reel' -%}
+            {%- if block.settings.ig_show_reel_badge == false -%}
+              {%- assign ig_show_badge = false -%}
+            {%- else -%}
+              {%- assign ig_show_badge = true -%}
+            {%- endif -%}
+            {%- assign ig_item_class = 'lps-ig__item' -%}
+            {%- if ig_shape == 'square' -%}
+              {%- assign ig_item_class = ig_item_class | append: ' lps-ig__item--square' -%}
+            {%- endif -%}
+            {%- capture ig_tile_inner -%}
+              {%- if ig_shape == 'reel' and ig_show_badge -%}
+                <span class="lps-ig__reel-badge" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                    <rect x="2" y="4" width="9" height="16" rx="1.5" stroke="currentColor" stroke-width="1.5"/>
+                    <rect x="13" y="4" width="9" height="16" rx="1.5" stroke="currentColor" stroke-width="1.5" opacity="0.85"/>
+                  </svg>
+                </span>
+              {%- endif -%}
+              {%- if block.settings.cover_image != blank -%}
                 <img
                   src="{{ block.settings.cover_image | image_url: width: 600 }}"
-                  alt="{{ block.settings.caption | default: 'Instagram post' | escape }}"
+                  alt="{{ block.settings.caption | default: 'Instagram' | escape }}"
                   width="600"
                   height="{{ 600 | divided_by: block.settings.cover_image.aspect_ratio | round }}"
                   loading="lazy"
                 >
-                {%- if block.settings.caption != blank -%}
-                  <span class="lps-ig__cap">{{ block.settings.caption | escape }}</span>
-                {%- endif -%}
+              {%- else -%}
+                <div
+                  class="lps-ig__placeholder"
+                  role="img"
+                  aria-label="{% if ig_shape == 'square' %}Instagram post placeholder{% else %}Instagram Reel placeholder{% endif %}"
+                >
+                  <span class="lps-ig__placeholder__label">Instagram</span>
+                  <span class="lps-ig__placeholder__text">{% if ig_shape == 'square' %}Post{% else %}Reel{% endif %}</span>
+                </div>
+              {%- endif -%}
+              {%- if block.settings.caption != blank -%}
+                <span class="lps-ig__cap">{{ block.settings.caption | escape }}</span>
+              {%- endif -%}
+            {%- endcapture -%}
+            {%- if block.settings.post_link != blank -%}
+              <a
+                href="{{ block.settings.post_link }}"
+                class="{{ ig_item_class }}"
+                target="_blank"
+                rel="noopener noreferrer"
+                {{ block.shopify_attributes }}
+              >
+                {{- ig_tile_inner -}}
               </a>
-            {%- elsif block.settings.cover_image != blank -%}
-              <div class="lps-ig__item" {{ block.shopify_attributes }}>
-                <img
-                  src="{{ block.settings.cover_image | image_url: width: 600 }}"
-                  alt="{{ block.settings.caption | default: 'Social post' | escape }}"
-                  width="600"
-                  height="{{ 600 | divided_by: block.settings.cover_image.aspect_ratio | round }}"
-                  loading="lazy"
-                >
-                {%- if block.settings.caption != blank -%}
-                  <span class="lps-ig__cap">{{ block.settings.caption | escape }}</span>
-                {%- endif -%}
+            {%- else -%}
+              <div class="{{ ig_item_class }}" {{ block.shopify_attributes }}>
+                {{- ig_tile_inner -}}
               </div>
             {%- endif -%}
           {%- endfor -%}
@@ -1167,7 +1250,14 @@
   "name": "Story landing page",
   "tag": "section",
   "class": "section",
+  "enabled_on": {
+    "templates": ["page"]
+  },
   "settings": [
+    {
+      "type": "paragraph",
+      "content": "This section is the full story landing (banner, hero, product, videos, reviews, brand story, Instagram). Add blocks below for client videos, Google reviews, and Reels. Video placeholders disappear when you paste embeds or upload a file."
+    },
     {
       "type": "header",
       "content": "Brand banner"
@@ -1447,16 +1537,21 @@
       "content": "Instagram & reels"
     },
     {
+      "type": "paragraph",
+      "content": "Add one block per post or reel. Reels use a tall 9:16 cover and link to instagram.com/reel/…. Square tiles suit feed posts."
+    },
+    {
       "type": "text",
       "id": "ig_heading",
       "label": "Heading",
-      "default": "On Instagram"
+      "default": "Reels & posts"
     },
     {
       "type": "text",
       "id": "ig_subheading",
       "label": "Subheading",
-      "info": "Add posts or reels below — upload a cover image and link each to the post URL."
+      "default": "Tap a tile to open on Instagram.",
+      "info": "Shown under the section title."
     }
   ],
   "blocks": [
@@ -1519,24 +1614,43 @@
     {
       "type": "instagram_post",
       "name": "Instagram / reel",
+      "limit": 24,
       "settings": [
+        {
+          "type": "select",
+          "id": "ig_tile_shape",
+          "label": "Tile shape",
+          "options": [
+            { "value": "reel", "label": "Reel (9:16 vertical)" },
+            { "value": "square", "label": "Feed post (1:1 square)" }
+          ],
+          "default": "reel",
+          "info": "Match your cover image: tall for Reels, square for regular posts."
+        },
+        {
+          "type": "checkbox",
+          "id": "ig_show_reel_badge",
+          "label": "Show Reels icon on tile",
+          "default": true,
+          "info": "Only applies to Reel (9:16) tiles. Hides for square posts."
+        },
         {
           "type": "image_picker",
           "id": "cover_image",
           "label": "Cover image",
-          "info": "Screenshot or export from Instagram — reels use a vertical 9:16 crop."
+          "info": "Export a frame from your Reel (9:16) or a square crop for feed posts. Leave empty to show an Instagram / Reel placeholder tile."
         },
         {
           "type": "url",
           "id": "post_link",
-          "label": "Post or reel URL",
-          "info": "Opens in a new tab."
+          "label": "Instagram URL",
+          "info": "Paste the reel or post link (e.g. instagram.com/reel/… or instagram.com/p/…). Opens in a new tab."
         },
         {
           "type": "text",
           "id": "caption",
           "label": "Short label (optional)",
-          "info": "Shown over the image on hover / bottom."
+          "info": "Shown at the bottom of the tile."
         }
       ]
     }
@@ -1563,7 +1677,10 @@
         },
         {
           "type": "instagram_post",
-          "settings": {}
+          "settings": {
+            "ig_tile_shape": "reel",
+            "ig_show_reel_badge": true
+          }
         }
       ]
     }
