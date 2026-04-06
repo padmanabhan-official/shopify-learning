@@ -93,7 +93,15 @@
     {% assign feature_classes = feature_classes | append: ' features--image-zoom' %}
   {%- endif -%}
 
-  <body class="no-focus-outline {{ feature_classes }}" data-instant-allow-query-string>
+  {%- liquid
+    assign is_landing_page = false
+    if request.page_type == 'page' and page.template_suffix != blank
+      if page.template_suffix == 'landing' or page.template_suffix == 'landing-anarkali'
+        assign is_landing_page = true
+      endif
+    endif
+  -%}
+  <body class="no-focus-outline {{ feature_classes }}{% if is_landing_page %} page-landing{% endif %}" data-instant-allow-query-string>
     {%- comment -%}Common SVG definitions that we are re-using in several places{%- endcomment -%}
     <svg class="visually-hidden">
       <linearGradient id="rating-star-gradient-half">
@@ -102,13 +110,24 @@
       </linearGradient>
     </svg>
 
-    {%- assign is_landing_page = false -%}
-    {%- if request.page_type == 'page' and page.template_suffix == 'landing' -%}
-      {%- assign is_landing_page = true -%}
-    {%- endif -%}
-
     <a href="#main" class="visually-hidden skip-to-content">{{ 'general.accessibility.skip_to_content' | t }}</a>
     <loading-bar class="loading-bar"></loading-bar>
+
+    {%- if is_landing_page -%}
+      <style>
+        /* No global header / announcement on landing — remove reserved offset and “empty strip” below chrome */
+        body.page-landing {
+          --announcement-bar-height: 0px;
+          --enable-sticky-announcement-bar: 0;
+        }
+        body.page-landing #main.anchor {
+          scroll-margin-top: 0;
+        }
+        body.page-landing #main > .shopify-section:first-of-type {
+          margin-block-start: 0 !important;
+        }
+      </style>
+    {%- endif -%}
 
     {%- if request.page_type != 'gift_card' and request.page_type != 'password' and is_landing_page == false -%}
       {%- sections 'header-group' -%}

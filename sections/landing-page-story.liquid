@@ -17,6 +17,23 @@
 
 {%- liquid
   assign product = section.settings.featured_product
+  assign lps_banner_display = section.settings.banner_title | strip
+  assign lps_banner_setting_lower = lps_banner_display | downcase
+  if product != blank
+    if lps_banner_display == blank or lps_banner_setting_lower == 'product title'
+      assign lps_banner_display = product.title
+    endif
+  endif
+  if lps_banner_display == blank
+    assign lps_banner_display = 'Product title'
+  endif
+  assign lps_product_heading_display = section.settings.product_section_heading | strip
+  assign lps_product_heading_lower = lps_product_heading_display | downcase
+  if product != blank
+    if lps_product_heading_display == blank or lps_product_heading_lower == 'product title'
+      assign lps_product_heading_display = product.title
+    endif
+  endif
   assign vtesti_blocks = section.blocks | where: 'type', 'video_testimonial'
   assign ig_blocks = section.blocks | where: 'type', 'instagram_post'
   assign gbp_manual = section.blocks | where: 'type', 'gbp_review'
@@ -26,36 +43,88 @@
   elsif hero_link == blank
     assign hero_link = routes.all_products_collection_url
   endif
+  assign vtesti_per_page = section.settings.vtesti_per_page | default: 3
+  if vtesti_per_page < 1
+    assign vtesti_per_page = 1
+  endif
+  assign vtesti_count = vtesti_blocks.size
+  if vtesti_count > 0
+    assign vtesti_total_pages = vtesti_count | plus: vtesti_per_page | minus: 1 | divided_by: vtesti_per_page
+  else
+    assign vtesti_total_pages = 0
+  endif
+  assign vtesti_few = false
+  if vtesti_count > 0 and vtesti_count <= 2
+    assign vtesti_few = true
+  endif
+  assign gbp_per_page = section.settings.gbp_per_page | default: 3
+  if gbp_per_page < 1
+    assign gbp_per_page = 1
+  endif
+  assign gbp_count = gbp_manual.size
+  if gbp_count > 0
+    assign gbp_total_pages = gbp_count | plus: gbp_per_page | minus: 1 | divided_by: gbp_per_page
+  else
+    assign gbp_total_pages = 0
+  endif
+  assign gbp_few = false
+  if gbp_count > 0 and gbp_count <= 2
+    assign gbp_few = true
+  endif
+  assign ig_per_page = section.settings.ig_per_page | default: 4
+  if ig_per_page < 1
+    assign ig_per_page = 1
+  endif
+  if ig_per_page > 4
+    assign ig_per_page = 4
+  endif
+  assign ig_count = ig_blocks.size
+  if ig_count > 0
+    assign ig_total_pages = ig_count | plus: ig_per_page | minus: 1 | divided_by: ig_per_page
+  else
+    assign ig_total_pages = 0
+  endif
+  assign ig_few = false
+  if ig_count > 0 and ig_count <= 2
+    assign ig_few = true
+  endif
 -%}
 
 <div class="lps-{{ section.id }}">
 
-  {%- comment -%} Top-left logo (same pattern as custom landing page) {%- endcomment -%}
   {%- assign banner_logo = section.settings.banner_logo | default: settings.logo -%}
-  <div class="lps-corner-logo">
+
+  {%- comment -%} Logo above banner (home link); size controlled in CSS — smaller scale, 10px top/left inset {%- endcomment -%}
+  <a
+    class="lps-corner-logo lps-corner-logo--banner"
+    href="{{ routes.root_url }}"
+    aria-label="{{ shop.name | escape }}"
+  >
     {%- if banner_logo != blank -%}
       <img
         src="{{ banner_logo | image_url: width: 400 }}"
-        alt="{{ shop.name }}"
+        alt=""
         width="{{ banner_logo.width | default: 400 }}"
         height="{{ banner_logo.height | default: 120 }}"
         loading="eager"
+        decoding="async"
       >
     {%- else -%}
       <img
         src="{{ 'logo.avif' | asset_url }}"
-        alt="{{ shop.name }}"
+        alt=""
         width="400"
         height="120"
         loading="eager"
+        decoding="async"
       >
     {%- endif -%}
-  </div>
+  </a>
 
   {%- comment -%} Brand title banner {%- endcomment -%}
   <div class="lps-brand-banner">
     <span class="lps-brand-banner__eyebrow">{{ section.settings.banner_eyebrow | default: 'The Art of Indian Elegance' | escape }}</span>
-    <span class="lps-brand-banner__title">{{ section.settings.banner_title | default: 'Product title' | escape }}</span>
+    <span class="lps-brand-banner__title">{{ lps_banner_display | escape }}</span>
     <div class="lps-brand-banner__divider">
       <span class="lps-brand-banner__tagline">{{ section.settings.banner_tagline | default: 'Handcrafted · Heritage · Timeless' | escape }}</span>
     </div>
@@ -97,13 +166,7 @@
   {%- if product != blank -%}
     <section class="lps-products" id="lps-product">
       <div class="lps-inner">
-        <h2 class="lps-section-title">
-          {%- if section.settings.product_section_heading != blank -%}
-            {{ section.settings.product_section_heading | escape }}
-          {%- else -%}
-            {{ product.title | escape }}
-          {%- endif -%}
-        </h2>
+        <h2 class="lps-section-title">{{ lps_product_heading_display | default: product.title | escape }}</h2>
         {%- if section.settings.product_section_subheading != blank -%}
           <p class="lps-section-sub">{{ section.settings.product_section_subheading | escape }}</p>
         {%- endif -%}
@@ -220,7 +283,7 @@
         {%- endif -%}
         {%- if section.settings.vtesti_horizontal_scroll -%}
           <div
-            class="lps-vtesti__marquee"
+            class="lps-vtesti__marquee{% if vtesti_few %} lps-vtesti__marquee--few{% endif %}"
             style="--lps-vtesti-dur: {{ section.settings.vtesti_marquee_seconds | default: 60 }}s;"
             role="region"
             aria-label="{{ section.settings.vtesti_heading | escape }}"
@@ -275,28 +338,69 @@
             </div>
           </div>
         {%- else -%}
-          <div class="lps-vtesti__grid">
-            {%- for block in vtesti_blocks -%}
-              <article class="lps-vtesti__card" {{ block.shopify_attributes }}>
-                <div class="lps-vtesti__embed">
-                  {%- if block.settings.embed != blank -%}
-                    {{- block.settings.embed -}}
-                  {%- else -%}
-                    <div class="lps-video-placeholder lps-video-placeholder--card" role="img" aria-label="Video">
-                      <span class="lps-video-placeholder__text">Video</span>
-                    </div>
-                  {%- endif -%}
-                </div>
-                <div class="lps-vtesti__body">
-                  {%- if block.settings.quote != blank -%}
-                    <p class="lps-vtesti__quote">“{{ block.settings.quote | escape }}”</p>
-                  {%- endif -%}
-                  {%- if block.settings.customer_name != blank -%}
-                    <p class="lps-vtesti__name">{{ block.settings.customer_name | escape }}</p>
-                  {%- endif -%}
-                </div>
-              </article>
-            {%- endfor -%}
+          <div
+            class="lps-vtesti__carousel{% if vtesti_few %} lps-vtesti__carousel--few{% endif %}"
+            data-lps-carousel
+          >
+            <div class="lps-vtesti__viewport lps-carousel__viewport">
+              <div
+                class="lps-carousel__track"
+                data-lps-carousel-track
+                style="--lps-carousel-slides: {{ vtesti_total_pages }};"
+              >
+                {%- for page_idx in (1..vtesti_total_pages) -%}
+                  {%- assign vtesti_offset = page_idx | minus: 1 | times: vtesti_per_page -%}
+                  <div
+                    class="lps-vtesti__page lps-carousel__slide"
+                    data-lps-carousel-page
+                    role="group"
+                    aria-hidden="{% if page_idx == 1 %}false{% else %}true{% endif %}"
+                  >
+                    {%- for block in vtesti_blocks offset: vtesti_offset limit: vtesti_per_page -%}
+                      <article class="lps-vtesti__card" {{ block.shopify_attributes }}>
+                        <div class="lps-vtesti__embed">
+                          {%- if block.settings.embed != blank -%}
+                            {{- block.settings.embed -}}
+                          {%- else -%}
+                            <div class="lps-video-placeholder lps-video-placeholder--card" role="img" aria-label="Video">
+                              <span class="lps-video-placeholder__text">Video</span>
+                            </div>
+                          {%- endif -%}
+                        </div>
+                        <div class="lps-vtesti__body">
+                          {%- if block.settings.quote != blank -%}
+                            <p class="lps-vtesti__quote">“{{ block.settings.quote | escape }}”</p>
+                          {%- endif -%}
+                          {%- if block.settings.customer_name != blank -%}
+                            <p class="lps-vtesti__name">{{ block.settings.customer_name | escape }}</p>
+                          {%- endif -%}
+                        </div>
+                      </article>
+                    {%- endfor -%}
+                  </div>
+                {%- endfor -%}
+              </div>
+            </div>
+            {%- if vtesti_total_pages > 1 -%}
+              <div class="lps-carousel__nav" role="toolbar" aria-label="{{ section.settings.vtesti_heading | escape }}">
+                <button
+                  type="button"
+                  class="lps-carousel__nav-btn lps-carousel__nav-btn--prev"
+                  data-lps-carousel-prev
+                  aria-label="{{ 'general.accessibility.previous' | t }}"
+                >
+                  <span aria-hidden="true">‹</span>
+                </button>
+                <button
+                  type="button"
+                  class="lps-carousel__nav-btn lps-carousel__nav-btn--next"
+                  data-lps-carousel-next
+                  aria-label="{{ 'general.accessibility.next' | t }}"
+                >
+                  <span aria-hidden="true">›</span>
+                </button>
+              </div>
+            {%- endif -%}
           </div>
         {%- endif -%}
       </div>
@@ -331,20 +435,37 @@
                   {%- for block in gbp_manual -%}
                     <div class="lps-gbp__review" {{ block.shopify_attributes }}>
                       {%- assign r = block.settings.rating | default: 5 -%}
-                      <div class="lps-gbp__stars" aria-label="{{ r }} stars">
-                        {%- for i in (1..r) -%}★{%- endfor -%}
+                      <div class="lps-gbp__review-head">
+                        {%- if block.settings.reviewer_photo != blank or block.settings.author != blank -%}
+                          <div class="lps-gbp__reviewer">
+                            {%- if block.settings.reviewer_photo != blank -%}
+                              <span class="lps-gbp__avatar">
+                                <img
+                                  src="{{ block.settings.reviewer_photo | image_url: width: 96 }}"
+                                  alt="{% if block.settings.author != blank %}{{ block.settings.author | escape }}{% else %}{{ 'Reviewer' | escape }}{% endif %}"
+                                  width="48"
+                                  height="48"
+                                  loading="lazy"
+                                >
+                              </span>
+                            {%- endif -%}
+                            {%- if block.settings.author != blank -%}
+                              <span class="lps-gbp__author">{{ block.settings.author | escape }}</span>
+                            {%- endif -%}
+                          </div>
+                        {%- endif -%}
+                        <div class="lps-gbp__stars" aria-label="{{ r }} stars">
+                          {%- for i in (1..r) -%}★{%- endfor -%}
+                        </div>
                       </div>
                       {%- if block.settings.review_text != blank -%}
                         <p class="lps-gbp__text">{{ block.settings.review_text | escape }}</p>
                       {%- endif -%}
-                      <div class="lps-gbp__meta">
-                        {%- if block.settings.author != blank -%}
-                          <span>{{ block.settings.author | escape }}</span>
-                        {%- endif -%}
-                        {%- if block.settings.review_date != blank -%}
-                          <span> · {{ block.settings.review_date | escape }}</span>
-                        {%- endif -%}
-                      </div>
+                      {%- if block.settings.review_date != blank -%}
+                        <div class="lps-gbp__meta">
+                          <span class="lps-gbp__date">{{ block.settings.review_date | escape }}</span>
+                        </div>
+                      {%- endif -%}
                     </div>
                   {%- endfor -%}
                 </div>
@@ -352,46 +473,122 @@
                   {%- for block in gbp_manual -%}
                     <div class="lps-gbp__review">
                       {%- assign r = block.settings.rating | default: 5 -%}
-                      <div class="lps-gbp__stars" aria-hidden="true">
-                        {%- for i in (1..r) -%}★{%- endfor -%}
+                      <div class="lps-gbp__review-head">
+                        {%- if block.settings.reviewer_photo != blank or block.settings.author != blank -%}
+                          <div class="lps-gbp__reviewer">
+                            {%- if block.settings.reviewer_photo != blank -%}
+                              <span class="lps-gbp__avatar">
+                                <img
+                                  src="{{ block.settings.reviewer_photo | image_url: width: 96 }}"
+                                  alt=""
+                                  width="48"
+                                  height="48"
+                                  loading="lazy"
+                                  decoding="async"
+                                >
+                              </span>
+                            {%- endif -%}
+                            {%- if block.settings.author != blank -%}
+                              <span class="lps-gbp__author">{{ block.settings.author | escape }}</span>
+                            {%- endif -%}
+                          </div>
+                        {%- endif -%}
+                        <div class="lps-gbp__stars" aria-hidden="true">
+                          {%- for i in (1..r) -%}★{%- endfor -%}
+                        </div>
                       </div>
                       {%- if block.settings.review_text != blank -%}
                         <p class="lps-gbp__text">{{ block.settings.review_text | escape }}</p>
                       {%- endif -%}
-                      <div class="lps-gbp__meta">
-                        {%- if block.settings.author != blank -%}
-                          <span>{{ block.settings.author | escape }}</span>
-                        {%- endif -%}
-                        {%- if block.settings.review_date != blank -%}
-                          <span> · {{ block.settings.review_date | escape }}</span>
-                        {%- endif -%}
-                      </div>
+                      {%- if block.settings.review_date != blank -%}
+                        <div class="lps-gbp__meta">
+                          <span class="lps-gbp__date">{{ block.settings.review_date | escape }}</span>
+                        </div>
+                      {%- endif -%}
                     </div>
                   {%- endfor -%}
                 </div>
               </div>
             </div>
           {%- else -%}
-            <div class="lps-gbp__manual">
-              {%- for block in gbp_manual -%}
-                <div class="lps-gbp__review" {{ block.shopify_attributes }}>
-                  {%- assign r = block.settings.rating | default: 5 -%}
-                  <div class="lps-gbp__stars" aria-label="{{ r }} stars">
-                    {%- for i in (1..r) -%}★{%- endfor -%}
-                  </div>
-                  {%- if block.settings.review_text != blank -%}
-                    <p class="lps-gbp__text">{{ block.settings.review_text | escape }}</p>
-                  {%- endif -%}
-                  <div class="lps-gbp__meta">
-                    {%- if block.settings.author != blank -%}
-                      <span>{{ block.settings.author | escape }}</span>
-                    {%- endif -%}
-                    {%- if block.settings.review_date != blank -%}
-                      <span> · {{ block.settings.review_date | escape }}</span>
-                    {%- endif -%}
-                  </div>
+            <div
+              class="lps-gbp__carousel{% if gbp_few %} lps-gbp__carousel--few{% endif %}"
+              data-lps-carousel
+            >
+              <div class="lps-gbp__viewport lps-carousel__viewport">
+                <div
+                  class="lps-carousel__track"
+                  data-lps-carousel-track
+                  style="--lps-carousel-slides: {{ gbp_total_pages }};"
+                >
+                  {%- for gbp_page_idx in (1..gbp_total_pages) -%}
+                    {%- assign gbp_offset = gbp_page_idx | minus: 1 | times: gbp_per_page -%}
+                    <div
+                      class="lps-gbp__page lps-carousel__slide"
+                      data-lps-carousel-page
+                      role="group"
+                      aria-hidden="{% if gbp_page_idx == 1 %}false{% else %}true{% endif %}"
+                    >
+                      {%- for block in gbp_manual offset: gbp_offset limit: gbp_per_page -%}
+                        <div class="lps-gbp__review" {{ block.shopify_attributes }}>
+                          {%- assign r = block.settings.rating | default: 5 -%}
+                          <div class="lps-gbp__review-head">
+                            {%- if block.settings.reviewer_photo != blank or block.settings.author != blank -%}
+                              <div class="lps-gbp__reviewer">
+                                {%- if block.settings.reviewer_photo != blank -%}
+                                  <span class="lps-gbp__avatar">
+                                    <img
+                                      src="{{ block.settings.reviewer_photo | image_url: width: 96 }}"
+                                      alt="{% if block.settings.author != blank %}{{ block.settings.author | escape }}{% else %}{{ 'Reviewer' | escape }}{% endif %}"
+                                      width="48"
+                                      height="48"
+                                      loading="lazy"
+                                    >
+                                  </span>
+                                {%- endif -%}
+                                {%- if block.settings.author != blank -%}
+                                  <span class="lps-gbp__author">{{ block.settings.author | escape }}</span>
+                                {%- endif -%}
+                              </div>
+                            {%- endif -%}
+                            <div class="lps-gbp__stars" aria-label="{{ r }} stars">
+                              {%- for i in (1..r) -%}★{%- endfor -%}
+                            </div>
+                          </div>
+                          {%- if block.settings.review_text != blank -%}
+                            <p class="lps-gbp__text">{{ block.settings.review_text | escape }}</p>
+                          {%- endif -%}
+                          {%- if block.settings.review_date != blank -%}
+                            <div class="lps-gbp__meta">
+                              <span class="lps-gbp__date">{{ block.settings.review_date | escape }}</span>
+                            </div>
+                          {%- endif -%}
+                        </div>
+                      {%- endfor -%}
+                    </div>
+                  {%- endfor -%}
                 </div>
-              {%- endfor -%}
+              </div>
+              {%- if gbp_total_pages > 1 -%}
+                <div class="lps-carousel__nav" role="toolbar" aria-label="{{ section.settings.gbp_heading | default: 'Customer reviews' | escape }}">
+                  <button
+                    type="button"
+                    class="lps-carousel__nav-btn lps-carousel__nav-btn--prev"
+                    data-lps-carousel-prev
+                    aria-label="{{ 'general.accessibility.previous' | t }}"
+                  >
+                    <span aria-hidden="true">‹</span>
+                  </button>
+                  <button
+                    type="button"
+                    class="lps-carousel__nav-btn lps-carousel__nav-btn--next"
+                    data-lps-carousel-next
+                    aria-label="{{ 'general.accessibility.next' | t }}"
+                  >
+                    <span aria-hidden="true">›</span>
+                  </button>
+                </div>
+              {%- endif -%}
             </div>
           {%- endif -%}
         {%- endif -%}
@@ -442,71 +639,217 @@
         {%- if section.settings.ig_subheading != blank -%}
           <p class="lps-section-sub">{{ section.settings.ig_subheading | escape }}</p>
         {%- endif -%}
-        <div class="lps-ig__grid">
-          {%- for block in ig_blocks -%}
-            {%- assign ig_shape = block.settings.ig_tile_shape | default: 'reel' -%}
-            {%- if block.settings.ig_show_reel_badge == false -%}
-              {%- assign ig_show_badge = false -%}
-            {%- else -%}
-              {%- assign ig_show_badge = true -%}
-            {%- endif -%}
-            {%- assign ig_item_class = 'lps-ig__item' -%}
-            {%- if ig_shape == 'square' -%}
-              {%- assign ig_item_class = ig_item_class | append: ' lps-ig__item--square' -%}
-            {%- endif -%}
-            {%- capture ig_tile_inner -%}
-              {%- if ig_shape == 'reel' and ig_show_badge -%}
-                <span class="lps-ig__reel-badge" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                    <rect x="2" y="4" width="9" height="16" rx="1.5" stroke="currentColor" stroke-width="1.5"/>
-                    <rect x="13" y="4" width="9" height="16" rx="1.5" stroke="currentColor" stroke-width="1.5" opacity="0.85"/>
-                  </svg>
-                </span>
-              {%- endif -%}
-              {%- if block.settings.cover_image != blank -%}
-                <img
-                  src="{{ block.settings.cover_image | image_url: width: 600 }}"
-                  alt="{{ block.settings.caption | default: 'Instagram' | escape }}"
-                  width="600"
-                  height="{{ 600 | divided_by: block.settings.cover_image.aspect_ratio | round }}"
-                  loading="lazy"
-                >
-              {%- else -%}
+        <div
+          class="lps-ig__carousel{% if ig_few %} lps-ig__carousel--few{% endif %}"
+          data-lps-carousel
+        >
+          <div class="lps-ig__viewport lps-carousel__viewport">
+            <div
+              class="lps-carousel__track"
+              data-lps-carousel-track
+              style="--lps-carousel-slides: {{ ig_total_pages }};"
+            >
+              {%- for ig_page_idx in (1..ig_total_pages) -%}
+                {%- assign ig_offset = ig_page_idx | minus: 1 | times: ig_per_page -%}
                 <div
-                  class="lps-ig__placeholder"
-                  role="img"
-                  aria-label="{% if ig_shape == 'square' %}Instagram post placeholder{% else %}Instagram Reel placeholder{% endif %}"
+                  class="lps-ig__page lps-carousel__slide"
+                  data-lps-carousel-page
+                  role="group"
+                  aria-hidden="{% if ig_page_idx == 1 %}false{% else %}true{% endif %}"
                 >
-                  <span class="lps-ig__placeholder__label">Instagram</span>
-                  <span class="lps-ig__placeholder__text">{% if ig_shape == 'square' %}Post{% else %}Reel{% endif %}</span>
+                  <div class="lps-ig__grid">
+                    {%- for block in ig_blocks offset: ig_offset limit: ig_per_page -%}
+                      {%- assign ig_shape = block.settings.ig_tile_shape | default: 'reel' -%}
+                      {%- if block.settings.ig_show_reel_badge == false -%}
+                        {%- assign ig_show_badge = false -%}
+                      {%- else -%}
+                        {%- assign ig_show_badge = true -%}
+                      {%- endif -%}
+                      {%- assign ig_item_class = 'lps-ig__item' -%}
+                      {%- if ig_shape == 'square' -%}
+                        {%- assign ig_item_class = ig_item_class | append: ' lps-ig__item--square' -%}
+                      {%- endif -%}
+                      {%- capture ig_tile_inner -%}
+                        {%- if ig_shape == 'reel' and ig_show_badge -%}
+                          <span class="lps-ig__reel-badge" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                              <rect x="2" y="4" width="9" height="16" rx="1.5" stroke="currentColor" stroke-width="1.5"/>
+                              <rect x="13" y="4" width="9" height="16" rx="1.5" stroke="currentColor" stroke-width="1.5" opacity="0.85"/>
+                            </svg>
+                          </span>
+                        {%- endif -%}
+                        {%- if block.settings.cover_image != blank -%}
+                          <img
+                            src="{{ block.settings.cover_image | image_url: width: 600 }}"
+                            alt="{{ block.settings.caption | default: 'Instagram' | escape }}"
+                            width="600"
+                            height="{{ 600 | divided_by: block.settings.cover_image.aspect_ratio | round }}"
+                            loading="lazy"
+                          >
+                        {%- else -%}
+                          <div
+                            class="lps-ig__placeholder"
+                            role="img"
+                            aria-label="{% if ig_shape == 'square' %}Instagram post placeholder{% else %}Instagram Reel placeholder{% endif %}"
+                          >
+                            <span class="lps-ig__placeholder__label">Instagram</span>
+                            <span class="lps-ig__placeholder__text">{% if ig_shape == 'square' %}Post{% else %}Reel{% endif %}</span>
+                          </div>
+                        {%- endif -%}
+                        {%- if block.settings.caption != blank -%}
+                          <span class="lps-ig__cap">{{ block.settings.caption | escape }}</span>
+                        {%- endif -%}
+                      {%- endcapture -%}
+                      {%- if block.settings.post_link != blank -%}
+                        <a
+                          href="{{ block.settings.post_link }}"
+                          class="{{ ig_item_class }}"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          {{ block.shopify_attributes }}
+                        >
+                          {{- ig_tile_inner -}}
+                        </a>
+                      {%- else -%}
+                        <div class="{{ ig_item_class }}" {{ block.shopify_attributes }}>
+                          {{- ig_tile_inner -}}
+                        </div>
+                      {%- endif -%}
+                    {%- endfor -%}
+                  </div>
                 </div>
-              {%- endif -%}
-              {%- if block.settings.caption != blank -%}
-                <span class="lps-ig__cap">{{ block.settings.caption | escape }}</span>
-              {%- endif -%}
-            {%- endcapture -%}
-            {%- if block.settings.post_link != blank -%}
-              <a
-                href="{{ block.settings.post_link }}"
-                class="{{ ig_item_class }}"
-                target="_blank"
-                rel="noopener noreferrer"
-                {{ block.shopify_attributes }}
+              {%- endfor -%}
+            </div>
+          </div>
+          {%- if ig_total_pages > 1 -%}
+            <div class="lps-carousel__nav" role="toolbar" aria-label="{{ section.settings.ig_heading | escape }}">
+              <button
+                type="button"
+                class="lps-carousel__nav-btn lps-carousel__nav-btn--prev"
+                data-lps-carousel-prev
+                aria-label="{{ 'general.accessibility.previous' | t }}"
               >
-                {{- ig_tile_inner -}}
-              </a>
-            {%- else -%}
-              <div class="{{ ig_item_class }}" {{ block.shopify_attributes }}>
-                {{- ig_tile_inner -}}
-              </div>
-            {%- endif -%}
-          {%- endfor -%}
+                <span aria-hidden="true">‹</span>
+              </button>
+              <button
+                type="button"
+                class="lps-carousel__nav-btn lps-carousel__nav-btn--next"
+                data-lps-carousel-next
+                aria-label="{{ 'general.accessibility.next' | t }}"
+              >
+                <span aria-hidden="true">›</span>
+              </button>
+            </div>
+          {%- endif -%}
         </div>
       </div>
     </section>
   {%- endif -%}
 
 </div>
+
+{%- comment -%}
+  ═══ TESTING: dummy video testimonials (pagination / sparse layout) ═══
+  To simulate extra client videos without adding theme blocks, copy the <article>…</article>
+  blocks below into the static carousel in the “Video testimonials” section (inside a
+  .lps-vtesti__page), or duplicate “Video testimonial” blocks in the editor.
+
+  <article class="lps-vtesti__card">
+    <div class="lps-vtesti__embed">
+      <div class="lps-video-placeholder lps-video-placeholder--card" role="img" aria-label="Video">
+        <span class="lps-video-placeholder__text">Video</span>
+      </div>
+    </div>
+    <div class="lps-vtesti__body">
+      <p class="lps-vtesti__quote">“Dummy quote A — remove after testing.”</p>
+      <p class="lps-vtesti__name">Test customer A</p>
+    </div>
+  </article>
+  <article class="lps-vtesti__card">
+    <div class="lps-vtesti__embed">
+      <div class="lps-video-placeholder lps-video-placeholder--card" role="img" aria-label="Video">
+        <span class="lps-video-placeholder__text">Video</span>
+      </div>
+    </div>
+    <div class="lps-vtesti__body">
+      <p class="lps-vtesti__quote">“Dummy quote B — remove after testing.”</p>
+      <p class="lps-vtesti__name">Test customer B</p>
+    </div>
+  </article>
+  <article class="lps-vtesti__card">
+    <div class="lps-vtesti__embed">
+      <div class="lps-video-placeholder lps-video-placeholder--card" role="img" aria-label="Video">
+        <span class="lps-video-placeholder__text">Video</span>
+      </div>
+    </div>
+    <div class="lps-vtesti__body">
+      <p class="lps-vtesti__quote">“Dummy quote C — remove after testing.”</p>
+      <p class="lps-vtesti__name">Test customer C</p>
+    </div>
+  </article>
+{%- endcomment -%}
+
+<script>
+  (function () {
+    var sectionEl = document.querySelector('.lps-{{ section.id }}');
+    if (!sectionEl) return;
+    var CAROUSEL_MS = 480;
+    sectionEl.querySelectorAll('[data-lps-carousel]').forEach(function (root) {
+      var track = root.querySelector('[data-lps-carousel-track]');
+      var pages = root.querySelectorAll('[data-lps-carousel-page]');
+      if (!track || pages.length < 2) return;
+      var n = pages.length;
+      var idx = 0;
+      var busy = false;
+      var navBtns = root.querySelectorAll('[data-lps-carousel-prev], [data-lps-carousel-next]');
+      function setBusy(on) {
+        busy = on;
+        navBtns.forEach(function (btn) {
+          btn.style.pointerEvents = on ? 'none' : '';
+        });
+      }
+      function applyTransform() {
+        var pct = -(idx * (100 / n));
+        track.style.transform = 'translate3d(' + pct + '%, 0, 0)';
+      }
+      function setAria() {
+        pages.forEach(function (page, j) {
+          page.setAttribute('aria-hidden', j === idx ? 'false' : 'true');
+        });
+      }
+      function updateNavButtons() {
+        if (prevBtn) {
+          var atStart = idx <= 0;
+          prevBtn.hidden = atStart;
+          prevBtn.setAttribute('aria-disabled', atStart ? 'true' : 'false');
+        }
+        if (nextBtn) {
+          var atEnd = idx >= n - 1;
+          nextBtn.hidden = atEnd;
+          nextBtn.setAttribute('aria-disabled', atEnd ? 'true' : 'false');
+        }
+      }
+      function show(nextIdx) {
+        if (nextIdx < 0 || nextIdx >= n || nextIdx === idx || busy) return;
+        setBusy(true);
+        idx = nextIdx;
+        applyTransform();
+        setAria();
+        updateNavButtons();
+        window.setTimeout(function () {
+          setBusy(false);
+        }, CAROUSEL_MS);
+      }
+      var prevBtn = root.querySelector('[data-lps-carousel-prev]');
+      var nextBtn = root.querySelector('[data-lps-carousel-next]');
+      applyTransform();
+      setAria();
+      updateNavButtons();
+      if (prevBtn) prevBtn.addEventListener('click', function () { show(idx - 1); });
+      if (nextBtn) nextBtn.addEventListener('click', function () { show(idx + 1); });
+    });
+  })();
+</script>
 
 {% schema %}
 {
@@ -542,7 +885,7 @@
       "id": "banner_title",
       "label": "Banner title",
       "default": "Product title",
-      "info": "Large gradient title below the logo. Clear the field to use the default “Product title”."
+      "info": "Center headline under the eyebrow. When a featured product is selected, leaving this as “Product title” (or empty) shows that product’s name — replace it anytime with custom text."
     },
     {
       "type": "text",
@@ -635,7 +978,7 @@
       "id": "product_section_heading",
       "label": "Section heading",
       "default": "Product title",
-      "info": "Shown above the product card. Clear this field to use the selected product’s name from your catalog instead."
+      "info": "Above the product card. With a featured product, “Product title” or empty uses the real product name; set any other text to override."
     },
     {
       "type": "text",
@@ -716,7 +1059,7 @@
       "id": "vtesti_horizontal_scroll",
       "label": "Marquee (auto-scrolling row)",
       "default": true,
-      "info": "Continuous horizontal animation — no scrollbar. Pause on hover. Turn off for a static grid."
+      "info": "Continuous horizontal animation — no scrollbar. Pause on hover. Turn off for a static layout with previous/next controls (no page numbers)."
     },
     {
       "type": "range",
@@ -728,6 +1071,16 @@
       "default": 60,
       "unit": "s",
       "info": "Seconds for one full cycle (lower = faster). Only applies when marquee is on."
+    },
+    {
+      "type": "range",
+      "id": "vtesti_per_page",
+      "label": "Video testimonials per view (static layout)",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "default": 3,
+      "info": "When marquee is off: how many testimonial cards show at once. Previous/next buttons cycle views — no page numbers are shown."
     },
     {
       "type": "header",
@@ -760,7 +1113,7 @@
       "id": "gbp_reviews_marquee",
       "label": "Scrolling marquee for manual reviews",
       "default": true,
-      "info": "Infinite horizontal scroll (like HTML marquee). Pause on hover. Respects “reduce motion” in the visitor’s system settings."
+      "info": "On: infinite horizontal scroll. Off: grid with previous/next buttons (no page numbers) when you have more manual reviews than fit per view."
     },
     {
       "type": "range",
@@ -771,7 +1124,17 @@
       "step": 5,
       "default": 45,
       "unit": "s",
-      "info": "Seconds for one full cycle (lower = faster)."
+      "info": "Seconds for one full cycle (lower = faster). Only when marquee is on."
+    },
+    {
+      "type": "range",
+      "id": "gbp_per_page",
+      "label": "Manual reviews per view (static layout)",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "default": 3,
+      "info": "When marquee is off: how many review cards show before using previous/next."
     },
     {
       "type": "header",
@@ -787,13 +1150,13 @@
       "type": "text",
       "id": "brand_story_heading",
       "label": "Heading",
-      "default": "Our story"
+      "default": "An Indian celebration-wear brand for the world"
     },
     {
       "type": "richtext",
       "id": "brand_story_text",
       "label": "Text",
-      "default": "<p>We started with a simple belief: every woman deserves to feel confident in what she wears. Today we ship across the country, with every piece checked by hand.</p>"
+      "default": "<p>Janvi Aika is a premium Indian celebration-wear brand for women who want to feel confident, elegant, and unforgettable during life's most meaningful moments. Our collections include lehengas, graceful Anarkali suits, refined chudidhars, party wear, and one-minute sarees—each piece blending traditional craftsmanship with modern aesthetics.</p><p>We believe fashion is more than clothing—it is confidence, identity, and celebration. Our first store began in Tiruppur, Tamil Nadu; from there we grew a brand that reaches across India and connects with customers globally online.</p><p>Janvi Aika is led by Ms. Pradeepa Senthilkumar, who brings international perspective and a deep love of South Indian heritage. Her vision is a celebration-wear brand that feels both traditional and modern—so Indian outfits shine at parties, milestones, and celebrations everywhere, not only at rituals and weddings.</p><p>From fabric selection to finishing, every piece is carefully quality-checked—because celebration wear is not just worn for a day; it becomes part of your memories.</p>"
     },
     {
       "type": "header",
@@ -815,6 +1178,16 @@
       "label": "Subheading",
       "default": "Tap a tile to open on Instagram.",
       "info": "Shown under the section title."
+    },
+    {
+      "type": "range",
+      "id": "ig_per_page",
+      "label": "Reels per screen",
+      "min": 1,
+      "max": 4,
+      "step": 1,
+      "default": 4,
+      "info": "Up to 4 reels visible at once (matches the grid). Use previous/next when you add more blocks."
     }
   ],
   "blocks": [
@@ -846,6 +1219,12 @@
       "type": "gbp_review",
       "name": "Manual Google review",
       "settings": [
+        {
+          "type": "image_picker",
+          "id": "reviewer_photo",
+          "label": "Profile photo",
+          "info": "Optional. Square or circular crop works best (reviewer avatar)."
+        },
         {
           "type": "text",
           "id": "author",

@@ -29,16 +29,19 @@
         "founder_subheading": "The story behind the brand, in our own words.",
         "vtesti_heading": "Hear from our clients",
         "vtesti_subheading": "Real voices from real celebrations.",
-        "vtesti_horizontal_scroll": true,
+        "vtesti_horizontal_scroll": false,
         "vtesti_marquee_seconds": 60,
+        "vtesti_per_page": 3,
         "gbp_heading": "Google reviews",
         "gbp_subheading": "What customers say on Google",
-        "gbp_reviews_marquee": true,
+        "gbp_reviews_marquee": false,
         "gbp_marquee_seconds": 45,
-        "brand_story_heading": "Our story",
-        "brand_story_text": "<p>We started with a simple belief: every woman deserves to feel confident in what she wears. Today we ship across the country, with every piece checked by hand.</p>",
+        "gbp_per_page": 2,
+        "brand_story_heading": "An Indian celebration-wear brand for the world",
+        "brand_story_text": "<p>Janvi Aika is a premium Indian celebration-wear brand for women who want to feel confident, elegant, and unforgettable during life's most meaningful moments. Our collections include lehengas, graceful Anarkali suits, refined chudidhars, party wear, and one-minute sarees—each piece blending traditional craftsmanship with modern aesthetics.</p><p>We believe fashion is more than clothing—it is confidence, identity, and celebration. Our first store began in Tiruppur, Tamil Nadu; from there we grew a brand that reaches across India and connects with customers globally online.</p><p>Janvi Aika is led by Ms. Pradeepa Senthilkumar, who brings international perspective and a deep love of South Indian heritage. Her vision is a celebration-wear brand that feels both traditional and modern—so Indian outfits shine at parties, milestones, and celebrations everywhere, not only at rituals and weddings.</p><p>From fabric selection to finishing, every piece is carefully quality-checked—because celebration wear is not just worn for a day; it becomes part of your memories.</p>",
         "ig_heading": "Reels & posts",
-        "ig_subheading": "Tap a tile to open on Instagram — new drops, reels, and behind the scenes."
+        "ig_subheading": "Tap a tile to open on Instagram — new drops, reels, and behind the scenes.",
+        "ig_per_page": 4
       },
       "blocks": {
         "vtesti_1": {
@@ -92,6 +95,24 @@
             "review_date": "2026"
           }
         },
+        "gbp_2": {
+          "type": "gbp_review",
+          "settings": {
+            "author": "Aisha K.",
+            "review_text": "Stitching and fabric quality are excellent — exactly as shown online.",
+            "rating": 5,
+            "review_date": "2026"
+          }
+        },
+        "gbp_3": {
+          "type": "gbp_review",
+          "settings": {
+            "author": "Riya M.",
+            "review_text": "Great communication and the outfit arrived well packed. Will shop again.",
+            "rating": 5,
+            "review_date": "2026"
+          }
+        },
         "ig_1": {
           "type": "instagram_post",
           "settings": {
@@ -123,9 +144,25 @@
             "ig_show_reel_badge": true,
             "caption": "Styling tips"
           }
+        },
+        "ig_5": {
+          "type": "instagram_post",
+          "settings": {
+            "ig_tile_shape": "reel",
+            "ig_show_reel_badge": true,
+            "caption": "New arrivals"
+          }
+        },
+        "ig_6": {
+          "type": "instagram_post",
+          "settings": {
+            "ig_tile_shape": "reel",
+            "ig_show_reel_badge": true,
+            "caption": "Client love"
+          }
         }
       },
-      "block_order": ["vtesti_1", "vtesti_2", "vtesti_3", "vtesti_4", "vtesti_5", "vtesti_6", "gbp_1", "ig_1", "ig_2", "ig_3", "ig_4"]
+      "block_order": ["vtesti_1", "vtesti_2", "vtesti_3", "vtesti_4", "vtesti_5", "vtesti_6", "gbp_1", "gbp_2", "gbp_3", "ig_1", "ig_2", "ig_3", "ig_4", "ig_5", "ig_6"]
     }
   },
   "order": ["main", "landing_story"]
