@@ -618,7 +618,13 @@
               loading="lazy"
             >
           {%- else -%}
-            <div style="width:100%;height:100%;min-height:280px;background:linear-gradient(145deg,#eee,#e5e0d8);" aria-hidden="true"></div>
+            <img
+              src="{{ 'janviAikaPhyscialStore.webp' | asset_url }}"
+              alt="{{ section.settings.brand_story_heading | escape }}"
+              width="800"
+              height="600"
+              loading="lazy"
+            >
           {%- endif -%}
         </div>
         <div class="lps-story__body">
@@ -669,50 +675,89 @@
                       {%- if ig_shape == 'square' -%}
                         {%- assign ig_item_class = ig_item_class | append: ' lps-ig__item--square' -%}
                       {%- endif -%}
-                      {%- capture ig_tile_inner -%}
-                        {%- if ig_shape == 'reel' and ig_show_badge -%}
-                          <span class="lps-ig__reel-badge" aria-hidden="true">
-                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                              <rect x="2" y="4" width="9" height="16" rx="1.5" stroke="currentColor" stroke-width="1.5"/>
-                              <rect x="13" y="4" width="9" height="16" rx="1.5" stroke="currentColor" stroke-width="1.5" opacity="0.85"/>
-                            </svg>
+                      {%- assign ig_has_video = false -%}
+                      {%- if block.settings.ig_video != blank -%}
+                        {%- assign ig_has_video = true -%}
+                        {%- assign ig_item_class = ig_item_class | append: ' lps-ig__item--video' -%}
+                      {%- endif -%}
+
+                      {%- if ig_has_video -%}
+                        <div class="{{ ig_item_class }}" {{ block.shopify_attributes }}>
+                          <video
+                            class="lps-ig__video"
+                            data-lps-ig-video
+                            muted
+                            playsinline
+                            loop
+                            preload="metadata"
+                            {%- if block.settings.cover_image != blank %}
+                              poster="{{ block.settings.cover_image | image_url: width: 600 }}"
+                            {%- endif %}
+                          >
+                            {%- for source in block.settings.ig_video.sources -%}
+                              <source src="{{ source.url }}" type="{{ source.mime_type }}">
+                            {%- endfor -%}
+                          </video>
+                          <span class="lps-ig__play-icon" data-lps-ig-play aria-hidden="true">
+                            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="24" cy="24" r="23" stroke="#fff" stroke-width="2" opacity="0.85"/><path d="M19 15l14 9-14 9V15z" fill="#fff"/></svg>
                           </span>
-                        {%- endif -%}
-                        {%- if block.settings.cover_image != blank -%}
-                          <img
-                            src="{{ block.settings.cover_image | image_url: width: 600 }}"
-                            alt="{{ block.settings.caption | default: 'Instagram' | escape }}"
-                            width="600"
-                            height="{{ 600 | divided_by: block.settings.cover_image.aspect_ratio | round }}"
-                            loading="lazy"
-                          >
+                          {%- if block.settings.caption != blank -%}
+                            <span class="lps-ig__cap">{{ block.settings.caption | escape }}</span>
+                          {%- endif -%}
+                        </div>
+                      {%- elsif block.settings.cover_image != blank -%}
+                        {%- if block.settings.post_link != blank -%}
+                          <a href="{{ block.settings.post_link }}" class="{{ ig_item_class }}" target="_blank" rel="noopener noreferrer" {{ block.shopify_attributes }}>
                         {%- else -%}
-                          <div
-                            class="lps-ig__placeholder"
-                            role="img"
-                            aria-label="{% if ig_shape == 'square' %}Instagram post placeholder{% else %}Instagram Reel placeholder{% endif %}"
-                          >
-                            <span class="lps-ig__placeholder__label">Instagram</span>
-                            <span class="lps-ig__placeholder__text">{% if ig_shape == 'square' %}Post{% else %}Reel{% endif %}</span>
+                          <div class="{{ ig_item_class }}" {{ block.shopify_attributes }}>
+                        {%- endif -%}
+                            {%- if ig_shape == 'reel' and ig_show_badge -%}
+                              <span class="lps-ig__reel-badge" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                  <rect x="2" y="4" width="9" height="16" rx="1.5" stroke="currentColor" stroke-width="1.5"/>
+                                  <rect x="13" y="4" width="9" height="16" rx="1.5" stroke="currentColor" stroke-width="1.5" opacity="0.85"/>
+                                </svg>
+                              </span>
+                            {%- endif -%}
+                            <img
+                              src="{{ block.settings.cover_image | image_url: width: 600 }}"
+                              alt="{{ block.settings.caption | default: 'Instagram' | escape }}"
+                              width="600"
+                              height="{{ 600 | divided_by: block.settings.cover_image.aspect_ratio | round }}"
+                              loading="lazy"
+                            >
+                            {%- if block.settings.caption != blank -%}
+                              <span class="lps-ig__cap">{{ block.settings.caption | escape }}</span>
+                            {%- endif -%}
+                        {%- if block.settings.post_link != blank -%}
+                          </a>
+                        {%- else -%}
                           </div>
                         {%- endif -%}
-                        {%- if block.settings.caption != blank -%}
-                          <span class="lps-ig__cap">{{ block.settings.caption | escape }}</span>
-                        {%- endif -%}
-                      {%- endcapture -%}
-                      {%- if block.settings.post_link != blank -%}
-                        <a
-                          href="{{ block.settings.post_link }}"
-                          class="{{ ig_item_class }}"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          {{ block.shopify_attributes }}
-                        >
-                          {{- ig_tile_inner -}}
-                        </a>
+                      {%- elsif block.settings.post_link != blank -%}
+                        {%- assign ig_ebase = block.settings.post_link | strip -%}
+                        {%- assign ig_elast = ig_ebase | slice: -1 -%}
+                        {%- unless ig_elast == '/' -%}
+                          {%- assign ig_ebase = ig_ebase | append: '/' -%}
+                        {%- endunless -%}
+                        <div class="lps-ig__card" {{ block.shopify_attributes }}>
+                          <div class="lps-ig__embed-crop">
+                            <iframe
+                              src="{{ ig_ebase }}embed/"
+                              class="lps-ig__embed-frame"
+                              frameborder="0"
+                              scrolling="no"
+                              allowtransparency="true"
+                              loading="lazy"
+                            ></iframe>
+                          </div>
+                        </div>
                       {%- else -%}
                         <div class="{{ ig_item_class }}" {{ block.shopify_attributes }}>
-                          {{- ig_tile_inner -}}
+                          <div class="lps-ig__placeholder" role="img" aria-label="Instagram">
+                            <svg class="lps-ig__ig-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="1.5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor"/></svg>
+                            <span class="lps-ig__placeholder__text">Instagram</span>
+                          </div>
                         </div>
                       {%- endif -%}
                     {%- endfor -%}
@@ -848,6 +893,55 @@
       if (prevBtn) prevBtn.addEventListener('click', function () { show(idx - 1); });
       if (nextBtn) nextBtn.addEventListener('click', function () { show(idx + 1); });
     });
+  })();
+
+  /* Instagram video tiles — autoplay muted on hover + when section scrolls into view */
+  (function () {
+    var section = document.querySelector('.lps-{{ section.id }}');
+    if (!section) return;
+    var videos = section.querySelectorAll('[data-lps-ig-video]');
+    if (!videos.length) return;
+
+    var sectionVisible = false;
+
+    function playVideo(v) {
+      var playIcon = v.parentElement.querySelector('[data-lps-ig-play]');
+      v.play().then(function () {
+        if (playIcon) playIcon.style.opacity = '0';
+      }).catch(function () {});
+    }
+    function pauseVideo(v) {
+      v.pause();
+      var playIcon = v.parentElement.querySelector('[data-lps-ig-play]');
+      if (playIcon) playIcon.style.opacity = '';
+    }
+
+    videos.forEach(function (v) {
+      v.parentElement.addEventListener('mouseenter', function () {
+        playVideo(v);
+      });
+      v.parentElement.addEventListener('mouseleave', function () {
+        if (!sectionVisible) pauseVideo(v);
+      });
+    });
+
+    if ('IntersectionObserver' in window) {
+      var igSection = section.querySelector('.lps-ig');
+      if (!igSection) return;
+      var obs = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          sectionVisible = entry.isIntersecting;
+          videos.forEach(function (v) {
+            if (entry.isIntersecting) {
+              playVideo(v);
+            } else {
+              pauseVideo(v);
+            }
+          });
+        });
+      }, { threshold: 0.3 });
+      obs.observe(igSection);
+    }
   })();
 </script>
 
@@ -1277,16 +1371,34 @@
           "info": "Only applies to Reel (9:16) tiles. Hides for square posts."
         },
         {
+          "type": "video",
+          "id": "ig_video",
+          "label": "Video file",
+          "info": "Upload the reel/post video for autoplay on hover. Download from Instagram: open reel → ⋮ → Save to device, then upload here."
+        },
+        {
           "type": "image_picker",
           "id": "cover_image",
-          "label": "Cover image",
-          "info": "Export a frame from your Reel (9:16) or a square crop for feed posts. Leave empty to show an Instagram / Reel placeholder tile."
+          "label": "Cover image (poster)",
+          "info": "Thumbnail shown before video plays. Screenshot a frame from your reel. Required when no video is uploaded."
         },
         {
           "type": "url",
           "id": "post_link",
           "label": "Instagram URL",
-          "info": "Paste the reel or post link (e.g. instagram.com/reel/… or instagram.com/p/…). Opens in a new tab."
+          "info": "Link to the original post/reel. Clicking the tile opens Instagram in a new tab (only when no video is uploaded)."
+        },
+        {
+          "type": "text",
+          "id": "ig_likes",
+          "label": "Likes",
+          "info": "e.g. 24 or 1.2K"
+        },
+        {
+          "type": "text",
+          "id": "ig_comments",
+          "label": "Comments",
+          "info": "e.g. 3 or 12"
         },
         {
           "type": "text",

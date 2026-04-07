@@ -3,13 +3,13 @@
 
 {%- liquid
   assign cta_link = section.settings.cta_link | default: '/collections/all'
-  assign asset_hero = 'hero-image.png' | asset_url
+  assign asset_store = 'janviAikaPhyscialStore.webp' | asset_url
   if section.settings.story_image != blank
     assign story_bg = section.settings.story_image | image_url: width: 900
   elsif section.settings.fallback_hero_image != blank
     assign story_bg = section.settings.fallback_hero_image | image_url: width: 900
   else
-    assign story_bg = asset_hero
+    assign story_bg = asset_store
   endif
 -%}
 

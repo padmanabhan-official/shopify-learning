@@ -176,29 +176,85 @@
         "testi_1": {
           "type": "testimonial",
           "settings": {
-            "name": "Priya S.",
-            "review": "I wore this Anarkali to my sister's mehendi and received compliments all night. The flare and zardozi work are even more stunning in person — exactly as pictured.",
+            "name": "Sangeetha P",
+            "review": "Good",
             "rating": 5
           }
         },
         "testi_2": {
           "type": "testimonial",
           "settings": {
-            "name": "Meera R.",
-            "review": "The silk georgette fabric feels incredibly luxurious. It drapes beautifully and the thread embroidery is done with such precision. Absolutely worth every rupee.",
+            "name": "DHANALAKSHMI DHANALAKSHMI",
+            "review": "Nice collections beautiful design's ❤️",
             "rating": 5
           }
         },
         "testi_3": {
           "type": "testimonial",
           "settings": {
-            "name": "Anita K.",
-            "review": "I have a pear-shaped body and was nervous ordering online. The Anarkali silhouette balanced my proportions perfectly — I felt so confident and radiant at the wedding.",
+            "name": "Eswaran Ayyasamy",
+            "review": "⭐⭐⭐⭐⭐",
+            "rating": 5
+          }
+        },
+        "testi_4": {
+          "type": "testimonial",
+          "settings": {
+            "name": "Nandhini Shiva",
+            "review": "Wonderful collection",
+            "rating": 5
+          }
+        },
+        "testi_5": {
+          "type": "testimonial",
+          "settings": {
+            "name": "swetha Arumugam",
+            "review": "⭐⭐⭐⭐⭐",
+            "rating": 5
+          }
+        },
+        "testi_6": {
+          "type": "testimonial",
+          "settings": {
+            "name": "keren deetya",
+            "review": "⭐⭐⭐⭐⭐",
+            "rating": 5
+          }
+        },
+        "testi_7": {
+          "type": "testimonial",
+          "settings": {
+            "name": "Tanishka Tanishka",
+            "review": "Nice collections super dress. Happy purchase",
+            "rating": 5
+          }
+        },
+        "testi_8": {
+          "type": "testimonial",
+          "settings": {
+            "name": "dr.Dhivya Balan",
+            "review": "⭐⭐⭐⭐⭐",
+            "rating": 5
+          }
+        },
+        "testi_9": {
+          "type": "testimonial",
+          "settings": {
+            "name": "subhika 211",
+            "review": "⭐⭐⭐⭐⭐",
+            "rating": 5
+          }
+        },
+        "testi_10": {
+          "type": "testimonial",
+          "settings": {
+            "name": "Divyadharshini S",
+            "review": "Collection was very good very nice",
             "rating": 5
           }
         }
       },
-      "block_order": ["testi_1", "testi_2", "testi_3"]
+      "block_order": ["testi_1", "testi_2", "testi_3", "testi_4", "testi_5", "testi_6", "testi_7", "testi_8", "testi_9", "testi_10"]
     },
     "lbs_story": {
       "type": "landing-brand-story",
