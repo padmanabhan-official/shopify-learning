@@ -12,11 +12,13 @@
       "type": "landing-page-story",
       "settings": {
         "banner_eyebrow": "The Art of Indian Elegance",
+        "banner_use_page_title": true,
         "banner_title": "Anarkali",
         "banner_tagline": "Handcrafted · Heritage · Timeless",
         "hero_eyebrow": "Handcrafted for you",
         "hero_heading": "Feel extraordinary in every celebration",
         "hero_subheading": "Premium ethnic wear with honest craft, fast delivery, and a fit that flatters.",
+        "hero_use_product_media": true,
         "hero_proof": "Loved by customers · 4.9★ on Google (331 reviews) · Tiruppur store",
         "hero_cta_text": "Shop the look",
         "product_section_heading": "Product title",

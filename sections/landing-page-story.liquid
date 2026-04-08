@@ -18,14 +18,18 @@
 {%- liquid
   assign product = section.settings.featured_product
   assign lps_banner_display = section.settings.banner_title | strip
-  assign lps_banner_setting_lower = lps_banner_display | downcase
-  if product != blank
-    if lps_banner_display == blank or lps_banner_setting_lower == 'product title'
-      assign lps_banner_display = product.title
+  if section.settings.banner_use_page_title and page != blank and page.title != blank
+    assign lps_banner_display = page.title
+  else
+    assign lps_banner_setting_lower = lps_banner_display | downcase
+    if product != blank
+      if lps_banner_display == blank or lps_banner_setting_lower == 'product title'
+        assign lps_banner_display = product.title
+      endif
     endif
-  endif
-  if lps_banner_display == blank
-    assign lps_banner_display = 'Product title'
+    if lps_banner_display == blank
+      assign lps_banner_display = 'Product title'
+    endif
   endif
   assign lps_product_heading_display = section.settings.product_section_heading | strip
   assign lps_product_heading_lower = lps_product_heading_display | downcase
@@ -42,6 +46,15 @@
     assign hero_link = '#lps-product'
   elsif hero_link == blank
     assign hero_link = routes.all_products_collection_url
+  endif
+  if section.settings.hero_image != blank
+    assign lps_hero_media = section.settings.hero_image
+  elsif section.settings.hero_use_product_media and product != blank and product.featured_media != blank
+    if product.featured_media.media_type == 'video' or product.featured_media.media_type == 'external_video'
+      assign lps_hero_media = product.featured_media.preview_image
+    else
+      assign lps_hero_media = product.featured_media
+    endif
   endif
   assign vtesti_per_page = section.settings.vtesti_per_page | default: 3
   if vtesti_per_page < 1
@@ -135,13 +148,13 @@
 
   {%- comment -%} Hero {%- endcomment -%}
   <section class="lps-hero">
-    {%- if section.settings.hero_image != blank -%}
+    {%- if lps_hero_media != blank -%}
       <img
         class="lps-hero__bg"
-        src="{{ section.settings.hero_image | image_url: width: 2000 }}"
-        alt=""
+        src="{{ lps_hero_media | image_url: width: 2000 }}"
+        alt="{{ lps_hero_media.alt | default: product.title | escape }}"
         width="2000"
-        height="1200"
+        height="{{ 2000 | divided_by: lps_hero_media.aspect_ratio | round }}"
         loading="eager"
       >
     {%- else -%}
@@ -707,12 +720,12 @@
               height="{{ 800 | divided_by: section.settings.brand_story_image.aspect_ratio | round }}"
               loading="lazy"
             >
-          {%- elsif section.settings.hero_image != blank -%}
+          {%- elsif lps_hero_media != blank -%}
             <img
-              src="{{ section.settings.hero_image | image_url: width: 800 }}"
-              alt=""
+              src="{{ lps_hero_media | image_url: width: 800 }}"
+              alt="{{ lps_hero_media.alt | default: section.settings.brand_story_heading | escape }}"
               width="800"
-              height="600"
+              height="{{ 800 | divided_by: lps_hero_media.aspect_ratio | round }}"
               loading="lazy"
             >
           {%- else -%}
@@ -1091,6 +1104,13 @@
       "info": "Center headline under the eyebrow. When a featured product is selected, leaving this as “Product title” (or empty) shows that product’s name — replace it anytime with custom text."
     },
     {
+      "type": "checkbox",
+      "id": "banner_use_page_title",
+      "label": "Use Shopify page title as banner headline",
+      "default": false,
+      "info": "When enabled, the banner uses each page’s title from Online Store → Pages (so one landing template can show Anarkali, Chudidar, etc. per page). Turn off to always use “Banner title” above."
+    },
+    {
       "type": "text",
       "id": "banner_tagline",
       "label": "Banner tagline",
@@ -1134,8 +1154,15 @@
     {
       "type": "image_picker",
       "id": "hero_image",
-      "label": "Background image",
-      "info": "Full-width lifestyle or product shot. If empty, a warm gradient is used."
+      "label": "Background image (optional override)",
+      "info": "If set, always used for the hero (overrides the product image below). Leave empty to use the featured product’s image when that option is on."
+    },
+    {
+      "type": "checkbox",
+      "id": "hero_use_product_media",
+      "label": "Use featured product image as hero background",
+      "default": true,
+      "info": "When the background image above is empty, the hero uses this section’s featured product’s main image (or video poster). Assign a different product per page in the theme editor to get a different hero on each landing page."
     },
     {
       "type": "text",
