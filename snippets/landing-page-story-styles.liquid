@@ -684,7 +684,7 @@
 
   /* Google reviews — Janvi Aika: Playfair names, Quicksand body, ivory section */
   .lps-{{ section.id }} .lps-gbp {
-    padding: 4rem 0;
+    padding: 3.5rem 0 2.25rem;
     background: linear-gradient(180deg, var(--lps-ivory) 0%, rgba(247, 241, 229, 0.65) 45%, #ffffff 100%);
   }
   .lps-{{ section.id }} .lps-gbp__embed {
@@ -754,7 +754,7 @@
   }
   /* Manual Google reviews — paginated grid (prev/next; turn off marquee in section settings) */
   .lps-{{ section.id }} .lps-gbp__carousel {
-    margin-top: 2rem;
+    margin-top: 1.75rem;
   }
   /* Slides only as tall as their content — avoid stretch-to-tallest-slide empty space */
   .lps-{{ section.id }} .lps-gbp__carousel .lps-carousel__track {
@@ -762,31 +762,29 @@
   }
   .lps-{{ section.id }} .lps-gbp__page {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
     gap: 1rem;
-    /* Cards in the same row must not stretch to the tallest review (that caused huge empty space inside shorter cards) */
-    align-items: start;
-    align-content: start;
-  }
-  .lps-{{ section.id }} .lps-gbp__carousel .lps-gbp__review {
     width: 100%;
-    min-width: 0;
-    max-width: none;
-    box-sizing: border-box;
+    /* Mobile: one column; tablet/desktop: fixed column count from theme (—lps-gbp-cols) so partial rows keep empty slots */
+    grid-template-columns: 1fr;
+    /* Equal row heights; inner flex pins date to bottom without growing the quote block (no flex:1 on text) */
+    align-items: stretch;
+    align-content: start;
+    justify-content: start;
+    justify-items: stretch;
   }
-  .lps-{{ section.id }} .lps-gbp__page > .lps-gbp__review:only-child {
-    grid-column: 1 / -1;
+  @media (min-width: 769px) {
+    .lps-{{ section.id }} .lps-gbp__page {
+      grid-template-columns: repeat(var(--lps-gbp-cols, 3), minmax(0, 1fr));
+    }
   }
+  /* Do not stretch a single card across the full row — keeps the same column grid with blank slots */
   .lps-{{ section.id }} .lps-gbp__carousel--few .lps-gbp__page {
-    justify-content: center;
-    justify-items: center;
-    max-width: 720px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  .lps-{{ section.id }} .lps-gbp__carousel--few .lps-gbp__review {
-    max-width: 400px;
-    box-shadow: 0 8px 28px rgba(123, 30, 43, 0.08);
+    justify-content: start;
+    justify-items: stretch;
+    max-width: none;
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
   }
   /* Manual reviews — infinite horizontal marquee (<marquee>-style) */
   .lps-{{ section.id }} .lps-gbp__marquee {
@@ -834,7 +832,7 @@
   }
   .lps-{{ section.id }} .lps-gbp__review {
     --lps-gbp-head-pad-x: 0.85rem;
-    padding: 1rem 1.15rem 0.9rem;
+    padding: 1rem 1.15rem 0.75rem;
     background: #fffefc;
     border-radius: var(--lps-radius);
     border: 1px solid rgba(123, 30, 43, 0.1);
@@ -847,6 +845,40 @@
     align-self: start;
     height: fit-content;
     min-height: 0;
+  }
+  /* Paginated GBP carousel: rules must follow base .lps-gbp__review so cards fill grid columns (no 300px cap / no centered strip with a false left gap) */
+  .lps-{{ section.id }} .lps-gbp__carousel .lps-gbp__page {
+    justify-content: start;
+    justify-items: stretch;
+  }
+  .lps-{{ section.id }} .lps-gbp__carousel .lps-gbp__page > .lps-gbp__review {
+    width: 100%;
+    min-width: 0;
+    max-width: none;
+    margin-inline: 0;
+    justify-self: stretch;
+    flex: 0 1 auto;
+    align-self: stretch;
+    height: 100%;
+    min-height: 0;
+    max-height: none;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .lps-{{ section.id }} .lps-gbp__carousel .lps-gbp__page > .lps-gbp__review .lps-gbp__review-head {
+    flex-shrink: 0;
+  }
+  .lps-{{ section.id }} .lps-gbp__carousel .lps-gbp__page > .lps-gbp__review .lps-gbp__text {
+    flex: 0 1 auto;
+    min-height: 0;
+  }
+  .lps-{{ section.id }} .lps-gbp__carousel .lps-gbp__page > .lps-gbp__review .lps-gbp__meta {
+    margin-top: auto;
+    flex-shrink: 0;
+  }
+  .lps-{{ section.id }} .lps-gbp__carousel--few .lps-gbp__page > .lps-gbp__review {
+    box-shadow: 0 8px 28px rgba(123, 30, 43, 0.08);
   }
   .lps-{{ section.id }} .lps-gbp__review-head {
     display: flex;
@@ -944,6 +976,12 @@
     text-transform: uppercase;
     color: var(--lps-taupe);
     opacity: 0.75;
+  }
+
+  /* Pagination dots are only used on the Instagram Reels section (mobile); story carousels use arrows only */
+  .lps-{{ section.id }} .lps-gbp .lps-carousel__nav {
+    margin-top: 0.65rem;
+    margin-bottom: 0;
   }
 
   /* Brand story */

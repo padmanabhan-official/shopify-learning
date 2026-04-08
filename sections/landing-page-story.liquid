@@ -625,6 +625,7 @@
                       data-lps-carousel-page
                       role="group"
                       aria-hidden="{% if gbp_page_idx == 1 %}false{% else %}true{% endif %}"
+                      style="--lps-gbp-cols: {{ gbp_per_page }};"
                     >
                       {%- for block in gbp_manual offset: gbp_offset limit: gbp_per_page -%}
                         <div class="lps-gbp__review" {{ block.shopify_attributes }}>
