@@ -16,6 +16,7 @@
   endif
 -%}
 
+{% render 'lps-carousel-nav-unified' %}
 <style>
   .igr-{{ section.id }} {
     --igr-max: 1200px;
@@ -84,48 +85,7 @@
     gap: var(--igr-gap);
   }
 
-  /* Nav buttons */
-  .igr-{{ section.id }} .igr-nav {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 0.85rem;
-    margin-top: 2rem;
-  }
-  .igr-{{ section.id }} .igr-nav-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 3rem;
-    height: 3rem;
-    padding: 0;
-    border-radius: 50%;
-    border: 1px solid rgba(139, 69, 19, 0.22);
-    background: #fff;
-    color: var(--igr-accent);
-    font-size: 1.65rem;
-    line-height: 1;
-    cursor: pointer;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
-    transition: border-color 0.35s ease, background 0.35s ease, transform 0.2s ease, box-shadow 0.35s ease;
-  }
-  .igr-{{ section.id }} .igr-nav-btn:hover {
-    border-color: rgba(139, 69, 19, 0.45);
-    background: var(--igr-bg);
-    transform: translateY(-1px);
-    box-shadow: 0 6px 18px rgba(139, 69, 19, 0.12);
-  }
-  .igr-{{ section.id }} .igr-nav-btn:focus-visible {
-    outline: 2px solid var(--igr-accent);
-    outline-offset: 3px;
-  }
-  .igr-{{ section.id }} .igr-nav-btn:active {
-    transform: translateY(0) scale(0.94);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-  }
-  .igr-{{ section.id }} .igr-nav-btn[hidden] {
-    display: none;
-  }
+  /* Prev/next: shared rules in snippets/lps-carousel-nav-unified.liquid */
 
   /* Cards */
   .igr-{{ section.id }} .igr-card {
@@ -419,7 +379,7 @@
               class="igr-nav-btn"
               data-igr-prev
               aria-label="Previous"
-              hidden
+              disabled
             >
               <span aria-hidden="true">&#8249;</span>
             </button>
@@ -474,12 +434,14 @@
 
       function updateNav() {
         if (prevBtn) {
-          prevBtn.hidden = idx <= 0;
-          prevBtn.setAttribute('aria-disabled', idx <= 0 ? 'true' : 'false');
+          var atStart = idx <= 0 || n <= 1;
+          prevBtn.disabled = atStart;
+          prevBtn.setAttribute('aria-disabled', atStart ? 'true' : 'false');
         }
         if (nextBtn) {
-          nextBtn.hidden = idx >= n - 1;
-          nextBtn.setAttribute('aria-disabled', idx >= n - 1 ? 'true' : 'false');
+          var atEnd = idx >= n - 1 || n <= 1;
+          nextBtn.disabled = atEnd;
+          nextBtn.setAttribute('aria-disabled', atEnd ? 'true' : 'false');
         }
       }
 
@@ -567,7 +529,7 @@
   "settings": [
     {
       "type": "paragraph",
-      "content": "Displays Instagram reels as autoplay videos in a paginated grid. Set the video asset filename for each block. Videos autoplay muted and loop. Prev/next buttons appear when there are more reels than fit one page."
+      "content": "Displays Instagram reels as autoplay videos in a paginated grid. Set the video asset filename for each block. Videos autoplay muted and loop. When there is more than one page, previous and next buttons show; each is disabled when there is no page in that direction."
     },
     {
       "type": "text",

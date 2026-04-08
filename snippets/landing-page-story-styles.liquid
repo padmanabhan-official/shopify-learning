@@ -511,49 +511,7 @@
     gap: 1.35rem;
     align-items: stretch;
   }
-  .lps-{{ section.id }} .lps-carousel__nav {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 0.85rem;
-    margin-top: 1.85rem;
-  }
-  .lps-{{ section.id }} .lps-carousel__nav-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 3rem;
-    height: 3rem;
-    padding: 0;
-    border-radius: 50%;
-    border: 1px solid rgba(139, 69, 19, 0.22);
-    background: #fff;
-    color: var(--lps-accent);
-    font-size: 1.65rem;
-    line-height: 1;
-    cursor: pointer;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
-    transition: border-color var(--lps-transition), background var(--lps-transition), transform 0.2s ease, box-shadow var(--lps-transition);
-  }
-  .lps-{{ section.id }} .lps-carousel__nav-btn:hover {
-    border-color: rgba(139, 69, 19, 0.45);
-    background: var(--lps-bg-warm);
-    transform: translateY(-1px);
-    box-shadow: 0 6px 18px rgba(139, 69, 19, 0.12);
-  }
-  .lps-{{ section.id }} .lps-carousel__nav-btn:focus-visible {
-    outline: 2px solid var(--lps-accent-mid);
-    outline-offset: 3px;
-  }
-  .lps-{{ section.id }} .lps-carousel__nav-btn:active {
-    transform: translateY(0) scale(0.94);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .lps-{{ section.id }} .lps-carousel__nav-btn:active {
-      transform: none;
-    }
-  }
+  /* Carousel prev/next: shared rules in snippets/lps-carousel-nav-unified.liquid */
   /* Few testimonials — centred, calmer layout (avoids stretched sparse grids) */
   .lps-{{ section.id }} .lps-vtesti__carousel--few {
     padding: 1.75rem 1rem 0.25rem;
@@ -692,6 +650,62 @@
     overflow: hidden;
     min-height: 120px;
   }
+  .lps-{{ section.id }} .lps-gbp__profile-line {
+    margin: 0.35rem 0 0;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: rgba(0, 0, 0, 0.72);
+    text-align: center;
+    max-width: 40rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .lps-{{ section.id }} .lps-gbp__google-link {
+    color: var(--lps-accent, #8b4513);
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .lps-{{ section.id }} .lps-gbp__google-link:hover {
+    opacity: 0.88;
+  }
+  .lps-{{ section.id }} .lps-gbp__aggregate {
+    margin: 0.45rem auto 0;
+    font-size: clamp(0.95rem, 2.2vw, 1.05rem);
+    text-align: center;
+    color: rgba(0, 0, 0, 0.82);
+    line-height: 1.45;
+  }
+  .lps-{{ section.id }} .lps-gbp__aggregate-stars {
+    color: #f4b400;
+    letter-spacing: 0.1em;
+    margin-right: 0.2rem;
+  }
+  .lps-{{ section.id }} .lps-gbp__aggregate-num {
+    font-weight: 700;
+  }
+  .lps-{{ section.id }} .lps-gbp__based a {
+    color: var(--lps-accent, #8b4513);
+    font-weight: 600;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  .lps-{{ section.id }} .lps-gbp__based a:hover {
+    opacity: 0.9;
+  }
+  .lps-{{ section.id }} .lps-gbp__reviewer-names {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    min-width: 0;
+    flex: 1 1 auto;
+  }
+  .lps-{{ section.id }} .lps-gbp__badge {
+    font-size: 0.72rem;
+    font-weight: 500;
+    color: rgba(0, 0, 0, 0.48);
+    line-height: 1.25;
+  }
   /* Manual Google reviews — paginated grid (prev/next; turn off marquee in section settings) */
   .lps-{{ section.id }} .lps-gbp__carousel {
     margin-top: 2rem;
@@ -826,23 +840,24 @@
     color: var(--lps-accent);
     letter-spacing: 0.02em;
     line-height: 1.25;
-    flex: 1 1 auto;
     min-width: 0;
   }
   .lps-{{ section.id }} .lps-gbp__stars {
     display: inline-flex;
     align-items: center;
     flex-shrink: 0;
-    padding: 0.3rem 0.7rem;
-    font-size: clamp(0.95rem, 2.4vw, 1.12rem);
-    font-weight: 700;
-    letter-spacing: 0.14em;
+    padding: 0.35rem 0.75rem;
+    font-size: clamp(1rem, 2.5vw, 1.18rem);
+    font-weight: 800;
+    letter-spacing: 0.12em;
     line-height: 1;
-    color: #b8860b;
-    background: linear-gradient(180deg, #fffdf8 0%, #fff3d6 100%);
-    border: 1px solid rgba(230, 163, 23, 0.55);
+    /* Bright “rated” yellow — readable on tan card header */
+    color: #f4b400;
+    text-shadow: 0 0.5px 0 rgba(0, 0, 0, 0.22), 0 1px 2px rgba(184, 134, 11, 0.35);
+    background: #fff;
+    border: 1px solid rgba(244, 180, 0, 0.65);
     border-radius: 999px;
-    box-shadow: 0 1px 3px rgba(230, 163, 23, 0.2);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.95);
   }
   .lps-{{ section.id }} .lps-gbp__text {
     margin: 0;

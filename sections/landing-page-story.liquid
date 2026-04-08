@@ -12,6 +12,7 @@
   Template: page.landing.json (suffix "landing"). Anarkali: page.landing-anarkali.json (modular landing-* sections).
 {%- endcomment -%}
 
+{% render 'lps-carousel-nav-unified' %}
 {% render 'landing-page-story-styles', section: section %}
 
 {%- liquid
@@ -420,6 +421,7 @@
                   class="lps-carousel__nav-btn lps-carousel__nav-btn--prev"
                   data-lps-carousel-prev
                   aria-label="{{ 'general.accessibility.previous' | t }}"
+                  disabled
                 >
                   <span aria-hidden="true">‹</span>
                 </button>
@@ -440,14 +442,46 @@
   {%- endif -%}
 
   {%- comment -%} Google Business Profile reviews (embed + optional manual) {%- endcomment -%}
-  {%- if section.settings.gbp_heading != blank or section.settings.gbp_embed != blank or gbp_manual.size > 0 -%}
+  {%- if section.settings.gbp_heading != blank or section.settings.gbp_embed != blank or section.settings.gbp_reviews_url != blank or section.settings.gbp_rating_value != blank or section.settings.gbp_review_count != blank or gbp_manual.size > 0 -%}
     <section class="lps-gbp">
       <div class="lps-inner">
         {%- if section.settings.gbp_heading != blank -%}
           <h2 class="lps-section-title">{{ section.settings.gbp_heading | escape }}</h2>
         {%- endif -%}
+        {%- if section.settings.gbp_rating_value != blank or section.settings.gbp_review_count != blank -%}
+          <p class="lps-gbp__aggregate">
+            {%- if section.settings.gbp_rating_value != blank -%}
+              <span class="lps-gbp__aggregate-stars" aria-hidden="true">★★★★★</span>
+              <span class="lps-gbp__aggregate-num">{{ section.settings.gbp_rating_value | escape }} / 5</span>
+            {%- endif -%}
+            {%- if section.settings.gbp_review_count != blank and section.settings.gbp_reviews_url != blank -%}
+              <span class="lps-gbp__aggregate-sep"> · </span>
+              <span class="lps-gbp__based"
+                >Based on
+                <a href="{{ section.settings.gbp_reviews_url }}" target="_blank" rel="noopener noreferrer"
+                  >{{ section.settings.gbp_review_count }} Google reviews</a
+                ></span
+              >
+            {%- elsif section.settings.gbp_review_count != blank -%}
+              <span class="lps-gbp__aggregate-sep"> · </span>
+              <span>Based on {{ section.settings.gbp_review_count }} Google reviews</span>
+            {%- endif -%}
+          </p>
+        {%- endif -%}
         {%- if section.settings.gbp_subheading != blank -%}
           <p class="lps-section-sub">{{ section.settings.gbp_subheading | escape }}</p>
+        {%- endif -%}
+        {%- if section.settings.gbp_reviews_url != blank -%}
+          <p class="lps-gbp__profile-line">
+            <a
+              href="{{ section.settings.gbp_reviews_url }}"
+              class="lps-gbp__google-link"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {{- section.settings.gbp_reviews_link_label | default: 'View all reviews on Google' | escape -}}
+            </a>
+          </p>
         {%- endif -%}
         {%- if section.settings.gbp_embed != blank -%}
           <div class="lps-gbp__embed">
@@ -468,7 +502,7 @@
                     <div class="lps-gbp__review" {{ block.shopify_attributes }}>
                       {%- assign r = block.settings.rating | default: 5 -%}
                       <div class="lps-gbp__review-head">
-                        {%- if block.settings.reviewer_photo != blank or block.settings.author != blank -%}
+                        {%- if block.settings.reviewer_photo != blank or block.settings.author != blank or block.settings.reviewer_badge != blank -%}
                           <div class="lps-gbp__reviewer">
                             {%- if block.settings.reviewer_photo != blank -%}
                               <span class="lps-gbp__avatar">
@@ -481,8 +515,15 @@
                                 >
                               </span>
                             {%- endif -%}
-                            {%- if block.settings.author != blank -%}
-                              <span class="lps-gbp__author">{{ block.settings.author | escape }}</span>
+                            {%- if block.settings.author != blank or block.settings.reviewer_badge != blank -%}
+                              <div class="lps-gbp__reviewer-names">
+                                {%- if block.settings.author != blank -%}
+                                  <span class="lps-gbp__author">{{ block.settings.author | escape }}</span>
+                                {%- endif -%}
+                                {%- if block.settings.reviewer_badge != blank -%}
+                                  <span class="lps-gbp__badge">{{ block.settings.reviewer_badge | escape }}</span>
+                                {%- endif -%}
+                              </div>
                             {%- endif -%}
                           </div>
                         {%- endif -%}
@@ -508,7 +549,7 @@
                     <div class="lps-gbp__review">
                       {%- assign r = block.settings.rating | default: 5 -%}
                       <div class="lps-gbp__review-head">
-                        {%- if block.settings.reviewer_photo != blank or block.settings.author != blank -%}
+                        {%- if block.settings.reviewer_photo != blank or block.settings.author != blank or block.settings.reviewer_badge != blank -%}
                           <div class="lps-gbp__reviewer">
                             {%- if block.settings.reviewer_photo != blank -%}
                               <span class="lps-gbp__avatar">
@@ -522,8 +563,15 @@
                                 >
                               </span>
                             {%- endif -%}
-                            {%- if block.settings.author != blank -%}
-                              <span class="lps-gbp__author">{{ block.settings.author | escape }}</span>
+                            {%- if block.settings.author != blank or block.settings.reviewer_badge != blank -%}
+                              <div class="lps-gbp__reviewer-names">
+                                {%- if block.settings.author != blank -%}
+                                  <span class="lps-gbp__author">{{ block.settings.author | escape }}</span>
+                                {%- endif -%}
+                                {%- if block.settings.reviewer_badge != blank -%}
+                                  <span class="lps-gbp__badge">{{ block.settings.reviewer_badge | escape }}</span>
+                                {%- endif -%}
+                              </div>
                             {%- endif -%}
                           </div>
                         {%- endif -%}
@@ -569,7 +617,7 @@
                         <div class="lps-gbp__review" {{ block.shopify_attributes }}>
                           {%- assign r = block.settings.rating | default: 5 -%}
                           <div class="lps-gbp__review-head">
-                            {%- if block.settings.reviewer_photo != blank or block.settings.author != blank -%}
+                            {%- if block.settings.reviewer_photo != blank or block.settings.author != blank or block.settings.reviewer_badge != blank -%}
                               <div class="lps-gbp__reviewer">
                                 {%- if block.settings.reviewer_photo != blank -%}
                                   <span class="lps-gbp__avatar">
@@ -582,8 +630,15 @@
                                     >
                                   </span>
                                 {%- endif -%}
-                                {%- if block.settings.author != blank -%}
-                                  <span class="lps-gbp__author">{{ block.settings.author | escape }}</span>
+                                {%- if block.settings.author != blank or block.settings.reviewer_badge != blank -%}
+                                  <div class="lps-gbp__reviewer-names">
+                                    {%- if block.settings.author != blank -%}
+                                      <span class="lps-gbp__author">{{ block.settings.author | escape }}</span>
+                                    {%- endif -%}
+                                    {%- if block.settings.reviewer_badge != blank -%}
+                                      <span class="lps-gbp__badge">{{ block.settings.reviewer_badge | escape }}</span>
+                                    {%- endif -%}
+                                  </div>
                                 {%- endif -%}
                               </div>
                             {%- endif -%}
@@ -618,6 +673,7 @@
                     class="lps-carousel__nav-btn lps-carousel__nav-btn--prev"
                     data-lps-carousel-prev
                     aria-label="{{ 'general.accessibility.previous' | t }}"
+                    disabled
                   >
                     <span aria-hidden="true">‹</span>
                   </button>
@@ -891,6 +947,8 @@
       var idx = 0;
       var busy = false;
       var navBtns = root.querySelectorAll('[data-lps-carousel-prev], [data-lps-carousel-next]');
+      var prevBtn = root.querySelector('[data-lps-carousel-prev]');
+      var nextBtn = root.querySelector('[data-lps-carousel-next]');
       function setBusy(on) {
         busy = on;
         navBtns.forEach(function (btn) {
@@ -908,13 +966,13 @@
       }
       function updateNavButtons() {
         if (prevBtn) {
-          var atStart = idx <= 0;
-          prevBtn.hidden = atStart;
+          var atStart = idx <= 0 || n <= 1;
+          prevBtn.disabled = atStart;
           prevBtn.setAttribute('aria-disabled', atStart ? 'true' : 'false');
         }
         if (nextBtn) {
-          var atEnd = idx >= n - 1;
-          nextBtn.hidden = atEnd;
+          var atEnd = idx >= n - 1 || n <= 1;
+          nextBtn.disabled = atEnd;
           nextBtn.setAttribute('aria-disabled', atEnd ? 'true' : 'false');
         }
       }
@@ -929,8 +987,6 @@
           setBusy(false);
         }, CAROUSEL_MS);
       }
-      var prevBtn = root.querySelector('[data-lps-carousel-prev]');
-      var nextBtn = root.querySelector('[data-lps-carousel-next]');
       applyTransform();
       setAria();
       updateNavButtons();
@@ -1250,6 +1306,32 @@
       "default": "What customers say on Google"
     },
     {
+      "type": "text",
+      "id": "gbp_rating_value",
+      "label": "Google average rating",
+      "default": "4.9",
+      "info": "Shown as ★★★★★ X / 5 next to the heading (from your GBP summary)."
+    },
+    {
+      "type": "text",
+      "id": "gbp_review_count",
+      "label": "Google review count",
+      "default": "331",
+      "info": "e.g. 331 — links to your Maps URL when set."
+    },
+    {
+      "type": "url",
+      "id": "gbp_reviews_url",
+      "label": "Google Business Profile (Maps) URL",
+      "info": "Opens your Google Maps listing so visitors can read every review. Find it: Google Maps → your business → Share."
+    },
+    {
+      "type": "text",
+      "id": "gbp_reviews_link_label",
+      "label": "Maps link label",
+      "default": "View all reviews on Google"
+    },
+    {
       "type": "html",
       "id": "gbp_embed",
       "label": "Reviews widget embed code",
@@ -1397,6 +1479,12 @@
           "id": "review_date",
           "label": "Date (optional)",
           "info": "e.g. March 2026"
+        },
+        {
+          "type": "text",
+          "id": "reviewer_badge",
+          "label": "Badge (optional)",
+          "info": "e.g. Google Local Guide — shown under the name."
         }
       ]
     },

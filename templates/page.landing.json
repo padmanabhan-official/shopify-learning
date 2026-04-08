@@ -17,7 +17,7 @@
         "hero_eyebrow": "Handcrafted for you",
         "hero_heading": "Feel extraordinary in every celebration",
         "hero_subheading": "Premium ethnic wear with honest craft, fast delivery, and a fit that flatters.",
-        "hero_proof": "Loved by customers · 5★ rated",
+        "hero_proof": "Loved by customers · 4.9★ on Google (331 reviews) · Tiruppur store",
         "hero_cta_text": "Shop the look",
         "product_section_heading": "Product title",
         "product_section_subheading": "One hero product — full details and checkout below.",
@@ -32,8 +32,12 @@
         "vtesti_horizontal_scroll": false,
         "vtesti_marquee_seconds": 60,
         "vtesti_per_page": 3,
-        "gbp_heading": "Google reviews",
-        "gbp_subheading": "What customers say on Google",
+        "gbp_heading": "What Our Customers Say",
+        "gbp_subheading": "Janvi Aika Traditional Party Wears — real reviews from our Google Business Profile (updated April 2026).",
+        "gbp_rating_value": "4.9",
+        "gbp_review_count": "331",
+        "gbp_reviews_url": "https://maps.app.goo.gl/Jqq82JyjC73GVcr99",
+        "gbp_reviews_link_label": "View all reviews on Google",
         "gbp_reviews_marquee": false,
         "gbp_marquee_seconds": 45,
         "gbp_per_page": 3,
@@ -89,91 +93,48 @@
         "gbp_1": {
           "type": "gbp_review",
           "settings": {
-            "author": "Sangeetha P",
-            "review_text": "Good",
+            "author": "Dimple Shivani",
+            "review_text": "Stunning luxury party wear collection with premium quality and elegant designs at affordable price. The staff were professional and attentive. Truly a great shopping experience.",
             "rating": 5,
-            "review_date": "April 2026"
+            "review_date": "Feb 2026"
           }
         },
         "gbp_2": {
           "type": "gbp_review",
           "settings": {
-            "author": "DHANALAKSHMI DHANALAKSHMI",
-            "review_text": "Nice collections beautiful design's ❤️",
+            "author": "S Vijayasarathy",
+            "review_text": "An amazing boutique! The designs are elegant and stylish, perfect for both special occasions and Party. The customer service is excellent, and they really understand our requirements. Highly recommended for everyone looking for quality and fashion together.",
             "rating": 5,
-            "review_date": "April 2026"
+            "review_date": "Feb 2026"
           }
         },
         "gbp_3": {
           "type": "gbp_review",
           "settings": {
-            "author": "Eswaran Ayyasamy",
-            "review_text": "",
+            "author": "Karthikeyan V",
+            "reviewer_badge": "Google Local Guide",
+            "review_text": "There are collections here that I like, and the environment in the store is very nice. The people in the store are friendly and polite, and they send customers off with ease.",
             "rating": 5,
-            "review_date": "April 2026"
+            "review_date": "Jan 2026"
           }
         },
         "gbp_4": {
           "type": "gbp_review",
           "settings": {
-            "author": "Nandhini Shiva",
-            "review_text": "Wonderful collection",
+            "author": "kishore ari",
+            "reviewer_badge": "Google Local Guide",
+            "review_text": "The team has a very professional and friendly approach when helping customers choose dresses. They listen carefully to preferences and recommend beautiful styles that suit your taste. Totally satisfied with the service!",
             "rating": 5,
-            "review_date": "April 2026"
+            "review_date": "Mar 2026"
           }
         },
         "gbp_5": {
           "type": "gbp_review",
           "settings": {
-            "author": "swetha Arumugam",
-            "review_text": "",
+            "author": "Kalasadhana Kala",
+            "review_text": "Very nice collection iam very satisfied 😁 customer service is very good 💯",
             "rating": 5,
-            "review_date": "April 2026"
-          }
-        },
-        "gbp_6": {
-          "type": "gbp_review",
-          "settings": {
-            "author": "keren deetya",
-            "review_text": "",
-            "rating": 5,
-            "review_date": "April 2026"
-          }
-        },
-        "gbp_7": {
-          "type": "gbp_review",
-          "settings": {
-            "author": "Tanishka Tanishka",
-            "review_text": "Nice collections super dress. Happy purchase",
-            "rating": 5,
-            "review_date": "April 2026"
-          }
-        },
-        "gbp_8": {
-          "type": "gbp_review",
-          "settings": {
-            "author": "dr.Dhivya Balan",
-            "review_text": "",
-            "rating": 5,
-            "review_date": "April 2026"
-          }
-        },
-        "gbp_9": {
-          "type": "gbp_review",
-          "settings": {
-            "author": "subhika 211",
-            "review_text": "",
-            "rating": 5,
-            "review_date": "April 2026"
-          }
-        },
-        "gbp_10": {
-          "type": "gbp_review",
-          "settings": {
-            "author": "Divyadharshini S",
-            "review_text": "Collection was very good very nice",
-            "rating": 5,
-            "review_date": "March 2026"
+            "review_date": "Oct 2025"
           }
         },
         "ig_1": {
@@ -257,7 +218,7 @@
           }
         }
       },
-      "block_order": ["vtesti_1", "vtesti_2", "vtesti_3", "vtesti_4", "vtesti_5", "vtesti_6", "gbp_1", "gbp_2", "gbp_3", "gbp_4", "gbp_5", "gbp_6", "gbp_7", "gbp_8", "gbp_9", "gbp_10", "ig_1", "ig_2", "ig_3", "ig_4", "ig_5", "ig_6", "ig_7", "ig_8", "ig_9", "ig_10"]
+      "block_order": ["vtesti_1", "vtesti_2", "vtesti_3", "vtesti_4", "vtesti_5", "vtesti_6", "gbp_1", "gbp_2", "gbp_3", "gbp_4", "gbp_5", "ig_1", "ig_2", "ig_3", "ig_4", "ig_5", "ig_6", "ig_7", "ig_8", "ig_9", "ig_10"]
     },
     "reels_grid": {
       "type": "landing-instagram-reels",
