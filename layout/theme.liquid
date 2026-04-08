@@ -84,6 +84,22 @@
     <script src="{{ 'theme.js' | asset_url }}" defer></script>
     <script src="{{ 'custom.js' | asset_url }}" defer></script>
     <script src="{{ 'index-min.js' | asset_url }}" defer></script>
+    {%- liquid
+      assign ja_landing_fonts = false
+      if request.page_type == 'page' and page.template_suffix != blank
+        if page.template_suffix == 'landing' or page.template_suffix == 'landing-anarkali'
+          assign ja_landing_fonts = true
+        endif
+      endif
+    -%}
+    {%- if ja_landing_fonts -%}
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Quicksand:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet"
+      >
+    {%- endif -%}
     {{ content_for_header }}
   </head>
 

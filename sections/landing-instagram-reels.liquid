@@ -22,12 +22,22 @@
     --igr-max: 1200px;
     --igr-gap: 1.25rem;
     --igr-radius: var(--block-border-radius, 12px);
-    --igr-accent: #8b4513;
-    --igr-bg: #fdf8f3;
-    --igr-text: #1a1a1a;
+    --igr-maroon: #7b1e2b;
+    --igr-vermilion: #eb4d45;
+    --igr-ivory: #f7f1e5;
+    --igr-gold: #c9a24d;
+    --igr-taupe: #5f4f40;
+    --igr-black: #0b0b0b;
+    --igr-accent: var(--igr-maroon);
+    --igr-bg: var(--igr-ivory);
+    --igr-text: var(--igr-black);
+    --igr-font-heading: 'Playfair Display', Georgia, 'Times New Roman', serif;
+    --igr-font-body: 'Quicksand', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     --igr-cols: {{ cols }};
     padding: 4.5rem 1.25rem 5.5rem;
     background: var(--igr-bg);
+    font-family: var(--igr-font-body);
+    color: var(--igr-text);
     overflow-x: hidden;
   }
   .igr-{{ section.id }} .igr-inner {
@@ -36,20 +46,22 @@
   }
   .igr-{{ section.id }} .igr-title {
     text-align: center;
+    font-family: var(--igr-font-heading);
     font-size: clamp(1.5rem, 3vw, 2.2rem);
     font-weight: 700;
-    line-height: 1.2;
+    line-height: 1.25;
+    letter-spacing: 0.02em;
     color: var(--igr-text);
     margin: 0 0 0.75rem;
-    font-family: var(--font-heading-family, inherit);
   }
   .igr-{{ section.id }} .igr-sub {
     text-align: center;
-    opacity: 0.65;
-    font-size: 0.95rem;
+    opacity: 0.75;
+    font-size: 1rem;
     margin: 0 auto 2.5rem;
     max-width: 42rem;
     line-height: 1.55;
+    color: var(--igr-taupe);
   }
 
   /* Carousel viewport + track */
@@ -211,7 +223,7 @@
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
-    background: linear-gradient(165deg, #1a0f0a 0%, #3d2415 42%, #6b3f24 100%);
+    background: linear-gradient(165deg, #0b0b0b 0%, #3d1520 40%, #5f4f40 100%);
   }
   .igr-{{ section.id }} .igr-placeholder svg {
     width: 40px;
@@ -226,6 +238,11 @@
     color: rgba(255, 255, 255, 0.22);
   }
 
+  /* Dots are mobile-only; overridden inside max-width:768px below */
+  .igr-{{ section.id }} .igr-dots {
+    display: none;
+  }
+
   @media (max-width: 1024px) {
     .igr-{{ section.id }} .igr-grid {
       --igr-cols: {{ cols | at_most: 3 }};
@@ -234,19 +251,120 @@
   @media (max-width: 768px) {
     .igr-{{ section.id }} {
       padding: 3rem 1rem 4rem;
+      overflow-x: clip;
     }
     .igr-{{ section.id }} .igr-grid {
-      --igr-cols: 2;
+      --igr-cols: 1;
       gap: 0.85rem;
+    }
+    /* Horizontal scroll-snap carousel (replaces prev/next pagination on small screens) */
+    .igr-{{ section.id }} .igr-viewport {
+      overflow-x: auto;
+      overflow-y: visible;
+      -webkit-overflow-scrolling: touch;
+      scroll-snap-type: x mandatory;
+      scroll-padding-inline: 1rem;
+      overscroll-behavior-x: contain;
+    }
+    .igr-{{ section.id }} .igr-track {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      align-items: stretch;
+      width: max-content !important;
+      min-height: 0;
+      transform: none !important;
+      transition: none !important;
+      will-change: auto;
+      gap: 0.85rem;
+    }
+    .igr-{{ section.id }} .igr-page,
+    .igr-{{ section.id }} .igr-grid {
+      display: contents;
+    }
+    .igr-{{ section.id }} .igr-card {
+      flex: 0 0 min(calc(100vw - 2.5rem), 360px);
+      width: min(calc(100vw - 2.5rem), 360px);
+      max-width: none;
+      scroll-snap-align: center;
+    }
+    .igr-{{ section.id }} .igr-nav {
+      display: none !important;
+    }
+    /* Mobile carousel position dots — not static single-reel UI */
+    .igr-{{ section.id }} .igr-dots {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      margin-top: 1.1rem;
+      margin-bottom: 0.15rem;
+      padding: 0 0.75rem;
+      list-style: none;
+    }
+    .igr-{{ section.id }} .igr-dot {
+      -webkit-appearance: none;
+      appearance: none;
+      margin: 0;
+      padding: 0;
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(123, 30, 43, 0.35);
+      background: rgba(247, 241, 229, 0.95);
+      cursor: pointer;
+      transition:
+        transform 0.38s cubic-bezier(0.22, 1, 0.36, 1),
+        background 0.35s ease,
+        border-color 0.35s ease,
+        box-shadow 0.35s ease,
+        opacity 0.35s ease;
+      opacity: 0.55;
+      vertical-align: middle;
+    }
+    .igr-{{ section.id }} .igr-dot:focus-visible {
+      outline: 2px solid #c9a24d;
+      outline-offset: 3px;
+    }
+    .igr-{{ section.id }} .igr-dot.is-active {
+      opacity: 1;
+      background: #7b1e2b;
+      border-color: #c9a24d;
+      transform: scale(1.35);
+      box-shadow: 0 0 0 2px rgba(201, 162, 77, 0.45);
+      animation: igr-dot-pulse-{{ section.id }} 2.4s ease-in-out infinite;
+    }
+    @keyframes igr-dot-pulse-{{ section.id }} {
+      0%,
+      100% {
+        box-shadow: 0 0 0 2px rgba(201, 162, 77, 0.45);
+        transform: scale(1.35);
+      }
+      50% {
+        box-shadow: 0 0 0 6px rgba(201, 162, 77, 0);
+        transform: scale(1.45);
+      }
+    }
+  }
+  @media (max-width: 768px) and (prefers-reduced-motion: reduce) {
+    .igr-{{ section.id }} .igr-viewport {
+      scroll-snap-type: none;
+    }
+    .igr-{{ section.id }} .igr-dot.is-active {
+      animation: none;
     }
   }
   @media (max-width: 420px) {
     .igr-{{ section.id }} .igr-grid {
-      --igr-cols: 2;
+      --igr-cols: 1;
       gap: 0.65rem;
     }
     .igr-{{ section.id }} .igr-card {
       border-radius: 8px;
+    }
+    .igr-{{ section.id }} .igr-track {
+      gap: 0.65rem;
     }
   }
 </style>
@@ -372,6 +490,28 @@
           </div>
         </div>
 
+        {%- if ig_blocks.size > 1 -%}
+          <div
+            class="igr-dots"
+            data-igr-dots
+            role="tablist"
+            aria-label="{{ section.settings.heading | default: 'Reels' | escape }} — swipe or tap a dot"
+          >
+            {%- for block in ig_blocks -%}
+              <button
+                type="button"
+                class="igr-dot"
+                data-igr-dot
+                data-igr-dot-index="{{ forloop.index0 }}"
+                role="tab"
+                aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+                aria-label="Reel {{ forloop.index }} of {{ ig_blocks.size }}"
+                tabindex="{% if forloop.first %}0{% else %}-1{% endif %}"
+              ></button>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+
         {%- if total_pages > 1 -%}
           <div class="igr-nav" role="toolbar" aria-label="{{ section.settings.heading | default: 'Reels navigation' | escape }}">
             <button
@@ -405,110 +545,268 @@
     var sectionEl = document.querySelector('.igr-{{ section.id }}');
     if (!sectionEl) return;
 
-    /* ── Carousel ── */
+    var mqMobile = window.matchMedia('(max-width: 768px)');
     var carousel = sectionEl.querySelector('[data-igr-carousel]');
-    if (carousel) {
-      var track = carousel.querySelector('[data-igr-track]');
-      var pages = carousel.querySelectorAll('[data-igr-page]');
-      var prevBtn = carousel.querySelector('[data-igr-prev]');
-      var nextBtn = carousel.querySelector('[data-igr-next]');
-      var n = pages.length;
-      var idx = 0;
-      var busy = false;
+    var track = carousel ? carousel.querySelector('[data-igr-track]') : null;
+    var viewport = carousel ? carousel.querySelector('.igr-viewport') : null;
+    var dotsRoot = carousel ? carousel.querySelector('[data-igr-dots]') : null;
+    var pages = carousel ? carousel.querySelectorAll('[data-igr-page]') : [];
+    var prevBtn = carousel ? carousel.querySelector('[data-igr-prev]') : null;
+    var nextBtn = carousel ? carousel.querySelector('[data-igr-next]') : null;
+    var n = pages.length;
+    var idx = 0;
+    var busy = false;
+    var mobileCardIo = null;
 
-      function setBusy(on) {
-        busy = on;
-        if (prevBtn) prevBtn.style.pointerEvents = on ? 'none' : '';
-        if (nextBtn) nextBtn.style.pointerEvents = on ? 'none' : '';
-      }
+    function isMobileScrollMode() {
+      return mqMobile.matches;
+    }
 
-      function applyTransform() {
-        track.style.transform = 'translate3d(' + -(idx * (100 / n)) + '%, 0, 0)';
-      }
-
-      function setAria() {
-        pages.forEach(function (page, j) {
-          page.setAttribute('aria-hidden', j === idx ? 'false' : 'true');
-        });
-      }
-
-      function updateNav() {
-        if (prevBtn) {
-          var atStart = idx <= 0 || n <= 1;
-          prevBtn.disabled = atStart;
-          prevBtn.setAttribute('aria-disabled', atStart ? 'true' : 'false');
-        }
-        if (nextBtn) {
-          var atEnd = idx >= n - 1 || n <= 1;
-          nextBtn.disabled = atEnd;
-          nextBtn.setAttribute('aria-disabled', atEnd ? 'true' : 'false');
-        }
-      }
-
-      function manageVideos() {
-        pages.forEach(function (page, j) {
-          var vids = page.querySelectorAll('[data-igr-video]');
-          vids.forEach(function (v) {
-            if (j === idx) {
-              v.play().then(function () {
-                v.closest('.igr-card').classList.remove('is-paused');
-              }).catch(function () {
-                v.closest('.igr-card').classList.add('is-paused');
-              });
-            } else {
-              v.pause();
-              v.closest('.igr-card').classList.add('is-paused');
-            }
-          });
-        });
-      }
-
-      function goTo(nextIdx) {
-        if (nextIdx < 0 || nextIdx >= n || nextIdx === idx || busy) return;
-        setBusy(true);
-        idx = nextIdx;
-        applyTransform();
-        setAria();
-        updateNav();
-        manageVideos();
-        setTimeout(function () { setBusy(false); }, 500);
-      }
-
-      applyTransform();
-      setAria();
-      updateNav();
-
-      if (prevBtn) prevBtn.addEventListener('click', function () { goTo(idx - 1); });
-      if (nextBtn) nextBtn.addEventListener('click', function () { goTo(idx + 1); });
-
-      /* Play videos on page 1 once section scrolls into view */
-      if ('IntersectionObserver' in window) {
-        var sectionObs = new IntersectionObserver(function (entries) {
-          entries.forEach(function (entry) {
-            if (entry.isIntersecting) {
-              manageVideos();
-            } else {
-              var allVids = sectionEl.querySelectorAll('[data-igr-video]');
-              allVids.forEach(function (v) {
-                v.pause();
-                v.closest('.igr-card').classList.add('is-paused');
-              });
-            }
-          });
-        }, { threshold: 0.15 });
-        sectionObs.observe(sectionEl);
-      } else {
-        manageVideos();
+    function disconnectMobileIo() {
+      if (mobileCardIo) {
+        mobileCardIo.disconnect();
+        mobileCardIo = null;
       }
     }
 
-    /* ── Click to toggle play/pause ── */
+    function pauseAllVideos() {
+      sectionEl.querySelectorAll('[data-igr-video]').forEach(function (v) {
+        v.pause();
+        var c = v.closest('.igr-card');
+        if (c) c.classList.add('is-paused');
+      });
+    }
+
+    function manageVideosDesktop() {
+      pages.forEach(function (page, j) {
+        page.querySelectorAll('[data-igr-video]').forEach(function (v) {
+          if (j === idx) {
+            v.play().then(function () {
+              v.closest('.igr-card').classList.remove('is-paused');
+            }).catch(function () {
+              v.closest('.igr-card').classList.add('is-paused');
+            });
+          } else {
+            v.pause();
+            v.closest('.igr-card').classList.add('is-paused');
+          }
+        });
+      });
+    }
+
+    function onMobileViewportScroll() {
+      if (!isMobileScrollMode() || !viewport) return;
+      requestAnimationFrame(syncMobilePlayingFromOverlap);
+    }
+
+    function updateMobileDots(activeIdx) {
+      if (!dotsRoot || !isMobileScrollMode()) return;
+      var dots = dotsRoot.querySelectorAll('[data-igr-dot]');
+      dots.forEach(function (dot, i) {
+        var on = activeIdx >= 0 && i === activeIdx;
+        dot.classList.toggle('is-active', on);
+        dot.setAttribute('aria-selected', on ? 'true' : 'false');
+        dot.setAttribute('tabindex', on ? '0' : '-1');
+      });
+    }
+
+    function syncMobilePlayingFromOverlap() {
+      if (!viewport) return;
+      var cards = sectionEl.querySelectorAll('.igr-card');
+      var best = null;
+      var bestArea = 0;
+      var vr = viewport.getBoundingClientRect();
+      cards.forEach(function (card) {
+        var v = card.querySelector('[data-igr-video]');
+        if (!v) return;
+        var r = card.getBoundingClientRect();
+        var iw = Math.max(0, Math.min(r.right, vr.right) - Math.max(r.left, vr.left));
+        var ih = Math.max(0, Math.min(r.bottom, vr.bottom) - Math.max(r.top, vr.top));
+        var area = iw * ih;
+        if (area > bestArea) {
+          bestArea = area;
+          best = card;
+        }
+      });
+      if (!best || bestArea < 4) {
+        updateMobileDots(-1);
+        pauseAllVideos();
+        return;
+      }
+      var activeIdx = Array.prototype.indexOf.call(cards, best);
+      updateMobileDots(activeIdx);
+      cards.forEach(function (card) {
+        var v = card.querySelector('[data-igr-video]');
+        if (!v) return;
+        if (card === best) {
+          v.play().then(function () {
+            card.classList.remove('is-paused');
+          }).catch(function () {
+            card.classList.add('is-paused');
+          });
+        } else {
+          v.pause();
+          card.classList.add('is-paused');
+        }
+      });
+    }
+
+    function setupMobileScrollVideos() {
+      disconnectMobileIo();
+      if (!viewport || !carousel) return;
+      var cards = sectionEl.querySelectorAll('.igr-card');
+      if (!cards.length) return;
+
+      viewport.removeEventListener('scroll', onMobileViewportScroll);
+      viewport.addEventListener('scroll', onMobileViewportScroll, { passive: true });
+
+      mobileCardIo = new IntersectionObserver(
+        function () {
+          syncMobilePlayingFromOverlap();
+        },
+        { root: viewport, rootMargin: '0px', threshold: [0, 0.05, 0.1, 0.2, 0.35, 0.5, 0.65, 0.8, 1] }
+      );
+
+      cards.forEach(function (c) {
+        mobileCardIo.observe(c);
+      });
+
+      syncMobilePlayingFromOverlap();
+    }
+
+    function setBusy(on) {
+      busy = on;
+      if (prevBtn) prevBtn.style.pointerEvents = on ? 'none' : '';
+      if (nextBtn) nextBtn.style.pointerEvents = on ? 'none' : '';
+    }
+
+    function applyTransformDesktop() {
+      if (!track || n <= 0) return;
+      track.style.transform = 'translate3d(' + -(idx * (100 / n)) + '%, 0, 0)';
+    }
+
+    function setAriaDesktop() {
+      pages.forEach(function (page, j) {
+        page.setAttribute('aria-hidden', j === idx ? 'false' : 'true');
+      });
+    }
+
+    function updateNav() {
+      if (!prevBtn && !nextBtn) return;
+      if (prevBtn) {
+        var atStart = idx <= 0 || n <= 1;
+        prevBtn.disabled = atStart;
+        prevBtn.setAttribute('aria-disabled', atStart ? 'true' : 'false');
+      }
+      if (nextBtn) {
+        var atEnd = idx >= n - 1 || n <= 1;
+        nextBtn.disabled = atEnd;
+        nextBtn.setAttribute('aria-disabled', atEnd ? 'true' : 'false');
+      }
+    }
+
+    function goTo(nextIdx) {
+      if (isMobileScrollMode()) return;
+      if (nextIdx < 0 || nextIdx >= n || nextIdx === idx || busy) return;
+      setBusy(true);
+      idx = nextIdx;
+      applyTransformDesktop();
+      setAriaDesktop();
+      updateNav();
+      manageVideosDesktop();
+      setTimeout(function () {
+        setBusy(false);
+      }, 500);
+    }
+
+    function initDesktopMode() {
+      disconnectMobileIo();
+      if (viewport) viewport.removeEventListener('scroll', onMobileViewportScroll);
+      if (track) track.style.removeProperty('transform');
+      applyTransformDesktop();
+      setAriaDesktop();
+      updateNav();
+      manageVideosDesktop();
+    }
+
+    function initMobileMode() {
+      disconnectMobileIo();
+      if (track) {
+        track.style.setProperty('transform', 'none', 'important');
+      }
+      pages.forEach(function (page) {
+        page.setAttribute('aria-hidden', 'false');
+      });
+      pauseAllVideos();
+      setupMobileScrollVideos();
+    }
+
+    function onViewportChange() {
+      if (isMobileScrollMode()) {
+        initMobileMode();
+      } else {
+        initDesktopMode();
+      }
+    }
+
+    if (dotsRoot) {
+      dotsRoot.addEventListener('click', function (e) {
+        var btn = e.target.closest('[data-igr-dot]');
+        if (!btn || !isMobileScrollMode() || !viewport) return;
+        var di = parseInt(btn.getAttribute('data-igr-dot-index'), 10);
+        if (isNaN(di)) return;
+        var cards = sectionEl.querySelectorAll('.igr-card');
+        if (!cards[di]) return;
+        e.preventDefault();
+        cards[di].scrollIntoView({ inline: 'center', block: 'nearest', behavior: 'smooth' });
+      });
+    }
+
+    if (carousel && track) {
+      if (prevBtn) prevBtn.addEventListener('click', function () { goTo(idx - 1); });
+      if (nextBtn) nextBtn.addEventListener('click', function () { goTo(idx + 1); });
+
+      onViewportChange();
+      if (mqMobile.addEventListener) {
+        mqMobile.addEventListener('change', onViewportChange);
+      } else if (mqMobile.addListener) {
+        mqMobile.addListener(onViewportChange);
+      }
+
+      if ('IntersectionObserver' in window) {
+        var sectionObs = new IntersectionObserver(
+          function (entries) {
+            entries.forEach(function (entry) {
+              if (entry.isIntersecting) {
+                if (isMobileScrollMode()) {
+                  syncMobilePlayingFromOverlap();
+                } else {
+                  manageVideosDesktop();
+                }
+              } else {
+                pauseAllVideos();
+              }
+            });
+          },
+          { threshold: 0.15 }
+        );
+        sectionObs.observe(sectionEl);
+      } else if (!isMobileScrollMode()) {
+        manageVideosDesktop();
+      }
+    }
+
     sectionEl.querySelectorAll('[data-igr-video]').forEach(function (v) {
       var card = v.closest('.igr-card');
+      if (!card) return;
       card.addEventListener('click', function (e) {
         if (e.target.closest('.igr-overlay__link')) return;
         if (v.paused) {
-          v.play().then(function () { card.classList.remove('is-paused'); }).catch(function () {});
+          v.play()
+            .then(function () {
+              card.classList.remove('is-paused');
+            })
+            .catch(function () {});
         } else {
           v.pause();
           card.classList.add('is-paused');

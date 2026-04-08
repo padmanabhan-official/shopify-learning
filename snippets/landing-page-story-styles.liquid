@@ -5,10 +5,24 @@
     --lps-max: 1200px;
     --lps-radius: var(--block-border-radius, 8px);
     --lps-transition: 0.35s ease;
-    --lps-accent: #8b4513;
-    --lps-accent-mid: #c47020;
-    --lps-bg-warm: #fdf8f3;
-    --lps-text: #1a1a1a;
+    /* Janvi Aika brand kit — Vermilion, Taupe, Midnight, Royal Maroon, Ivory, Antique Gold */
+    --lps-vermilion: #eb4d45;
+    --lps-taupe: #5f4f40;
+    --lps-black: #0b0b0b;
+    --lps-maroon: #7b1e2b;
+    --lps-ivory: #f7f1e5;
+    --lps-gold: #c9a24d;
+    --lps-accent: var(--lps-maroon);
+    --lps-accent-mid: var(--lps-vermilion);
+    --lps-bg-warm: var(--lps-ivory);
+    --lps-text: var(--lps-black);
+    --lps-font-heading: 'Playfair Display', Georgia, 'Times New Roman', serif;
+    --lps-font-body: 'Quicksand', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-family: var(--lps-font-body);
+    font-size: 1rem;
+    line-height: 1.55;
+    letter-spacing: 0.01em;
+    color: var(--lps-text);
     overflow-x: hidden;
   }
   .lps-{{ section.id }} .lps-inner { max-width: var(--lps-max); margin: 0 auto; padding-left: 1.25rem; padding-right: 1.25rem; }
@@ -28,7 +42,7 @@
     max-width: 100%;
   }
   .lps-{{ section.id }} .lps-corner-logo--banner:focus-visible {
-    outline: 2px solid rgba(139, 69, 19, 0.45);
+    outline: 2px solid rgba(123, 30, 43, 0.45);
     outline-offset: 4px;
     border-radius: 4px;
   }
@@ -48,22 +62,23 @@
   .lps-{{ section.id }} .lps-brand-banner__eyebrow {
     display: block;
     font-size: clamp(0.62rem, 1.1vw, 0.72rem);
-    font-weight: 700;
-    letter-spacing: 0.3em;
+    font-weight: 600;
+    letter-spacing: 0.28em;
     text-transform: uppercase;
-    opacity: 0.45;
+    color: var(--lps-taupe);
+    opacity: 0.85;
     margin-bottom: 0.75rem;
   }
   .lps-{{ section.id }} .lps-brand-banner__title {
     display: block;
-    font-family: var(--font-heading-family, inherit);
+    font-family: var(--lps-font-heading);
     font-size: clamp(2.4rem, 7vw, 5rem);
-    font-weight: var(--font-heading-weight, 700);
-    letter-spacing: 0.08em;
+    font-weight: 700;
+    letter-spacing: 0.04em;
     text-transform: uppercase;
     line-height: 1.05;
     margin: 0 auto 1rem;
-    background: linear-gradient(135deg, {{ section.settings.banner_color_start | default: '#8b4513' }} 0%, {{ section.settings.banner_color_end | default: '#c47020' }} 45%, {{ section.settings.banner_color_start | default: '#8b4513' }} 100%);
+    background: linear-gradient(135deg, {{ section.settings.banner_color_start | default: '#7B1E2B' }} 0%, {{ section.settings.banner_color_end | default: '#EB4D45' }} 45%, {{ section.settings.banner_color_start | default: '#7B1E2B' }} 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
@@ -88,7 +103,8 @@
     font-size: clamp(0.65rem, 1.2vw, 0.75rem);
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    opacity: 0.5;
+    color: var(--lps-taupe);
+    opacity: 0.75;
     white-space: nowrap;
   }
   @media (max-width: 600px) {
@@ -105,20 +121,23 @@
   }
   .lps-{{ section.id }} .lps-section-title {
     text-align: center;
+    font-family: var(--lps-font-heading);
     font-size: clamp(1.5rem, 3vw, 2.2rem);
     font-weight: 700;
-    line-height: 1.2;
+    line-height: 1.25;
+    letter-spacing: 0.02em;
     color: var(--lps-text);
     margin: 0 0 0.75rem;
   }
   .lps-{{ section.id }} .lps-section-sub {
     text-align: center;
-    opacity: 0.65;
-    font-size: 0.95rem;
+    opacity: 0.72;
+    font-size: 1rem;
     margin: 0 0 2.25rem;
     max-width: 42rem;
     margin-left: auto;
     margin-right: auto;
+    color: var(--lps-taupe);
   }
 
   /* Hero — full-bleed, copy left (matches custom landing page) */
@@ -159,19 +178,21 @@
   .lps-{{ section.id }} .lps-hero__eyebrow {
     display: inline-block;
     font-size: 0.8rem;
-    font-weight: 700;
-    letter-spacing: 0.14em;
+    font-weight: 600;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
-    background: rgba(255,255,255,0.18);
-    border: 1px solid rgba(255,255,255,0.4);
+    background: rgba(123, 30, 43, 0.35);
+    border: 1px solid rgba(201, 162, 77, 0.45);
     border-radius: 50px;
     padding: 0.35rem 1rem;
     margin-bottom: 1.25rem;
   }
   .lps-{{ section.id }} .lps-hero__heading {
+    font-family: var(--lps-font-heading);
     font-size: clamp(2rem, 5vw, 3.4rem);
-    font-weight: 800;
+    font-weight: 700;
     line-height: 1.15;
+    letter-spacing: 0.02em;
     margin: 0 0 1rem;
     text-shadow: 0 2px 12px rgba(0,0,0,0.35);
     color: #fff;
@@ -198,34 +219,39 @@
   .lps-{{ section.id }} .lps-cta-primary {
     display: inline-block;
     padding: 1rem 2.2rem;
+    font-family: var(--lps-font-heading);
     font-size: clamp(0.9rem, 1.8vw, 1.05rem);
     font-weight: 700;
     border-radius: var(--lps-radius);
-    background: #fff;
-    color: #1a1a1a;
+    background: var(--lps-maroon);
+    color: var(--lps-ivory);
     text-decoration: none;
     letter-spacing: 0.02em;
-    transition: background var(--lps-transition), transform var(--lps-transition);
-    box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+    transition: background var(--lps-transition), color var(--lps-transition), transform var(--lps-transition), box-shadow var(--lps-transition);
+    box-shadow: 0 4px 22px rgba(123, 30, 43, 0.45);
   }
   .lps-{{ section.id }} .lps-cta-primary:hover {
-    background: #f0f0f0;
+    background: var(--lps-vermilion);
+    color: #fff;
     transform: translateY(-2px);
   }
   .lps-{{ section.id }} .lps-cta-secondary {
     display: inline-block;
     padding: 0.95rem 1.75rem;
+    font-family: var(--lps-font-heading);
     font-size: clamp(0.88rem, 1.6vw, 1rem);
-    font-weight: 600;
+    font-weight: 700;
     border-radius: var(--lps-radius);
-    border: 2px solid rgba(255,255,255,0.75);
-    color: #fff;
+    border: 2px solid rgba(201, 162, 77, 0.85);
+    color: var(--lps-ivory);
     text-decoration: none;
-    transition: border-color var(--lps-transition), background var(--lps-transition);
+    letter-spacing: 0.02em;
+    transition: border-color var(--lps-transition), background var(--lps-transition), color var(--lps-transition);
   }
   .lps-{{ section.id }} .lps-cta-secondary:hover {
-    background: rgba(255,255,255,0.12);
-    border-color: #fff;
+    background: rgba(247, 241, 229, 0.12);
+    border-color: var(--lps-ivory);
+    color: #fff;
   }
   @media (max-width: 768px) {
     .lps-{{ section.id }} .lps-hero__overlay {
@@ -281,8 +307,8 @@
   .lps-{{ section.id }} .lps-products {
     padding: 4.5rem 1.25rem;
     background: var(--lps-bg-warm);
-    border-top: 1px solid rgba(139,69,19,0.1);
-    border-bottom: 1px solid rgba(139,69,19,0.1);
+    border-top: 1px solid rgba(123,30,43,0.1);
+    border-bottom: 1px solid rgba(123,30,43,0.1);
   }
   .lps-{{ section.id }} .lps-products > .lps-inner > .lps-section-title { margin-bottom: 0.75rem; }
   .lps-{{ section.id }} .lps-prod-grid {
@@ -357,8 +383,10 @@
     text-align: left;
   }
   .lps-{{ section.id }} .lps-prod-card__name {
+    font-family: var(--lps-font-heading);
     font-weight: 600;
     font-size: clamp(0.88rem, 1.5vw, 1rem);
+    letter-spacing: 0.02em;
     margin: 0;
     color: var(--lps-text);
   }
@@ -385,6 +413,20 @@
     background: #fff;
   }
   .lps-{{ section.id }} .lps-prod-card__btn { margin-top: auto; }
+  .lps-{{ section.id }} .lps-prod-card__btn.button,
+  .lps-{{ section.id }} .lps-prod-card__btn.button--primary {
+    font-family: var(--lps-font-heading);
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    background: var(--lps-maroon) !important;
+    color: var(--lps-ivory) !important;
+    border-color: var(--lps-maroon) !important;
+  }
+  .lps-{{ section.id }} .lps-prod-card__btn.button:hover {
+    background: var(--lps-vermilion) !important;
+    border-color: var(--lps-vermilion) !important;
+    color: #fff !important;
+  }
   .lps-{{ section.id }} .lps-prod-card__link {
     font-size: 0.88rem;
     font-weight: 600;
@@ -518,8 +560,8 @@
     margin-left: auto;
     margin-right: auto;
     max-width: min(100%, 920px);
-    background: linear-gradient(165deg, rgba(253, 248, 243, 0.9) 0%, rgba(255, 255, 255, 0.65) 55%, rgba(253, 248, 243, 0.35) 100%);
-    border: 1px solid rgba(139, 69, 19, 0.1);
+    background: linear-gradient(165deg, rgba(247, 241, 229, 0.92) 0%, rgba(255, 255, 255, 0.65) 55%, rgba(247, 241, 229, 0.4) 100%);
+    border: 1px solid rgba(123, 30, 43, 0.1);
     border-radius: calc(var(--lps-radius) + 4px);
     box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
   }
@@ -532,8 +574,8 @@
   .lps-{{ section.id }} .lps-vtesti__carousel--few .lps-vtesti__card {
     width: 100%;
     max-width: 380px;
-    box-shadow: 0 10px 36px rgba(139, 69, 19, 0.09);
-    border-color: rgba(139, 69, 19, 0.14);
+    box-shadow: 0 10px 36px rgba(123, 30, 43, 0.09);
+    border-color: rgba(123, 30, 43, 0.14);
   }
   @media (min-width: 700px) {
     .lps-{{ section.id }} .lps-vtesti__carousel:not(.lps-vtesti__carousel--few) .lps-vtesti__page {
@@ -589,8 +631,8 @@
   .lps-{{ section.id }} .lps-vtesti__marquee--few {
     margin-top: 0.75rem;
     padding: 1.5rem 1rem;
-    background: linear-gradient(165deg, rgba(253, 248, 243, 0.95) 0%, rgba(255, 255, 255, 0.5) 100%);
-    border: 1px solid rgba(139, 69, 19, 0.1);
+    background: linear-gradient(165deg, rgba(247, 241, 229, 0.95) 0%, rgba(255, 255, 255, 0.5) 100%);
+    border: 1px solid rgba(123, 30, 43, 0.1);
     border-radius: calc(var(--lps-radius) + 4px);
   }
   .lps-{{ section.id }} .lps-vtesti__marquee--few .lps-vtesti__marquee-track {
@@ -603,8 +645,8 @@
     display: none;
   }
   .lps-{{ section.id }} .lps-vtesti__marquee--few .lps-vtesti__card {
-    box-shadow: 0 10px 36px rgba(139, 69, 19, 0.09);
-    border-color: rgba(139, 69, 19, 0.14);
+    box-shadow: 0 10px 36px rgba(123, 30, 43, 0.09);
+    border-color: rgba(123, 30, 43, 0.14);
   }
   @media (prefers-reduced-motion: reduce) {
     .lps-{{ section.id }} .lps-vtesti__marquee--few .lps-vtesti__marquee-track {
@@ -613,7 +655,7 @@
   }
   .lps-{{ section.id }} .lps-vtesti__card {
     background: var(--lps-bg-warm);
-    border: 1px solid rgba(139,69,19,0.12);
+    border: 1px solid rgba(123,30,43,0.12);
     border-radius: var(--lps-radius);
     overflow: hidden;
     display: flex;
@@ -640,10 +682,10 @@
     color: var(--lps-accent);
   }
 
-  /* Google reviews */
+  /* Google reviews — Janvi Aika: Playfair names, Quicksand body, ivory section */
   .lps-{{ section.id }} .lps-gbp {
     padding: 4rem 0;
-    background: linear-gradient(180deg, #fff 0%, var(--lps-bg-warm) 100%);
+    background: linear-gradient(180deg, var(--lps-ivory) 0%, rgba(247, 241, 229, 0.65) 45%, #ffffff 100%);
   }
   .lps-{{ section.id }} .lps-gbp__embed {
     border-radius: var(--lps-radius);
@@ -654,14 +696,14 @@
     margin: 0.35rem 0 0;
     font-size: 0.95rem;
     line-height: 1.5;
-    color: rgba(0, 0, 0, 0.72);
+    color: var(--lps-taupe);
     text-align: center;
     max-width: 40rem;
     margin-left: auto;
     margin-right: auto;
   }
   .lps-{{ section.id }} .lps-gbp__google-link {
-    color: var(--lps-accent, #8b4513);
+    color: var(--lps-accent, #7b1e2b);
     font-weight: 600;
     text-decoration: underline;
     text-underline-offset: 3px;
@@ -673,19 +715,22 @@
     margin: 0.45rem auto 0;
     font-size: clamp(0.95rem, 2.2vw, 1.05rem);
     text-align: center;
-    color: rgba(0, 0, 0, 0.82);
+    color: var(--lps-text);
     line-height: 1.45;
   }
   .lps-{{ section.id }} .lps-gbp__aggregate-stars {
-    color: #f4b400;
+    color: #c9a24d;
     letter-spacing: 0.1em;
     margin-right: 0.2rem;
   }
   .lps-{{ section.id }} .lps-gbp__aggregate-num {
+    font-family: var(--lps-font-heading);
     font-weight: 700;
+    letter-spacing: 0.02em;
+    color: var(--lps-maroon);
   }
   .lps-{{ section.id }} .lps-gbp__based a {
-    color: var(--lps-accent, #8b4513);
+    color: var(--lps-accent, #7b1e2b);
     font-weight: 600;
     text-decoration: underline;
     text-underline-offset: 2px;
@@ -701,20 +746,27 @@
     flex: 1 1 auto;
   }
   .lps-{{ section.id }} .lps-gbp__badge {
-    font-size: 0.72rem;
+    font-size: 0.75rem;
     font-weight: 500;
-    color: rgba(0, 0, 0, 0.48);
-    line-height: 1.25;
+    color: var(--lps-taupe);
+    opacity: 0.88;
+    line-height: 1.3;
   }
   /* Manual Google reviews — paginated grid (prev/next; turn off marquee in section settings) */
   .lps-{{ section.id }} .lps-gbp__carousel {
     margin-top: 2rem;
   }
+  /* Slides only as tall as their content — avoid stretch-to-tallest-slide empty space */
+  .lps-{{ section.id }} .lps-gbp__carousel .lps-carousel__track {
+    align-items: flex-start;
+  }
   .lps-{{ section.id }} .lps-gbp__page {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
     gap: 1rem;
-    align-items: stretch;
+    /* Cards in the same row must not stretch to the tallest review (that caused huge empty space inside shorter cards) */
+    align-items: start;
+    align-content: start;
   }
   .lps-{{ section.id }} .lps-gbp__carousel .lps-gbp__review {
     width: 100%;
@@ -734,7 +786,7 @@
   }
   .lps-{{ section.id }} .lps-gbp__carousel--few .lps-gbp__review {
     max-width: 400px;
-    box-shadow: 0 8px 28px rgba(139, 69, 19, 0.08);
+    box-shadow: 0 8px 28px rgba(123, 30, 43, 0.08);
   }
   /* Manual reviews — infinite horizontal marquee (<marquee>-style) */
   .lps-{{ section.id }} .lps-gbp__marquee {
@@ -782,16 +834,19 @@
   }
   .lps-{{ section.id }} .lps-gbp__review {
     --lps-gbp-head-pad-x: 0.85rem;
-    padding: 1.15rem 1.25rem;
-    background: #fff;
+    padding: 1rem 1.15rem 0.9rem;
+    background: #fffefc;
     border-radius: var(--lps-radius);
-    border: 1px solid rgba(0,0,0,0.06);
-    box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+    border: 1px solid rgba(123, 30, 43, 0.1);
+    box-shadow: 0 4px 18px rgba(123, 30, 43, 0.06);
     flex: 0 0 auto;
     width: min(100%, 300px);
-    min-width: 260px;
+    min-width: min(260px, 100%);
     max-width: 320px;
     box-sizing: border-box;
+    align-self: start;
+    height: fit-content;
+    min-height: 0;
   }
   .lps-{{ section.id }} .lps-gbp__review-head {
     display: flex;
@@ -803,8 +858,8 @@
     margin-left: 0;
     margin-right: 0;
     padding: 0.65rem var(--lps-gbp-head-pad-x);
-    background: linear-gradient(120deg, rgba(139, 69, 19, 0.07) 0%, rgba(230, 163, 23, 0.12) 100%);
-    border: 1px solid rgba(139, 69, 19, 0.14);
+    background: linear-gradient(120deg, rgba(123, 30, 43, 0.08) 0%, rgba(201, 162, 77, 0.14) 100%);
+    border: 1px solid rgba(123, 30, 43, 0.14);
     border-radius: calc(var(--lps-radius) - 1px);
     box-sizing: border-box;
   }
@@ -835,9 +890,10 @@
     display: block;
   }
   .lps-{{ section.id }} .lps-gbp__author {
+    font-family: var(--lps-font-heading);
     font-weight: 700;
     font-size: clamp(0.9rem, 2.2vw, 1.02rem);
-    color: var(--lps-accent);
+    color: var(--lps-maroon);
     letter-spacing: 0.02em;
     line-height: 1.25;
     min-width: 0;
@@ -851,11 +907,11 @@
     font-weight: 800;
     letter-spacing: 0.12em;
     line-height: 1;
-    /* Bright “rated” yellow — readable on tan card header */
-    color: #f4b400;
-    text-shadow: 0 0.5px 0 rgba(0, 0, 0, 0.22), 0 1px 2px rgba(184, 134, 11, 0.35);
+    /* Antique gold — brand accent on review header */
+    color: #c9a24d;
+    text-shadow: 0 0.5px 0 rgba(0, 0, 0, 0.18), 0 1px 2px rgba(123, 30, 43, 0.2);
     background: #fff;
-    border: 1px solid rgba(244, 180, 0, 0.65);
+    border: 1px solid rgba(201, 162, 77, 0.55);
     border-radius: 999px;
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.95);
   }
@@ -863,26 +919,31 @@
     margin: 0;
     padding-left: var(--lps-gbp-head-pad-x);
     padding-right: var(--lps-gbp-head-pad-x);
-    font-size: 0.92rem;
-    line-height: 1.55;
-    color: var(--lps-text);
+    font-size: 1rem;
+    line-height: 1.6;
+    font-weight: 400;
+    color: var(--lps-black);
     opacity: 0.92;
     text-align: start;
   }
+  .lps-{{ section.id }} .lps-gbp__text:last-child {
+    margin-bottom: 0;
+  }
   .lps-{{ section.id }} .lps-gbp__meta {
-    margin-top: 0.75rem;
-    padding-top: 0.55rem;
+    margin-top: 0.5rem;
+    padding-top: 0.45rem;
     padding-left: var(--lps-gbp-head-pad-x);
     padding-right: var(--lps-gbp-head-pad-x);
-    border-top: 1px solid rgba(0, 0, 0, 0.06);
+    border-top: 1px solid rgba(123, 30, 43, 0.08);
     box-sizing: border-box;
   }
   .lps-{{ section.id }} .lps-gbp__date {
-    font-size: 0.76rem;
+    font-size: 0.75rem;
     font-weight: 500;
-    letter-spacing: 0.04em;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
-    opacity: 0.52;
+    color: var(--lps-taupe);
+    opacity: 0.75;
   }
 
   /* Brand story */
@@ -918,7 +979,7 @@
   .lps-{{ section.id }} .lps-ig {
     padding: 5rem 0 6rem;
     background: #fff;
-    border-top: 1px solid rgba(139,69,19,0.06);
+    border-top: 1px solid rgba(123,30,43,0.06);
   }
   .lps-{{ section.id }} .lps-ig__carousel {
     margin-top: 1rem;
@@ -1000,7 +1061,7 @@
     gap: 0.4rem;
     padding: 1rem;
     text-align: center;
-    background: linear-gradient(165deg, #1a0f0a 0%, #3d2415 42%, #6b3f24 100%);
+    background: linear-gradient(165deg, #0b0b0b 0%, #3d1520 38%, #5f4f40 100%);
   }
   .lps-{{ section.id }} .lps-ig__placeholder__label {
     font-size: 0.62rem;
