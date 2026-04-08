@@ -136,7 +136,7 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: left 70%;
+    object-position: center;
     z-index: 0;
     transition: transform 7s ease;
   }
@@ -1029,7 +1029,7 @@
   }
   .lps-{{ section.id }} .lps-ig__card .lps-ig__embed-crop {
     overflow: hidden;
-    max-height: 450px;
+    max-height: 410px;
   }
   .lps-{{ section.id }} .lps-ig__card .lps-ig__embed-frame {
     display: block;
@@ -1038,7 +1038,7 @@
     height: 620px;
     border: 0;
     margin-top: -56px;
-    margin-bottom: -130px;
+    margin-bottom: -170px;
   }
   .lps-{{ section.id }} .lps-ig__video {
     position: absolute;
@@ -1058,9 +1058,12 @@
     height: 52px;
     z-index: 2;
     pointer-events: none;
-    opacity: 0.9;
+    opacity: 0;
     transition: opacity 0.3s ease;
     filter: drop-shadow(0 2px 8px rgba(0,0,0,0.4));
+  }
+  .lps-{{ section.id }} .lps-ig__item--video.is-paused .lps-ig__play-icon {
+    opacity: 0.9;
   }
   .lps-{{ section.id }} .lps-ig__play-icon svg {
     width: 100%;

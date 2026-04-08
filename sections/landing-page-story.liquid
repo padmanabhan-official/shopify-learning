@@ -14,7 +14,6 @@
 
 {% render 'landing-page-story-styles', section: section %}
 
-
 {%- liquid
   assign product = section.settings.featured_product
   assign lps_banner_display = section.settings.banner_title | strip
@@ -91,7 +90,6 @@
 -%}
 
 <div class="lps-{{ section.id }}">
-
   {%- assign banner_logo = section.settings.banner_logo | default: settings.logo -%}
 
   {%- comment -%} Logo above banner (home link); size controlled in CSS — smaller scale, 10px top/left inset {%- endcomment -%}
@@ -123,19 +121,37 @@
 
   {%- comment -%} Brand title banner {%- endcomment -%}
   <div class="lps-brand-banner">
-    <span class="lps-brand-banner__eyebrow">{{ section.settings.banner_eyebrow | default: 'The Art of Indian Elegance' | escape }}</span>
+    <span class="lps-brand-banner__eyebrow">
+      {{- section.settings.banner_eyebrow | default: 'The Art of Indian Elegance' | escape -}}
+    </span>
     <span class="lps-brand-banner__title">{{ lps_banner_display | escape }}</span>
     <div class="lps-brand-banner__divider">
-      <span class="lps-brand-banner__tagline">{{ section.settings.banner_tagline | default: 'Handcrafted · Heritage · Timeless' | escape }}</span>
+      <span class="lps-brand-banner__tagline">
+        {{- section.settings.banner_tagline | default: 'Handcrafted · Heritage · Timeless' | escape -}}
+      </span>
     </div>
   </div>
 
   {%- comment -%} Hero {%- endcomment -%}
   <section class="lps-hero">
     {%- if section.settings.hero_image != blank -%}
-      <img class="lps-hero__bg" src="{{ section.settings.hero_image | image_url: width: 2000 }}" alt="" width="2000" height="1200" loading="eager">
+      <img
+        class="lps-hero__bg"
+        src="{{ section.settings.hero_image | image_url: width: 2000 }}"
+        alt=""
+        width="2000"
+        height="1200"
+        loading="eager"
+      >
     {%- else -%}
-      <div class="lps-hero__bg" style="background: linear-gradient(135deg, #5c3317 0%, #8b4513 50%, #c47020 100%);"></div>
+      <img
+        class="lps-hero__bg"
+        src="{{ 'anarkali-hero-1.webp' | asset_url }}"
+        alt=""
+        width="2000"
+        height="1200"
+        loading="eager"
+      >
     {%- endif -%}
     <div class="lps-hero__overlay"></div>
     <div class="lps-hero__content">
@@ -155,7 +171,9 @@
             <a href="{{ hero_link }}" class="lps-cta-primary">{{ section.settings.hero_cta_text | escape }}</a>
           {%- endif -%}
           {%- if section.settings.hero_cta2_text != blank -%}
-            <a href="{{ section.settings.hero_cta2_link | default: hero_link }}" class="lps-cta-secondary">{{ section.settings.hero_cta2_text | escape }}</a>
+            <a href="{{ section.settings.hero_cta2_link | default: hero_link }}" class="lps-cta-secondary">
+              {{- section.settings.hero_cta2_text | escape -}}
+            </a>
           {%- endif -%}
         </div>
       {%- endif -%}
@@ -218,10 +236,15 @@
                       {%- for variant in product.variants -%}
                         <option
                           value="{{ variant.id }}"
-                          {% if variant == product.selected_or_first_available_variant %}selected{% endif %}
-                          {% unless variant.available %}disabled{% endunless %}
+                          {% if variant == product.selected_or_first_available_variant %}
+                            selected
+                          {% endif %}
+                          {% unless variant.available %}
+                            disabled
+                          {% endunless %}
                         >
-                          {{ variant.title }} — {{ variant.price | money }}{% unless variant.available %} (Sold out){% endunless %}
+                          {{ variant.title }} — {{ variant.price | money -}}
+                          {%- unless variant.available %} (Sold out){% endunless %}
                         </option>
                       {%- endfor -%}
                     </select>
@@ -234,7 +257,9 @@
                 {%- endform -%}
               {%- endif -%}
 
-              <a href="{{ product.url }}" class="lps-prod-card__link">{{ section.settings.product_full_link_text | default: 'View full details' | escape }}</a>
+              <a href="{{ product.url }}" class="lps-prod-card__link">
+                {{- section.settings.product_full_link_text | default: 'View full details' | escape -}}
+              </a>
             </div>
           </article>
         </div>
@@ -262,7 +287,10 @@
           {%- if section.settings.founder_embed != blank -%}
             {{- section.settings.founder_embed -}}
           {%- elsif section.settings.founder_video != blank -%}
-            {{ section.settings.founder_video | video_tag: image_size: '1100x', autoplay: true, loop: true, muted: true, controls: true }}
+            {{
+              section.settings.founder_video
+              | video_tag: image_size: '1100x', autoplay: true, loop: true, muted: true, controls: true
+            }}
           {%- else -%}
             <div class="lps-video-placeholder" role="img" aria-label="Video">
               <span class="lps-video-placeholder__text">Video</span>
@@ -362,7 +390,11 @@
                           {%- if block.settings.embed != blank -%}
                             {{- block.settings.embed -}}
                           {%- else -%}
-                            <div class="lps-video-placeholder lps-video-placeholder--card" role="img" aria-label="Video">
+                            <div
+                              class="lps-video-placeholder lps-video-placeholder--card"
+                              role="img"
+                              aria-label="Video"
+                            >
                               <span class="lps-video-placeholder__text">Video</span>
                             </div>
                           {%- endif -%}
@@ -455,7 +487,9 @@
                           </div>
                         {%- endif -%}
                         <div class="lps-gbp__stars" aria-label="{{ r }} stars">
-                          {%- for i in (1..r) -%}★{%- endfor -%}
+                          {%- for i in (1..r) -%}
+                            ★
+                          {%- endfor -%}
                         </div>
                       </div>
                       {%- if block.settings.review_text != blank -%}
@@ -494,7 +528,9 @@
                           </div>
                         {%- endif -%}
                         <div class="lps-gbp__stars" aria-hidden="true">
-                          {%- for i in (1..r) -%}★{%- endfor -%}
+                          {%- for i in (1..r) -%}
+                            ★
+                          {%- endfor -%}
                         </div>
                       </div>
                       {%- if block.settings.review_text != blank -%}
@@ -552,7 +588,9 @@
                               </div>
                             {%- endif -%}
                             <div class="lps-gbp__stars" aria-label="{{ r }} stars">
-                              {%- for i in (1..r) -%}★{%- endfor -%}
+                              {%- for i in (1..r) -%}
+                                ★
+                              {%- endfor -%}
                             </div>
                           </div>
                           {%- if block.settings.review_text != blank -%}
@@ -570,7 +608,11 @@
                 </div>
               </div>
               {%- if gbp_total_pages > 1 -%}
-                <div class="lps-carousel__nav" role="toolbar" aria-label="{{ section.settings.gbp_heading | default: 'Customer reviews' | escape }}">
+                <div
+                  class="lps-carousel__nav"
+                  role="toolbar"
+                  aria-label="{{ section.settings.gbp_heading | default: 'Customer reviews' | escape }}"
+                >
                   <button
                     type="button"
                     class="lps-carousel__nav-btn lps-carousel__nav-btn--prev"
@@ -637,160 +679,162 @@
     </section>
   {%- endif -%}
 
-  {%- comment -%} Instagram / social posts (curated) {%- endcomment -%}
-  {%- if ig_blocks.size > 0 -%}
-    <section class="lps-ig">
-      <div class="lps-inner">
-        <h2 class="lps-section-title">{{ section.settings.ig_heading | escape }}</h2>
-        {%- if section.settings.ig_subheading != blank -%}
-          <p class="lps-section-sub">{{ section.settings.ig_subheading | escape }}</p>
-        {%- endif -%}
-        <div
-          class="lps-ig__carousel{% if ig_few %} lps-ig__carousel--few{% endif %}"
-          data-lps-carousel
-        >
-          <div class="lps-ig__viewport lps-carousel__viewport">
-            <div
-              class="lps-carousel__track"
-              data-lps-carousel-track
-              style="--lps-carousel-slides: {{ ig_total_pages }};"
-            >
-              {%- for ig_page_idx in (1..ig_total_pages) -%}
-                {%- assign ig_offset = ig_page_idx | minus: 1 | times: ig_per_page -%}
-                <div
-                  class="lps-ig__page lps-carousel__slide"
-                  data-lps-carousel-page
-                  role="group"
-                  aria-hidden="{% if ig_page_idx == 1 %}false{% else %}true{% endif %}"
-                >
-                  <div class="lps-ig__grid">
-                    {%- for block in ig_blocks offset: ig_offset limit: ig_per_page -%}
-                      {%- assign ig_shape = block.settings.ig_tile_shape | default: 'reel' -%}
-                      {%- if block.settings.ig_show_reel_badge == false -%}
-                        {%- assign ig_show_badge = false -%}
-                      {%- else -%}
-                        {%- assign ig_show_badge = true -%}
-                      {%- endif -%}
-                      {%- assign ig_item_class = 'lps-ig__item' -%}
-                      {%- if ig_shape == 'square' -%}
-                        {%- assign ig_item_class = ig_item_class | append: ' lps-ig__item--square' -%}
-                      {%- endif -%}
-                      {%- assign ig_has_video = false -%}
-                      {%- if block.settings.ig_video != blank -%}
-                        {%- assign ig_has_video = true -%}
-                        {%- assign ig_item_class = ig_item_class | append: ' lps-ig__item--video' -%}
-                      {%- endif -%}
-
-                      {%- if ig_has_video -%}
-                        <div class="{{ ig_item_class }}" {{ block.shopify_attributes }}>
-                          <video
-                            class="lps-ig__video"
-                            data-lps-ig-video
-                            muted
-                            playsinline
-                            loop
-                            preload="metadata"
-                            {%- if block.settings.cover_image != blank %}
-                              poster="{{ block.settings.cover_image | image_url: width: 600 }}"
-                            {%- endif %}
-                          >
-                            {%- for source in block.settings.ig_video.sources -%}
-                              <source src="{{ source.url }}" type="{{ source.mime_type }}">
-                            {%- endfor -%}
-                          </video>
-                          <span class="lps-ig__play-icon" data-lps-ig-play aria-hidden="true">
-                            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="24" cy="24" r="23" stroke="#fff" stroke-width="2" opacity="0.85"/><path d="M19 15l14 9-14 9V15z" fill="#fff"/></svg>
-                          </span>
-                          {%- if block.settings.caption != blank -%}
-                            <span class="lps-ig__cap">{{ block.settings.caption | escape }}</span>
-                          {%- endif -%}
-                        </div>
-                      {%- elsif block.settings.cover_image != blank -%}
-                        {%- if block.settings.post_link != blank -%}
-                          <a href="{{ block.settings.post_link }}" class="{{ ig_item_class }}" target="_blank" rel="noopener noreferrer" {{ block.shopify_attributes }}>
+  {%- comment -%} Instagram / social posts (curated) — DISABLED: replaced by EmbedSocial widget {%- endcomment -%}
+  {%- comment -%}
+    {%- if ig_blocks.size > 0 -%}
+      <section class="lps-ig">
+        <div class="lps-inner">
+          <h2 class="lps-section-title">{{ section.settings.ig_heading | escape }}</h2>
+          {%- if section.settings.ig_subheading != blank -%}
+            <p class="lps-section-sub">{{ section.settings.ig_subheading | escape }}</p>
+          {%- endif -%}
+          <div
+            class="lps-ig__carousel{% if ig_few %} lps-ig__carousel--few{% endif %}"
+            data-lps-carousel
+          >
+            <div class="lps-ig__viewport lps-carousel__viewport">
+              <div
+                class="lps-carousel__track"
+                data-lps-carousel-track
+                style="--lps-carousel-slides: {{ ig_total_pages }};"
+              >
+                {%- for ig_page_idx in (1..ig_total_pages) -%}
+                  {%- assign ig_offset = ig_page_idx | minus: 1 | times: ig_per_page -%}
+                  <div
+                    class="lps-ig__page lps-carousel__slide"
+                    data-lps-carousel-page
+                    role="group"
+                    aria-hidden="{% if ig_page_idx == 1 %}false{% else %}true{% endif %}"
+                  >
+                    <div class="lps-ig__grid">
+                      {%- for block in ig_blocks offset: ig_offset limit: ig_per_page -%}
+                        {%- assign ig_shape = block.settings.ig_tile_shape | default: 'reel' -%}
+                        {%- if block.settings.ig_show_reel_badge == false -%}
+                          {%- assign ig_show_badge = false -%}
                         {%- else -%}
-                          <div class="{{ ig_item_class }}" {{ block.shopify_attributes }}>
+                          {%- assign ig_show_badge = true -%}
                         {%- endif -%}
-                            {%- if ig_shape == 'reel' and ig_show_badge -%}
-                              <span class="lps-ig__reel-badge" aria-hidden="true">
-                                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                  <rect x="2" y="4" width="9" height="16" rx="1.5" stroke="currentColor" stroke-width="1.5"/>
-                                  <rect x="13" y="4" width="9" height="16" rx="1.5" stroke="currentColor" stroke-width="1.5" opacity="0.85"/>
-                                </svg>
-                              </span>
-                            {%- endif -%}
-                            <img
-                              src="{{ block.settings.cover_image | image_url: width: 600 }}"
-                              alt="{{ block.settings.caption | default: 'Instagram' | escape }}"
-                              width="600"
-                              height="{{ 600 | divided_by: block.settings.cover_image.aspect_ratio | round }}"
-                              loading="lazy"
+                        {%- assign ig_item_class = 'lps-ig__item' -%}
+                        {%- if ig_shape == 'square' -%}
+                          {%- assign ig_item_class = ig_item_class | append: ' lps-ig__item--square' -%}
+                        {%- endif -%}
+                        {%- assign ig_has_video = false -%}
+                        {%- if block.settings.ig_video != blank -%}
+                          {%- assign ig_has_video = true -%}
+                          {%- assign ig_item_class = ig_item_class | append: ' lps-ig__item--video' -%}
+                        {%- endif -%}
+
+                        {%- if ig_has_video -%}
+                          <div class="{{ ig_item_class }}" {{ block.shopify_attributes }}>
+                            <video
+                              class="lps-ig__video"
+                              data-lps-ig-video
+                              autoplay
+                              muted
+                              playsinline
+                              loop
+                              preload="auto"
+                              {%- if block.settings.cover_image != blank %}
+                                poster="{{ block.settings.cover_image | image_url: width: 600 }}"
+                              {%- endif %}
                             >
+                              {%- for source in block.settings.ig_video.sources -%}
+                                <source src="{{ source.url }}" type="{{ source.mime_type }}">
+                              {%- endfor -%}
+                            </video>
+                            <span class="lps-ig__play-icon" data-lps-ig-play aria-hidden="true">
+                              <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="24" cy="24" r="23" stroke="#fff" stroke-width="2" opacity="0.85"/><path d="M19 15l14 9-14 9V15z" fill="#fff"/></svg>
+                            </span>
                             {%- if block.settings.caption != blank -%}
                               <span class="lps-ig__cap">{{ block.settings.caption | escape }}</span>
                             {%- endif -%}
-                        {%- if block.settings.post_link != blank -%}
-                          </a>
+                          </div>
+                        {%- elsif block.settings.cover_image != blank -%}
+                          {%- if block.settings.post_link != blank -%}
+                            <a href="{{ block.settings.post_link }}" class="{{ ig_item_class }}" target="_blank" rel="noopener noreferrer" {{ block.shopify_attributes }}>
+                          {%- else -%}
+                            <div class="{{ ig_item_class }}" {{ block.shopify_attributes }}>
+                          {%- endif -%}
+                              {%- if ig_shape == 'reel' and ig_show_badge -%}
+                                <span class="lps-ig__reel-badge" aria-hidden="true">
+                                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                                    <rect x="2" y="4" width="9" height="16" rx="1.5" stroke="currentColor" stroke-width="1.5"/>
+                                    <rect x="13" y="4" width="9" height="16" rx="1.5" stroke="currentColor" stroke-width="1.5" opacity="0.85"/>
+                                  </svg>
+                                </span>
+                              {%- endif -%}
+                              <img
+                                src="{{ block.settings.cover_image | image_url: width: 600 }}"
+                                alt="{{ block.settings.caption | default: 'Instagram' | escape }}"
+                                width="600"
+                                height="{{ 600 | divided_by: block.settings.cover_image.aspect_ratio | round }}"
+                                loading="lazy"
+                              >
+                              {%- if block.settings.caption != blank -%}
+                                <span class="lps-ig__cap">{{ block.settings.caption | escape }}</span>
+                              {%- endif -%}
+                          {%- if block.settings.post_link != blank -%}
+                            </a>
+                          {%- else -%}
+                            </div>
+                          {%- endif -%}
+                        {%- elsif block.settings.post_link != blank -%}
+                          {%- assign ig_ebase = block.settings.post_link | strip -%}
+                          {%- assign ig_elast = ig_ebase | slice: -1 -%}
+                          {%- unless ig_elast == '/' -%}
+                            {%- assign ig_ebase = ig_ebase | append: '/' -%}
+                          {%- endunless -%}
+                          <div class="lps-ig__card" {{ block.shopify_attributes }}>
+                            <div class="lps-ig__embed-crop">
+                              <iframe
+                                src="{{ ig_ebase }}embed/"
+                                class="lps-ig__embed-frame"
+                                frameborder="0"
+                                scrolling="no"
+                                allowtransparency="true"
+                                loading="lazy"
+                              ></iframe>
+                            </div>
+                          </div>
                         {%- else -%}
+                          <div class="{{ ig_item_class }}" {{ block.shopify_attributes }}>
+                            <div class="lps-ig__placeholder" role="img" aria-label="Instagram">
+                              <svg class="lps-ig__ig-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="1.5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor"/></svg>
+                              <span class="lps-ig__placeholder__text">Instagram</span>
+                            </div>
                           </div>
                         {%- endif -%}
-                      {%- elsif block.settings.post_link != blank -%}
-                        {%- assign ig_ebase = block.settings.post_link | strip -%}
-                        {%- assign ig_elast = ig_ebase | slice: -1 -%}
-                        {%- unless ig_elast == '/' -%}
-                          {%- assign ig_ebase = ig_ebase | append: '/' -%}
-                        {%- endunless -%}
-                        <div class="lps-ig__card" {{ block.shopify_attributes }}>
-                          <div class="lps-ig__embed-crop">
-                            <iframe
-                              src="{{ ig_ebase }}embed/"
-                              class="lps-ig__embed-frame"
-                              frameborder="0"
-                              scrolling="no"
-                              allowtransparency="true"
-                              loading="lazy"
-                            ></iframe>
-                          </div>
-                        </div>
-                      {%- else -%}
-                        <div class="{{ ig_item_class }}" {{ block.shopify_attributes }}>
-                          <div class="lps-ig__placeholder" role="img" aria-label="Instagram">
-                            <svg class="lps-ig__ig-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="2" width="20" height="20" rx="5" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="1.5"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor"/></svg>
-                            <span class="lps-ig__placeholder__text">Instagram</span>
-                          </div>
-                        </div>
-                      {%- endif -%}
-                    {%- endfor -%}
+                      {%- endfor -%}
+                    </div>
                   </div>
-                </div>
-              {%- endfor -%}
+                {%- endfor -%}
+              </div>
             </div>
+            {%- if ig_total_pages > 1 -%}
+              <div class="lps-carousel__nav" role="toolbar" aria-label="{{ section.settings.ig_heading | escape }}">
+                <button
+                  type="button"
+                  class="lps-carousel__nav-btn lps-carousel__nav-btn--prev"
+                  data-lps-carousel-prev
+                  aria-label="{{ 'general.accessibility.previous' | t }}"
+                >
+                  <span aria-hidden="true">‹</span>
+                </button>
+                <button
+                  type="button"
+                  class="lps-carousel__nav-btn lps-carousel__nav-btn--next"
+                  data-lps-carousel-next
+                  aria-label="{{ 'general.accessibility.next' | t }}"
+                >
+                  <span aria-hidden="true">›</span>
+                </button>
+              </div>
+            {%- endif -%}
           </div>
-          {%- if ig_total_pages > 1 -%}
-            <div class="lps-carousel__nav" role="toolbar" aria-label="{{ section.settings.ig_heading | escape }}">
-              <button
-                type="button"
-                class="lps-carousel__nav-btn lps-carousel__nav-btn--prev"
-                data-lps-carousel-prev
-                aria-label="{{ 'general.accessibility.previous' | t }}"
-              >
-                <span aria-hidden="true">‹</span>
-              </button>
-              <button
-                type="button"
-                class="lps-carousel__nav-btn lps-carousel__nav-btn--next"
-                data-lps-carousel-next
-                aria-label="{{ 'general.accessibility.next' | t }}"
-              >
-                <span aria-hidden="true">›</span>
-              </button>
-            </div>
-          {%- endif -%}
         </div>
-      </div>
-    </section>
-  {%- endif -%}
-
+      </section>
+    {%- endif -%}
+  {%- endcomment -%}
 </div>
 
 {%- comment -%}
@@ -890,56 +934,65 @@
       applyTransform();
       setAria();
       updateNavButtons();
-      if (prevBtn) prevBtn.addEventListener('click', function () { show(idx - 1); });
-      if (nextBtn) nextBtn.addEventListener('click', function () { show(idx + 1); });
+      if (prevBtn)
+        prevBtn.addEventListener('click', function () {
+          show(idx - 1);
+        });
+      if (nextBtn)
+        nextBtn.addEventListener('click', function () {
+          show(idx + 1);
+        });
     });
   })();
 
-  /* Instagram video tiles — autoplay muted on hover + when section scrolls into view */
+  /* Instagram video tiles — autoplay muted, loop, pause when out of view */
   (function () {
     var section = document.querySelector('.lps-{{ section.id }}');
     if (!section) return;
     var videos = section.querySelectorAll('[data-lps-ig-video]');
     if (!videos.length) return;
 
-    var sectionVisible = false;
-
     function playVideo(v) {
-      var playIcon = v.parentElement.querySelector('[data-lps-ig-play]');
-      v.play().then(function () {
-        if (playIcon) playIcon.style.opacity = '0';
-      }).catch(function () {});
+      v.play()
+        .then(function () {
+          v.parentElement.classList.remove('is-paused');
+        })
+        .catch(function () {
+          v.parentElement.classList.add('is-paused');
+        });
     }
     function pauseVideo(v) {
       v.pause();
-      var playIcon = v.parentElement.querySelector('[data-lps-ig-play]');
-      if (playIcon) playIcon.style.opacity = '';
+      v.parentElement.classList.add('is-paused');
     }
 
     videos.forEach(function (v) {
-      v.parentElement.addEventListener('mouseenter', function () {
-        playVideo(v);
-      });
-      v.parentElement.addEventListener('mouseleave', function () {
-        if (!sectionVisible) pauseVideo(v);
+      v.parentElement.addEventListener('click', function () {
+        if (v.paused) {
+          playVideo(v);
+        } else {
+          pauseVideo(v);
+        }
       });
     });
 
     if ('IntersectionObserver' in window) {
       var igSection = section.querySelector('.lps-ig');
       if (!igSection) return;
-      var obs = new IntersectionObserver(function (entries) {
-        entries.forEach(function (entry) {
-          sectionVisible = entry.isIntersecting;
-          videos.forEach(function (v) {
-            if (entry.isIntersecting) {
-              playVideo(v);
-            } else {
-              pauseVideo(v);
-            }
+      var obs = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (entry) {
+            videos.forEach(function (v) {
+              if (entry.isIntersecting) {
+                playVideo(v);
+              } else {
+                pauseVideo(v);
+              }
+            });
           });
-        });
-      }, { threshold: 0.3 });
+        },
+        { threshold: 0.2 }
+      );
       obs.observe(igSection);
     }
   })();

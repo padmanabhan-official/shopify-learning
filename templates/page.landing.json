@@ -12,7 +12,7 @@
       "type": "landing-page-story",
       "settings": {
         "banner_eyebrow": "The Art of Indian Elegance",
-        "banner_title": "Product title",
+        "banner_title": "Anarkali",
         "banner_tagline": "Handcrafted · Heritage · Timeless",
         "hero_eyebrow": "Handcrafted for you",
         "hero_heading": "Feel extraordinary in every celebration",
@@ -258,7 +258,117 @@
         }
       },
       "block_order": ["vtesti_1", "vtesti_2", "vtesti_3", "vtesti_4", "vtesti_5", "vtesti_6", "gbp_1", "gbp_2", "gbp_3", "gbp_4", "gbp_5", "gbp_6", "gbp_7", "gbp_8", "gbp_9", "gbp_10", "ig_1", "ig_2", "ig_3", "ig_4", "ig_5", "ig_6", "ig_7", "ig_8", "ig_9", "ig_10"]
+    },
+    "reels_grid": {
+      "type": "landing-instagram-reels",
+      "settings": {
+        "heading": "Reels & Behind the Scenes",
+        "subheading": "Watch our latest reels — new drops, styling tips, and behind the scenes.",
+        "columns": 4
+      },
+      "blocks": {
+        "reel_1": {
+          "type": "instagram_reel",
+          "settings": {
+            "video_asset": "reel-yashna-anarkali.mp4",
+            "reel_url": "https://www.instagram.com/p/DWY1NY5E0y9/",
+            "show_reel_badge": true
+          }
+        },
+        "reel_2": {
+          "type": "instagram_reel",
+          "settings": {
+            "video_asset": "reel-moonlit-noor-gown.mp4",
+            "reel_url": "https://www.instagram.com/p/DWbflcPE_l8/",
+            "show_reel_badge": true
+          }
+        },
+        "reel_3": {
+          "type": "instagram_reel",
+          "settings": {
+            "video_asset": "reel-ramp-show.mp4",
+            "reel_url": "https://www.instagram.com/p/DV_HtTZk-2w/",
+            "show_reel_badge": true
+          }
+        },
+        "reel_4": {
+          "type": "instagram_reel",
+          "settings": {
+            "video_asset": "reel-bridal-collection.mp4",
+            "reel_url": "https://www.instagram.com/p/DVgRmVAD910/",
+            "show_reel_badge": true
+          }
+        },
+        "reel_5": {
+          "type": "instagram_reel",
+          "settings": {
+            "video_asset": "reel-teal-sharara.mp4",
+            "reel_url": "https://www.instagram.com/p/DVffUg_EyU9/",
+            "show_reel_badge": true
+          }
+        },
+        "reel_6": {
+          "type": "instagram_reel",
+          "settings": {
+            "video_asset": "reel-elegance-ramp-2.mp4",
+            "reel_url": "https://www.instagram.com/p/DVQVe00E5m3/",
+            "show_reel_badge": true
+          }
+        },
+        "reel_7": {
+          "type": "instagram_reel",
+          "settings": {
+            "video_asset": "reel-all-black.mp4",
+            "reel_url": "https://www.instagram.com/p/DVGOw1mk_0N/",
+            "show_reel_badge": true
+          }
+        },
+        "reel_8": {
+          "type": "instagram_reel",
+          "settings": {
+            "video_asset": "reel-janvi-aika-tamil.mp4",
+            "reel_url": "https://www.instagram.com/reel/DO5qpCckrjl/",
+            "show_reel_badge": true
+          }
+        },
+        "reel_9": {
+          "type": "instagram_reel",
+          "settings": {
+            "video_asset": "reel-elegance-ramp-1.mp4",
+            "reel_url": "https://www.instagram.com/reel/DOvKo7vE1It/",
+            "show_reel_badge": true
+          }
+        },
+        "reel_10": {
+          "type": "instagram_reel",
+          "settings": {
+            "video_asset": "reel-soft-fabrics.mp4",
+            "reel_url": "https://www.instagram.com/reel/DLzD5C5TDfD/",
+            "show_reel_badge": true
+          }
+        },
+        "reel_11": {
+          "type": "instagram_reel",
+          "settings": {
+            "video_asset": "reel-noor-jahan-lehenga.mp4",
+            "show_reel_badge": true
+          }
+        }
+      },
+      "block_order": [
+        "reel_1",
+        "reel_2",
+        "reel_3",
+        "reel_4",
+        "reel_5",
+        "reel_6",
+        "reel_7",
+        "reel_8",
+        "reel_9",
+        "reel_10",
+        "reel_11"
+      ]
     }
   },
-  "order": ["main", "landing_story"]
+  "order": ["main", "landing_story", "reels_grid"]
 }
